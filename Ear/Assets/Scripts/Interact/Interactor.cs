@@ -25,7 +25,7 @@ public class Interactor : MonoBehaviour
         {
             var interactable = _colliders[0].GetComponent<IInteractable>();
 
-            if(interactable != null && Input.GetKeyDown(KeyCode.Space))
+            if(interactable != null && Input.GetKeyDown(KeyCode.Space)) // Edit to Input System Here!! change Space
             {
                 interactable.Interact(this);
             } 
