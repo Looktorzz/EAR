@@ -46,6 +46,8 @@ public class PlayerController : MonoBehaviour
         {
             _spriteRenderer.flipX = false;
         }
+
+        Debug.Log(_moveVector2);
     }
     
     private void OnMovementPerformed(InputAction.CallbackContext value)
