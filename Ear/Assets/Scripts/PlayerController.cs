@@ -8,15 +8,22 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private float _moveSpeed;
+    
+    [Header("Test")]
+    [SerializeField] private TestTrigger _testTrigger;
+    [SerializeField] private GameObject _goTest;
+    private bool isSet = true;
 
     private Rigidbody _rb;
     private InputSystems _input;
     private Vector2 _moveVector2;
+    private bool isGrabItem = false;
 
     private void Awake()
     {
         _input = new InputSystems();
         _rb = GetComponent<Rigidbody>();
+        // idle
     }
 
     private void OnEnable()
@@ -24,6 +31,12 @@ public class PlayerController : MonoBehaviour
         _input.Enable();
         _input.Player.Movement.performed += OnMovementPerformed;
         _input.Player.Movement.canceled += OnMovementCanceled;
+        
+        _input.Player.Run.started += OnRun;
+        _input.Player.Run.canceled += OnRun;
+        
+        _input.Player.Interact.started += OnInteract;
+        _input.Player.Interact.canceled += OnInteract;
     }
     
     private void OnDisable()
@@ -31,6 +44,12 @@ public class PlayerController : MonoBehaviour
         _input.Disable();
         _input.Player.Movement.performed += OnMovementPerformed;
         _input.Player.Movement.canceled += OnMovementCanceled;
+        
+        _input.Player.Run.started += OnRun;
+        _input.Player.Run.canceled += OnRun;
+        
+        _input.Player.Interact.started += OnInteract;
+        _input.Player.Interact.canceled += OnInteract;
     }
 
     private void FixedUpdate()
@@ -50,11 +69,57 @@ public class PlayerController : MonoBehaviour
     
     private void OnMovementPerformed(InputAction.CallbackContext value)
     {
+        // walk
         _moveVector2 = value.ReadValue<Vector2>();
     }
     
     private void OnMovementCanceled(InputAction.CallbackContext value)
     {
+        // idle
         _moveVector2 = Vector2.zero;
+    }
+    
+    private void OnRun(InputAction.CallbackContext context)
+    {
+        if (context.ReadValueAsButton())
+        {
+            // run
+            _moveSpeed = 10;
+        }
+        else
+        {
+            // walk
+            _moveSpeed = 5.5f;
+        }
+    }
+
+    private void OnInteract(InputAction.CallbackContext context)
+    {
+        if (context.ReadValueAsButton())
+        {
+            Debug.Log("push push push");
+            
+            if (_testTrigger.isPlayerInArea)
+            {
+                isSet = !isSet;
+                _goTest.SetActive(isSet);
+            }
+        }
+    }
+
+    private void OnGrabItem(InputAction.CallbackContext context)
+    {
+        if (context.ReadValueAsButton())
+        {
+            if (!isGrabItem)
+            {
+                // Hold item
+                
+            }
+            else
+            {
+                // Place item
+            }
+        }
     }
 }
