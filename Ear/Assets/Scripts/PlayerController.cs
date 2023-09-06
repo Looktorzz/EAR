@@ -12,12 +12,13 @@ public class PlayerController : MonoBehaviour
     [Header("Test")]
     [SerializeField] private TestTrigger _testTrigger;
     [SerializeField] private GameObject _goTest;
+    [SerializeField] private Interactor _interactor;
     private bool isSet = true;
 
     private Rigidbody _rb;
     private InputSystems _input;
     private Vector2 _moveVector2;
-    private bool isGrabItem = false;
+    public bool isGrabItem = false;
 
     private void Awake()
     {
@@ -99,13 +100,15 @@ public class PlayerController : MonoBehaviour
     {
         if (context.ReadValueAsButton())
         {
-            Debug.Log("push push push");
+            _interactor.PressInteract();
+            
+            /*Debug.Log("push push push");
             
             if (_testTrigger.isPlayerInArea)
             {
                 isSet = !isSet;
                 _goTest.SetActive(isSet);
-            }
+            }*/
         }
     }
 

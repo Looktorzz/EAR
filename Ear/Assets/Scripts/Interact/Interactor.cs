@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,43 +9,31 @@ public class Interactor : MonoBehaviour
     [SerializeField] private float _interactionPointRadius = 0.5f;
     [SerializeField] private LayerMask _interactableMask;
 
+    [SerializeField] private PlayerController _player;
+
     private readonly Collider[] _colliders = new Collider[3];
     [SerializeField] private int _numFound;
 
-    void Start()
-    {
-       
-    }
-
     void Update()
     {
+        // Delete when game complete
         _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position, 
         _interactionPointRadius, _colliders, _interactableMask);
-
-        if (_numFound > 0)
-        {
-            var interactable = _colliders[0].GetComponent<IInteractable>();
-
-            if (interactable != null && Input.GetKeyDown(KeyCode.Space)) // Edit to Input System Here!! change Space
-            {
-                interactable.Interact(this);
-            }
-        }
     }
 
     public void PressInteract()
     {
-        _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position,
-        _interactionPointRadius, _colliders, _interactableMask);
+        _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position, 
+            _interactionPointRadius, _colliders, _interactableMask);
 
-        if (_numFound > 0)
+        if(_numFound > 0)
         {
             var interactable = _colliders[0].GetComponent<IInteractable>();
 
-            if (interactable != null ) // Edit to Input System Here!! change Space
+            if(interactable != null)
             {
                 interactable.Interact(this);
-            }
+            } 
         }
     }
 
