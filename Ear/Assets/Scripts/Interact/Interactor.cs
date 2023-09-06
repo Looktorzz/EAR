@@ -21,14 +21,30 @@ public class Interactor : MonoBehaviour
         _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position, 
         _interactionPointRadius, _colliders, _interactableMask);
 
-        if(_numFound > 0)
+        if (_numFound > 0)
         {
             var interactable = _colliders[0].GetComponent<IInteractable>();
 
-            if(interactable != null && Input.GetKeyDown(KeyCode.Space)) // Edit to Input System Here!! change Space
+            if (interactable != null && Input.GetKeyDown(KeyCode.Space)) // Edit to Input System Here!! change Space
             {
                 interactable.Interact(this);
-            } 
+            }
+        }
+    }
+
+    public void PressInteract()
+    {
+        _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position,
+        _interactionPointRadius, _colliders, _interactableMask);
+
+        if (_numFound > 0)
+        {
+            var interactable = _colliders[0].GetComponent<IInteractable>();
+
+            if (interactable != null ) // Edit to Input System Here!! change Space
+            {
+                interactable.Interact(this);
+            }
         }
     }
 
