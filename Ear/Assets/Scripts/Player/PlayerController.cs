@@ -4,15 +4,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum DirectionPlayer
+{
+    North,
+    East,
+    West,
+    South,
+}
+
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private float _moveSpeed;
     
+    [SerializeField] private Interactor _interactor;
+    [SerializeField] private Item _item;
+    
     [Header("Test")]
     [SerializeField] private TestTrigger _testTrigger;
     [SerializeField] private GameObject _goTest;
-    [SerializeField] private Interactor _interactor;
     private bool isSet = true;
 
     private Rigidbody _rb;
@@ -38,6 +48,9 @@ public class PlayerController : MonoBehaviour
         
         _input.Player.Interact.started += OnInteract;
         _input.Player.Interact.canceled += OnInteract;
+        
+        _input.Player.GrabItem.started += OnGrabItem;
+        _input.Player.GrabItem.canceled += OnGrabItem;
     }
     
     private void OnDisable()
@@ -51,6 +64,9 @@ public class PlayerController : MonoBehaviour
         
         _input.Player.Interact.started += OnInteract;
         _input.Player.Interact.canceled += OnInteract;
+        
+        _input.Player.GrabItem.started += OnGrabItem;
+        _input.Player.GrabItem.canceled += OnGrabItem;
     }
 
     private void FixedUpdate()
@@ -66,8 +82,6 @@ public class PlayerController : MonoBehaviour
         {
             _spriteRenderer.flipX = false;
         }
-
-        Debug.Log(_moveVector2);
     }
     
     private void OnMovementPerformed(InputAction.CallbackContext value)
@@ -116,14 +130,17 @@ public class PlayerController : MonoBehaviour
     {
         if (context.ReadValueAsButton())
         {
+            Debug.Log("OnGrabItem Work!");
+            
             if (!isGrabItem)
             {
                 // Hold item
-                
+                _item.HoldItem();
             }
             else
             {
                 // Place item
+                _item.PlaceItem();
             }
         }
     }
