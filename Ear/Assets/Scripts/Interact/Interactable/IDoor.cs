@@ -10,11 +10,11 @@ public class IDoor : MonoBehaviour , IInteractable
 
     public bool Interact(Interactor interactor)
     {
-        var Door = interactor.GetComponent<Keys>();
+        var Door = interactor.GetComponentInChildren<Keys>();
 
         if (Door == null)
         {
-            Debug.LogError("You have to add Keys Component to Player First");
+            Debug.Log("YOU HAVE NO KEY TO OPEN!");
             return false;
         }
 
@@ -25,7 +25,6 @@ public class IDoor : MonoBehaviour , IInteractable
             return true;
         }
 
-        Debug.Log("YOU HAVE NO KEY TO OPEN!");
         return false;
 
     }
