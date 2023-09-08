@@ -5,5 +5,6 @@ using UnityEngine;
 public class Keys : MonoBehaviour
 {
     public bool HasKey = false;
+    
 
 }
