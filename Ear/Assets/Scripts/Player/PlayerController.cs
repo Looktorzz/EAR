@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 public enum DirectionPlayer
 {
@@ -19,7 +20,7 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField] private Interactor _interactor;
     [SerializeField] private Item _item;
-    
+
     [Header("Test")]
     [SerializeField] private TestTrigger _testTrigger;
     [SerializeField] private GameObject _goTest;
@@ -30,43 +31,39 @@ public class PlayerController : MonoBehaviour
     private Vector2 _moveVector2;
     public bool isGrabItem = false;
 
+    bool IsHoldInteract = false;
+
     private void Awake()
     {
         _input = new InputSystems();
         _rb = GetComponent<Rigidbody>();
         // idle
+
+        _input.Player.Movement.performed += OnMovementPerformed;
+        _input.Player.Movement.canceled += OnMovementCanceled;
+
+        _input.Player.Run.started += OnRun;
+        _input.Player.Run.canceled += OnRun;
+
+
+        _input.Player.InteractHold.started += OnInteractHoldStart;
+        _input.Player.InteractHold.performed += OnInteractHoldPerformed;
+        _input.Player.InteractHold.canceled += OnInteractHoldCanceled;
+
+
+        _input.Player.GrabItem.started += OnGrabItem;
+        _input.Player.GrabItem.canceled += OnGrabItem;
     }
 
     private void OnEnable()
     {
         _input.Enable();
-        _input.Player.Movement.performed += OnMovementPerformed;
-        _input.Player.Movement.canceled += OnMovementCanceled;
-        
-        _input.Player.Run.started += OnRun;
-        _input.Player.Run.canceled += OnRun;
-        
-        _input.Player.Interact.started += OnInteract;
-        _input.Player.Interact.canceled += OnInteract;
-        
-        _input.Player.GrabItem.started += OnGrabItem;
-        _input.Player.GrabItem.canceled += OnGrabItem;
+
     }
     
     private void OnDisable()
     {
         _input.Disable();
-        _input.Player.Movement.performed += OnMovementPerformed;
-        _input.Player.Movement.canceled += OnMovementCanceled;
-        
-        _input.Player.Run.started += OnRun;
-        _input.Player.Run.canceled += OnRun;
-        
-        _input.Player.Interact.started += OnInteract;
-        _input.Player.Interact.canceled += OnInteract;
-        
-        _input.Player.GrabItem.started += OnGrabItem;
-        _input.Player.GrabItem.canceled += OnGrabItem;
     }
 
     private void FixedUpdate()
@@ -114,17 +111,53 @@ public class PlayerController : MonoBehaviour
     {
         if (context.ReadValueAsButton())
         {
+            Debug.LogWarning("IT's JUST PRESS");
             _interactor.PressInteract();
             
-            /*Debug.Log("push push push");
-            
-            if (_testTrigger.isPlayerInArea)
-            {
-                isSet = !isSet;
-                _goTest.SetActive(isSet);
-            }*/
         }
     }
+
+    private void OnInteractHoldStart(InputAction.CallbackContext context)
+    {
+        if (context.ReadValueAsButton())
+        {
+            //Debug.LogWarning("IT's JUST PRESS BY HOLD BUTTON");
+        }
+
+    }
+
+    private void OnInteractHoldPerformed(InputAction.CallbackContext context)
+    {
+        if (context.ReadValueAsButton())
+        {
+            if(context.interaction is HoldInteraction)
+            {
+                _interactor.HoldInteract();
+                Debug.LogWarning("IT's REALLY HOLD");
+                IsHoldInteract = true;
+            }  
+        }
+        
+    }
+
+
+    private void OnInteractHoldCanceled(InputAction.CallbackContext context)
+    {
+        if (context.interaction is PressInteraction) // Just Press No Hold Interact!
+        {
+            Debug.LogWarning("IT's Just PRESS");
+            _interactor.PressInteract();
+            return;
+        }
+        if (IsHoldInteract)
+        {
+            if (!context.ReadValueAsButton()) Debug.Log("Rereased");
+            _interactor.ReleasedHoldInteract();
+            IsHoldInteract = false;
+        }
+        
+    }
+
 
     private void OnGrabItem(InputAction.CallbackContext context)
     {

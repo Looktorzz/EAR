@@ -29,7 +29,7 @@
                     "id": "0ca5e056-f1fa-4173-9067-c362cc57b773",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Tap",
                     "initialStateCheck": false
                 },
                 {
@@ -40,6 +40,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "InteractHold",
+                    "type": "Button",
+                    "id": "85b2ea2b-cad9-4c0d-b7d2-fa4cae3d83c5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold,Press",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -48,7 +57,7 @@
                     "id": "e992c09b-0720-49d9-a90d-9006ae7877aa",
                     "path": "2DVector",
                     "interactions": "",
-                    "processors": "ScaleVector2(x=0.8,y=0.8)",
+                    "processors": "",
                     "groups": "",
                     "action": "Movement",
                     "isComposite": true,
@@ -243,17 +252,6 @@
                 },
                 {
                     "name": "",
-                    "id": "2d5554d1-7c8f-47c8-a477-added42f9783",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "e247448f-af1a-4e45-8335-525b340e5ae3",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -271,6 +269,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "GrabItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2d5554d1-7c8f-47c8-a477-added42f9783",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "948b9d5c-3fea-4be0-bbb1-3e571b4b36e2",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InteractHold",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
