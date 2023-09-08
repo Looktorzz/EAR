@@ -29,11 +29,11 @@
                     "id": "0ca5e056-f1fa-4173-9067-c362cc57b773",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Hold,Press",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "GrabItem",
+                    "name": "GetItem",
                     "type": "Button",
                     "id": "978d5fce-d4f3-4539-ac99-4f59caca015b",
                     "expectedControlType": "Button",
@@ -259,7 +259,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "GrabItem",
+                    "action": "GetItem",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -270,7 +270,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "GrabItem",
+                    "action": "GetItem",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

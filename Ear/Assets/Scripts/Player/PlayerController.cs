@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 public enum DirectionPlayer
 {
@@ -35,38 +36,29 @@ public class PlayerController : MonoBehaviour
         _input = new InputSystems();
         _rb = GetComponent<Rigidbody>();
         // idle
+        
+        _input.Player.Movement.performed += OnMovementPerformed;
+        _input.Player.Movement.canceled += OnMovementCanceled;
+        
+        _input.Player.Run.started += OnRun;
+        _input.Player.Run.canceled += OnRun;
+        
+        _input.Player.Interact.started += OnInteract;
+        _input.Player.Interact.performed += OnInteractPerformed;
+        _input.Player.Interact.canceled += OnInteract;
+        
+        _input.Player.GetItem.started += OnGrabItem;
+        _input.Player.GetItem.canceled += OnGrabItem;
     }
 
     private void OnEnable()
     {
         _input.Enable();
-        _input.Player.Movement.performed += OnMovementPerformed;
-        _input.Player.Movement.canceled += OnMovementCanceled;
-        
-        _input.Player.Run.started += OnRun;
-        _input.Player.Run.canceled += OnRun;
-        
-        _input.Player.Interact.started += OnInteract;
-        _input.Player.Interact.canceled += OnInteract;
-        
-        _input.Player.GrabItem.started += OnGrabItem;
-        _input.Player.GrabItem.canceled += OnGrabItem;
     }
     
     private void OnDisable()
     {
         _input.Disable();
-        _input.Player.Movement.performed += OnMovementPerformed;
-        _input.Player.Movement.canceled += OnMovementCanceled;
-        
-        _input.Player.Run.started += OnRun;
-        _input.Player.Run.canceled += OnRun;
-        
-        _input.Player.Interact.started += OnInteract;
-        _input.Player.Interact.canceled += OnInteract;
-        
-        _input.Player.GrabItem.started += OnGrabItem;
-        _input.Player.GrabItem.canceled += OnGrabItem;
     }
 
     private void FixedUpdate()
@@ -110,12 +102,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnInteractPerformed(InputAction.CallbackContext context)
+    {
+        if (context.interaction is HoldInteraction)
+        {
+            Debug.Log($"Hold Performed");
+            _interactor.CountdownTime(context.ReadValueAsButton());
+            _interactor.HoldInteract();
+        }
+    }
+    
     private void OnInteract(InputAction.CallbackContext context)
     {
+        Debug.Log($"on interact : {(context.ReadValueAsButton())}");
+        
         if (context.ReadValueAsButton())
         {
-            _interactor.PressInteract();
+            // _interactor.PressInteract();
             
+            if (context.interaction is PressInteraction)
+            {
+                
+            }
             /*Debug.Log("push push push");
             
             if (_testTrigger.isPlayerInArea)
