@@ -51,16 +51,25 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
                     ""id"": ""0ca5e056-f1fa-4173-9067-c362cc57b773"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold,Press"",
+                    ""interactions"": ""Tap"",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""GetItem"",
+                    ""name"": ""GrabItem"",
                     ""type"": ""Button"",
                     ""id"": ""978d5fce-d4f3-4539-ac99-4f59caca015b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InteractHold"",
+                    ""type"": ""Button"",
+                    ""id"": ""85b2ea2b-cad9-4c0d-b7d2-fa4cae3d83c5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold,Press"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -70,7 +79,7 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
                     ""id"": ""e992c09b-0720-49d9-a90d-9006ae7877aa"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
-                    ""processors"": ""ScaleVector2(x=0.8,y=0.8)"",
+                    ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Movement"",
                     ""isComposite"": true,
@@ -265,6 +274,28 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""e247448f-af1a-4e45-8335-525b340e5ae3"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GrabItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""23cfcc41-03f3-487c-bd43-18bbe0568cd3"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GrabItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""2d5554d1-7c8f-47c8-a477-added42f9783"",
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
@@ -276,23 +307,12 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""e247448f-af1a-4e45-8335-525b340e5ae3"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""id"": ""948b9d5c-3fea-4be0-bbb1-3e571b4b36e2"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""GetItem"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""23cfcc41-03f3-487c-bd43-18bbe0568cd3"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""GetItem"",
+                    ""action"": ""InteractHold"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -306,7 +326,8 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
-        m_Player_GetItem = m_Player.FindAction("GetItem", throwIfNotFound: true);
+        m_Player_GrabItem = m_Player.FindAction("GrabItem", throwIfNotFound: true);
+        m_Player_InteractHold = m_Player.FindAction("InteractHold", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -371,7 +392,8 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Run;
     private readonly InputAction m_Player_Interact;
-    private readonly InputAction m_Player_GetItem;
+    private readonly InputAction m_Player_GrabItem;
+    private readonly InputAction m_Player_InteractHold;
     public struct PlayerActions
     {
         private @InputSystems m_Wrapper;
@@ -379,7 +401,8 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Run => m_Wrapper.m_Player_Run;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
-        public InputAction @GetItem => m_Wrapper.m_Player_GetItem;
+        public InputAction @GrabItem => m_Wrapper.m_Player_GrabItem;
+        public InputAction @InteractHold => m_Wrapper.m_Player_InteractHold;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -398,9 +421,12 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
-            @GetItem.started += instance.OnGetItem;
-            @GetItem.performed += instance.OnGetItem;
-            @GetItem.canceled += instance.OnGetItem;
+            @GrabItem.started += instance.OnGrabItem;
+            @GrabItem.performed += instance.OnGrabItem;
+            @GrabItem.canceled += instance.OnGrabItem;
+            @InteractHold.started += instance.OnInteractHold;
+            @InteractHold.performed += instance.OnInteractHold;
+            @InteractHold.canceled += instance.OnInteractHold;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -414,9 +440,12 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
-            @GetItem.started -= instance.OnGetItem;
-            @GetItem.performed -= instance.OnGetItem;
-            @GetItem.canceled -= instance.OnGetItem;
+            @GrabItem.started -= instance.OnGrabItem;
+            @GrabItem.performed -= instance.OnGrabItem;
+            @GrabItem.canceled -= instance.OnGrabItem;
+            @InteractHold.started -= instance.OnInteractHold;
+            @InteractHold.performed -= instance.OnInteractHold;
+            @InteractHold.canceled -= instance.OnInteractHold;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -439,6 +468,7 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
-        void OnGetItem(InputAction.CallbackContext context);
+        void OnGrabItem(InputAction.CallbackContext context);
+        void OnInteractHold(InputAction.CallbackContext context);
     }
 }

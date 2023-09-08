@@ -96,6 +96,38 @@ public class Interactor : MonoBehaviour
         }
     }
 
+    public void HoldInteract()
+    {
+        _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position,
+            _interactionPointRadius, _colliders, _interactableMask);
+
+        if (_numFound > 0)
+        {
+            var interactable = _colliders[0].GetComponent<IHoldInteractable>();
+
+            if (interactable != null)
+            {
+                interactable.HoldInteract(this);
+            }
+        }
+    }
+
+    public void ReleasedHoldInteract()
+    {
+        _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position,
+            _interactionPointRadius, _colliders, _interactableMask);
+
+        if (_numFound > 0)
+        {
+            var interactable = _colliders[0].GetComponent<IHoldInteractable>();
+
+            if (interactable != null)
+            {
+                interactable.ReleasedInteract(this);
+            }
+        }
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
