@@ -2593,6 +2593,7 @@ GameObject:
   - component: {fileID: 1751493833}
   - component: {fileID: 1751493832}
   - component: {fileID: 1751493831}
+  - component: {fileID: 1751493837}
   - component: {fileID: 1751493835}
   - component: {fileID: 1751493836}
   m_Layer: 0
@@ -2699,17 +2700,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3a7a8eb633cfc44798a06480b7e8654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactionDirectionPoint:
-  - {fileID: 777512269}
-  - {fileID: 2144268597}
-  - {fileID: 1673601967}
-  - {fileID: 99447083}
-  _interactionPoint: {fileID: 882817364}
-  _interactionPointRadius: 0.4
   _interactableMask:
     serializedVersion: 2
     m_Bits: 128
-  _numFound: 0
 --- !u!114 &1751493836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2722,17 +2715,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27e0ddc5c1ffcf34e9106199af071f45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemDirectionPoint:
+  _handGameObject: {fileID: 882817364}
+  _itemMask:
+    serializedVersion: 2
+    m_Bits: 64
+--- !u!114 &1751493837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751493829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8c9d6f17c95dba48a509d210f699fa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _handDirectionPoint:
   - {fileID: 777512269}
   - {fileID: 2144268597}
   - {fileID: 1673601967}
   - {fileID: 99447083}
-  _itemPoint: {fileID: 882817364}
-  _itemPointRadius: 0.4
-  _itemMask:
-    serializedVersion: 2
-    m_Bits: 64
-  _numFound: 0
+  _handPoint: {fileID: 882817364}
+  _handRadius: 0.4
 --- !u!1 &1819799996
 GameObject:
   m_ObjectHideFlags: 0
