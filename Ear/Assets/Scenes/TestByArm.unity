@@ -2699,7 +2699,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3a7a8eb633cfc44798a06480b7e8654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactionPoint: {fileID: 777512269}
+  _interactionDirectionPoint:
+  - {fileID: 777512269}
+  - {fileID: 2144268597}
+  - {fileID: 1673601967}
+  - {fileID: 99447083}
+  _interactionPoint: {fileID: 882817364}
   _interactionPointRadius: 0.4
   _interactableMask:
     serializedVersion: 2
@@ -2717,8 +2722,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27e0ddc5c1ffcf34e9106199af071f45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _handPoint: {fileID: 882817364}
-  _itemPoint: {fileID: 777512269}
+  _itemDirectionPoint:
+  - {fileID: 777512269}
+  - {fileID: 2144268597}
+  - {fileID: 1673601967}
+  - {fileID: 99447083}
+  _itemPoint: {fileID: 882817364}
   _itemPointRadius: 0.4
   _itemMask:
     serializedVersion: 2

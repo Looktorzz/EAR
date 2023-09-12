@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    [SerializeField] private Transform _handPoint;
+    [SerializeField] private Transform[] _itemDirectionPoint;
     [SerializeField] private Transform _itemPoint;
     [SerializeField] private float _itemPointRadius = 0.5f;
     [SerializeField] private LayerMask _itemMask;
@@ -16,10 +16,22 @@ public class Item : MonoBehaviour
 
     private readonly Collider[] _colliders = new Collider[3];
     [SerializeField] private int _numFound;
+    
+    private int _index = 0;
 
     private void Start()
     {
         _playerController = gameObject.GetComponent<PlayerController>();
+    }
+
+    private void Update()
+    {
+        _itemPoint.position = _itemDirectionPoint[_index].position;
+    }
+
+    public void SentDirection(int index)
+    {
+        _index = index;
     }
 
     public void HoldItem()
@@ -29,14 +41,12 @@ public class Item : MonoBehaviour
 
         if(_numFound > 0)
         {
-            // Test
             _itemGameObject = _colliders[0].gameObject;
-            Debug.Log($"_itemGameObject = {_itemGameObject.name}");
 
             if (_itemGameObject != null)
             {
                 Debug.Log("Hold Item");
-                _itemGameObject.transform.SetParent(_handPoint);
+                _itemGameObject.transform.SetParent(_itemPoint);
                 _itemGameObject.transform.localPosition = Vector3.zero;
                 _itemGameObject.GetComponent<Collider>().enabled = false;
                 _itemGameObject.GetComponent<Rigidbody>().useGravity = false;
@@ -44,11 +54,6 @@ public class Item : MonoBehaviour
                 
                 _playerController.isGrabItem = true;
             }
-
-            /*if(interactable != null)
-            {
-                interactable.Interact(this);
-            }*/
         }
     }
 
