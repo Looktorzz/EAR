@@ -74,7 +74,6 @@ public class PlayerController : MonoBehaviour
     {
         // walk
         _moveVector2 = value.ReadValue<Vector2>();
-        Debug.Log($"_moveVector2 : {_moveVector2}");
         
         if (_moveVector2.x < 0)
         {
