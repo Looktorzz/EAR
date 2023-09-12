@@ -240,6 +240,7 @@ GameObject:
   - component: {fileID: 56967117}
   - component: {fileID: 56967116}
   - component: {fileID: 56967115}
+  - component: {fileID: 56967118}
   m_Layer: 0
   m_Name: Water
   m_TagString: Untagged
@@ -333,6 +334,23 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 56967113}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &56967118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56967113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 0
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 3c6f808d0f398a94f87f70723bda9f25, type: 2}
 --- !u!1 &78583092
 GameObject:
   m_ObjectHideFlags: 0
@@ -3851,6 +3869,7 @@ GameObject:
   - component: {fileID: 1751493831}
   - component: {fileID: 1751493835}
   - component: {fileID: 1751493834}
+  - component: {fileID: 1751493837}
   m_Layer: 3
   m_Name: Player (1)
   m_TagString: Player
@@ -3976,6 +3995,19 @@ CapsuleCollider:
   m_Height: 1.7
   m_Direction: 1
   m_Center: {x: 0, y: 0.8, z: 0.5}
+--- !u!114 &1751493837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751493829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25a808a4179ad4f4e8529bb4e6a5faa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positionReSpawns: {fileID: 2105496173}
 --- !u!1 &1785620668
 GameObject:
   m_ObjectHideFlags: 0
@@ -4740,6 +4772,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2083965995}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2105496172
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2105496173}
+  m_Layer: 0
+  m_Name: RespawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2105496173
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105496172}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.76, y: 0.19, z: 0.18}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2111902865
 GameObject:
   m_ObjectHideFlags: 0
@@ -4854,6 +4917,7 @@ SceneRoots:
   - {fileID: 48479265}
   - {fileID: 1051655348}
   - {fileID: 1870035426}
+  - {fileID: 2105496173}
   - {fileID: 864072895}
   - {fileID: 426399776}
   - {fileID: 2048216397}
