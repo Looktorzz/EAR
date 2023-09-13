@@ -2,20 +2,23 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
 {
+    [SerializeField] private AudioMixerGroup bgmMixerGroup;
+    [SerializeField] private AudioMixerGroup sfxMixerGroup;
+    [SerializeField] private Sound[] _sounds;
+
+    
     private static SoundManager _instance;
     public static SoundManager instance => _instance;
     
-    [SerializeField] private Sound[] _sounds;
     
     public enum SoundName
     {
-        BGM,
-        CharacterMove,
-        FruitGetDestroy,
-        ButtonClick,
+        BackgroundMusic,
+        SoundEffect,
         
     }
 
@@ -26,22 +29,40 @@ public class SoundManager : MonoBehaviour
             Destroy(this.gameObject);
             return;
         }
+        _instance = this;
+
+        foreach (Sound sound in _sounds)
+        {
+            sound.audioSource = gameObject.AddComponent<AudioSource>();
+            sound.audioSource.clip = sound.clip;
+            sound.audioSource.volume = sound.volume;
+            sound.audioSource.loop = sound.loop;
+            
+            switch (sound.soundType)
+            {
+                case Sound.SoundType.BackgroundMusic:
+                    sound.audioSource.outputAudioMixerGroup = bgmMixerGroup;
+                    break;
+                
+                case Sound.SoundType.SoundFX:
+                    sound.audioSource.outputAudioMixerGroup = sfxMixerGroup;
+                    break;
+            }
+        }
         
         _instance = this;
         DontDestroyOnLoad(this.gameObject);
-        
     }
 
     
     public void Play(SoundName name)
     {
         Sound sound = GetSound(name);
+        
         if (sound.audioSource == null)
         {
-            sound.audioSource = gameObject.AddComponent<AudioSource>();
-            sound.audioSource.clip = sound.clip;
-            sound.audioSource.volume = sound.volume;
-            sound.audioSource.loop = sound.loop;
+            Debug.LogError("Sound :" + name);
+            return;
         }
 
         sound.audioSource.Play();
@@ -51,12 +72,27 @@ public class SoundManager : MonoBehaviour
     {
         return Array.Find(_sounds, s => s.soundName == name);
     }
+
+    public void UpdateMixerVolumn()
+    {
+        bgmMixerGroup.audioMixer.SetFloat("BGM", Mathf.Log10(SoundSetting.BackGroundMusic) * 20);
+        sfxMixerGroup.audioMixer.SetFloat("SFX", Mathf.Log10(SoundSetting.SoundEffect) * 20);
+
+    }
 }
 
 [Serializable]public class Sound
 {
     [SerializeField] private SoundManager.SoundName _soundName;
     public SoundManager.SoundName soundName => _soundName;
+
+    public enum SoundType
+    {
+        BackgroundMusic,
+        SoundFX,
+    }
+
+    public SoundType soundType;
 
     [SerializeField] private AudioClip _clip;
     public AudioClip clip => _clip;
