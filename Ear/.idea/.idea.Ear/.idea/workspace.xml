@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="65f2f418-28c5-456e-aec0-175e49a39f1c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Ear/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Ear/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Rain.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Rain.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Sound/SoundManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Sound/SoundManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/DOTweenSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/DOTweenSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +64,8 @@
       <workItem from="1693224421672" duration="1000" />
       <workItem from="1694187211660" duration="4767000" />
       <workItem from="1694528600431" duration="6629000" />
+      <workItem from="1694623907391" duration="2006000" />
+      <workItem from="1694630449431" duration="1742000" />
     </task>
     <servers />
   </component>
