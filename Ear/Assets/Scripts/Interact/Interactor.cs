@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Interactor : MonoBehaviour
 {
+    [SerializeField] private Transform[] _interactionDirectionPoint;
     [SerializeField] private Transform _interactionPoint;
     [SerializeField] private float _interactionPointRadius = 0.5f;
     [SerializeField] private LayerMask _interactableMask;
@@ -13,11 +14,20 @@ public class Interactor : MonoBehaviour
     private readonly Collider[] _colliders = new Collider[3];
     [SerializeField] private int _numFound;
 
+    private int _index = 0;
+
     void Update()
     {
+        _interactionPoint.position = _interactionDirectionPoint[_index].position;
+        
         // Delete when game complete
         _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position, 
         _interactionPointRadius, _colliders, _interactableMask);
+    }
+
+    public void SentDirection(int index)
+    {
+        _index = index;
     }
 
     public void PressInteract()

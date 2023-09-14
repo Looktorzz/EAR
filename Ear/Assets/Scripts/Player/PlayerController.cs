@@ -7,9 +7,9 @@ using UnityEngine.InputSystem.Interactions;
 
 public enum DirectionPlayer
 {
-    North,
     East,
     West,
+    North,
     South,
 }
 
@@ -70,21 +70,40 @@ public class PlayerController : MonoBehaviour
     {
         _rb.velocity = new Vector3(_moveVector2.x * _moveSpeed, 
             _rb.velocity.y, _moveVector2.y * _moveSpeed);
-        
-        if (!_spriteRenderer.flipX && _moveVector2.x < 0)
-        {
-            _spriteRenderer.flipX = true;
-        }
-        else if (_spriteRenderer.flipX && _moveVector2.x > 0)
-        {
-            _spriteRenderer.flipX = false;
-        }
     }
     
     private void OnMovementPerformed(InputAction.CallbackContext value)
     {
         // walk
         _moveVector2 = value.ReadValue<Vector2>();
+        Debug.Log($"_moveVector2 : {_moveVector2}");
+        
+        if (!_spriteRenderer.flipX && _moveVector2.x < 0)
+        {
+            // Left
+            _interactor.SentDirection((int)DirectionPlayer.West);
+            _item.SentDirection((int)DirectionPlayer.West);
+            _spriteRenderer.flipX = true;
+        }
+        else if (_spriteRenderer.flipX && _moveVector2.x > 0)
+        {
+            // Right
+            _interactor.SentDirection((int)DirectionPlayer.East);
+            _item.SentDirection((int)DirectionPlayer.East);
+            _spriteRenderer.flipX = false;
+        }
+        else if (_moveVector2.y > 0)
+        {
+            // Back
+            _interactor.SentDirection((int)DirectionPlayer.North);
+            _item.SentDirection((int)DirectionPlayer.North);
+        }
+        else if (_moveVector2.y < 0)
+        {
+            // Front
+            _interactor.SentDirection((int)DirectionPlayer.South);
+            _item.SentDirection((int)DirectionPlayer.South);
+        }
     }
     
     private void OnMovementCanceled(InputAction.CallbackContext value)
@@ -104,16 +123,6 @@ public class PlayerController : MonoBehaviour
         {
             // walk
             _moveSpeed = 5.5f;
-        }
-    }
-
-    private void OnInteract(InputAction.CallbackContext context)
-    {
-        if (context.ReadValueAsButton())
-        {
-            Debug.LogWarning("IT's JUST PRESS");
-            _interactor.PressInteract();
-            
         }
     }
 
@@ -151,14 +160,13 @@ public class PlayerController : MonoBehaviour
         }
         if (IsHoldInteract)
         {
-            if (!context.ReadValueAsButton()) Debug.Log("Rereased");
+            if (!context.ReadValueAsButton()) Debug.Log("Released");
             _interactor.ReleasedHoldInteract();
             IsHoldInteract = false;
         }
         
     }
-
-
+    
     private void OnGrabItem(InputAction.CallbackContext context)
     {
         if (context.ReadValueAsButton())
