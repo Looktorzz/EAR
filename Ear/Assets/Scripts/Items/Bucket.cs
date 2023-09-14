@@ -5,24 +5,35 @@ using UnityEngine;
 
 public class Bucket : MonoBehaviour
 {
-    [SerializeField] private GameObject _bucketFull;
+    [SerializeField] private GameObject _bucketFullWater;
+    [SerializeField] private GameObject _bucketFullAcidWater;
     public bool isFull;
+    public bool isAcidWater;
 
     private void Start()
     {
         isFull = false;
-        _bucketFull.SetActive(false);
+        _bucketFullWater.SetActive(false);
+        _bucketFullAcidWater.SetActive(false);
     }
 
     private void Update()
     {
         if (isFull)
         {
-            _bucketFull.SetActive(true);
+            if (isAcidWater)
+            {
+                _bucketFullAcidWater.SetActive(true);
+            }
+            else
+            {
+                _bucketFullWater.SetActive(true);
+            }
         }
         else
         {
-            _bucketFull.SetActive(false);
+            _bucketFullWater.SetActive(false);
+            _bucketFullAcidWater.SetActive(false);
         }
     }
 }

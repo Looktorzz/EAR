@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CountdownTime : MonoBehaviour
 {
-    [SerializeField] private float _startTime = 3;
+    [SerializeField] private float _startTime = 1;
     private float _currentTime;
     private bool _isCount = false;
     public bool isCountComplete = false;
@@ -22,13 +22,14 @@ public class CountdownTime : MonoBehaviour
             _currentTime -= 1 * Time.deltaTime;
             Debug.Log($"Time : {_currentTime:0}");
             isCountComplete = false;
-
-            if (_currentTime <= 0)
+            
+            // Have new solution ?? 
+            if (_currentTime <= 0.05)
             {
                 isCountComplete = true;
             }
             
-            if (_currentTime <= -1)
+            if (_currentTime <= 0)
             {
                 _currentTime = 0;
                 _isCount = false;
@@ -36,6 +37,23 @@ public class CountdownTime : MonoBehaviour
             }
         }
     }
+    
+    /*public void PressInteract()
+    {
+        _collider = _hand.SentColliderFound(_interactableMask);
+
+        if(_collider != null)
+        {
+            IInteractable interactable = _collider.GetComponent<IInteractable>();
+
+            if(interactable != null)
+            {
+                interactable.Interact(this);
+            }
+
+            _hand.ClearCollider();
+        }
+    }*/
 
     public void Countdown(bool isTrue)
     {
