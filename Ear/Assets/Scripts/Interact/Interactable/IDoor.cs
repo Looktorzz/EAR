@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CountdownTime))]
 public class IDoor : MonoBehaviour , IInteractable , IHoldInteractable
 {
     [SerializeField] private string _prompt;
@@ -34,21 +33,12 @@ public class IDoor : MonoBehaviour , IInteractable , IHoldInteractable
     private void Start()
     {
         _animator = GetComponent<Animator>();
-        _countdown = GetComponent<CountdownTime>();
-    }
-    
-    public void FixedUpdate()
-    {
-        if (_countdown.isCountComplete)
-        {
-            Debug.Log("YOU CAN OPEN DOOR!");
-            _animator.SetTrigger("DoorOpen");
-        }
     }
 
     public bool HoldInteract(Interactor interactor)
     {
         var Door = interactor.GetComponentInChildren<Keys>();
+        _countdown = interactor.GetComponent<CountdownTime>();
 
         if (Door == null)
         {
@@ -65,8 +55,15 @@ public class IDoor : MonoBehaviour , IInteractable , IHoldInteractable
         return false;
     }
 
+    public void HoldCompleteInteract()
+    {
+        Debug.Log("YOU CAN OPEN DOOR!");
+        _animator.SetTrigger("DoorOpen");
+    }
+
     public bool ReleasedInteract(Interactor interactor)
     {
+        _countdown = interactor.GetComponent<CountdownTime>();
         _countdown.Countdown(false);
         return false;
     }

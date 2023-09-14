@@ -8,11 +8,19 @@ public class CountdownTime : MonoBehaviour
     [SerializeField] private float _startTime = 1;
     private float _currentTime;
     private bool _isCount = false;
-    public bool isCountComplete = false;
+
+    [SerializeField] private LayerMask _interactableMask;
+    private Collider _collider = new Collider();
+    private Hand _hand;
+    
+    private float _currentTimeDebug;
 
     public void Start()
     {
         _currentTime = _startTime;
+        _hand = GetComponent<Hand>();
+
+        _currentTimeDebug = _startTime;
     }
 
     public void FixedUpdate()
@@ -20,40 +28,39 @@ public class CountdownTime : MonoBehaviour
         if (_isCount)
         {
             _currentTime -= 1 * Time.deltaTime;
-            Debug.Log($"Time : {_currentTime:0}");
-            isCountComplete = false;
             
-            // Have new solution ?? 
-            if (_currentTime <= 0.05)
+            // Log
+            if (_currentTimeDebug != (int)_currentTime)
             {
-                isCountComplete = true;
+                _currentTimeDebug = (int)_currentTime;
+                Debug.Log($"Time : {_currentTimeDebug:0}");
             }
-            
+
             if (_currentTime <= 0)
             {
                 _currentTime = 0;
                 _isCount = false;
-                isCountComplete = false;
+                CountComplete();
             }
         }
     }
     
-    /*public void PressInteract()
+    private void CountComplete()
     {
         _collider = _hand.SentColliderFound(_interactableMask);
 
         if(_collider != null)
         {
-            IInteractable interactable = _collider.GetComponent<IInteractable>();
+            IHoldInteractable holdInteractable = _collider.GetComponent<IHoldInteractable>();
 
-            if(interactable != null)
+            if(holdInteractable != null)
             {
-                interactable.Interact(this);
+                holdInteractable.HoldCompleteInteract();
             }
 
             _hand.ClearCollider();
         }
-    }*/
+    }
 
     public void Countdown(bool isTrue)
     {

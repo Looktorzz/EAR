@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CountdownTime))]
 public class IWater : MonoBehaviour , IHoldInteractable , IInteractable
 {
     [SerializeField] private string _prompt;
@@ -11,11 +10,6 @@ public class IWater : MonoBehaviour , IHoldInteractable , IInteractable
     [SerializeField] private bool isAcidWater;
     private CountdownTime _countdown;
     private Bucket _bucket;
-    
-    private void Start()
-    {
-        _countdown = GetComponent<CountdownTime>();
-    }
 
     public bool Interact(Interactor interactor)
     {
@@ -36,20 +30,11 @@ public class IWater : MonoBehaviour , IHoldInteractable , IInteractable
 
         return false;
     }
-    
-    private void FixedUpdate()
-    {
-        if (_countdown.isCountComplete)
-        {
-            _bucket.isAcidWater = isAcidWater;
-            _bucket.isFull = true;
-            Debug.Log("Hello");
-        }
-    }
 
     public bool HoldInteract(Interactor interactor)
     {
         _bucket = interactor.GetComponentInChildren<Bucket>();
+        _countdown = interactor.GetComponent<CountdownTime>();
 
         if (_bucket == null)
         {
@@ -65,9 +50,17 @@ public class IWater : MonoBehaviour , IHoldInteractable , IInteractable
 
         return false;
     }
+    
+    public void HoldCompleteInteract()
+    {
+        _bucket.isAcidWater = isAcidWater;
+        _bucket.isFull = true;
+        Debug.Log("Hello");
+    }
 
     public bool ReleasedInteract(Interactor interactor)
     {
+        _countdown = interactor.GetComponent<CountdownTime>();
         _countdown.Countdown(false);
         return false;
     }
