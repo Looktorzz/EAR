@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -27,6 +30,11 @@ public class Hand : MonoBehaviour
         Physics.OverlapSphereNonAlloc(_handPoint.position, 
             _handRadius, _colliders, layerMask);
         return _colliders[0];
+    }
+
+    public void ClearCollider()
+    {
+        Array.Clear(_colliders,0,_colliders.Length);
     }
     
     private void OnDrawGizmos()

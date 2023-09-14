@@ -26,7 +26,9 @@ public class Interactor : MonoBehaviour
             if(interactable != null)
             {
                 interactable.Interact(this);
-            } 
+            }
+
+            _hand.ClearCollider();
         }
     }
 
@@ -42,6 +44,8 @@ public class Interactor : MonoBehaviour
             {
                 interactable.HoldInteract(this);
             }
+            
+            _hand.ClearCollider();
         }
     }
 
@@ -57,6 +61,8 @@ public class Interactor : MonoBehaviour
             {
                 interactable.ReleasedInteract(this);
             }
+            
+            _hand.ClearCollider();
         }
     }
 }

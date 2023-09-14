@@ -39,6 +39,8 @@ public class Item : MonoBehaviour
                 
                 _playerController.isGrabItem = true;
             }
+            
+            _hand.ClearCollider();
         }
     }
 
