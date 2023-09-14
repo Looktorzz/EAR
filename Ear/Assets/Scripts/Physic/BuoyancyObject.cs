@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class BuoyancyObject : MonoBehaviour
 {
-    [SerializeField] private Transform[] floaters;
+    //[SerializeField] private Transform[] floaters;
     [SerializeField] private int floatersUnderwater;
     
     [SerializeField]private float underWaterDrag = 3f;
@@ -20,7 +20,8 @@ public class BuoyancyObject : MonoBehaviour
     private bool underwater;
 
     [SerializeField]private float waterHeight = 0f;
-    
+
+    [SerializeField] private Transform waterUpper;
     
     // Start is called before the first frame update
     void Start()
@@ -32,13 +33,16 @@ public class BuoyancyObject : MonoBehaviour
     void FixedUpdate()
     {
         floatersUnderwater = 0;
+        /*
         for (int i = 0; i < floaters.Length; i++)
         {
-            float difference = floaters[i].position.y - waterHeight;
+            */
+            float difference = this.gameObject.transform.position.y - waterHeight;
 
-            if (difference < 1)
+            if (difference < waterUpper.position.y)
             {
-                m_Rigidbody.AddForceAtPosition(Vector3.up * floatingPower * Mathf.Abs(difference),floaters[i].transform.position,ForceMode.Force);
+                m_Rigidbody.AddForceAtPosition(Vector3.up * floatingPower * Mathf.Abs(difference),this.gameObject.transform.position,ForceMode.Force);
+                
                 floatersUnderwater += 1;
                 if (!underwater)
                 {
@@ -47,13 +51,13 @@ public class BuoyancyObject : MonoBehaviour
                 }
             }
 
-        }
+        //}
         
-        /*if (underwater && floatersUnderwater == 0)
+        if (underwater && floatersUnderwater == 0)
         {
             underwater = false;
             SwitchStates(false);
-        }*/
+        }
     }
 
     void SwitchStates(bool isUnderwater)
@@ -63,10 +67,12 @@ public class BuoyancyObject : MonoBehaviour
             m_Rigidbody.drag = underWaterDrag;
             m_Rigidbody.angularDrag = underWaterAngularDrag;
         }
-        /*else
+        else
         {
             m_Rigidbody.drag = airDrag;
             m_Rigidbody.angularDrag = airAngularDrag;
-        }*/
+        }
     }
+    
+    
 }

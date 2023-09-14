@@ -3,8 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="65f2f418-28c5-456e-aec0-175e49a39f1c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Ear/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Ear/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/DOTweenSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/DOTweenSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Arts/Materials/FakeWater.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Arts/Materials/FakeWater.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/WaterPhysicTest.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/WaterPhysicTest.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Physic/BuoyancyObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Physic/BuoyancyObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +18,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Sound/SoundSetting.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Physic/BuoyancyNewTest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Sound/SoundTest.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="2Uc2APrkgJlebbxZPAJ4cmOUKLa" />
@@ -66,6 +69,7 @@
       <workItem from="1694528600431" duration="6629000" />
       <workItem from="1694623907391" duration="2006000" />
       <workItem from="1694630449431" duration="1742000" />
+      <workItem from="1694701054669" duration="4658000" />
     </task>
     <servers />
   </component>
