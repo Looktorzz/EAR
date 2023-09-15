@@ -13,22 +13,30 @@ public class IDoor : MonoBehaviour , IInteractable , IHoldInteractable
     private bool _isCount = false;
     private bool _isCountComplete = false;
 
+    [SerializeField] bool IsNeedKey = false;
+    [SerializeField] bool IsDoorCanCloseAtomatic = false;
+
     public bool Interact(Interactor interactor)
     {
-        var Door = interactor.GetComponentInChildren<Keys>();
-
-        if (Door == null)
+        if (IsNeedKey)
         {
-            Debug.Log("YOU HAVE NO KEY TO OPEN!");
+            var Door = interactor.GetComponentInChildren<Keys>();
+
+            if (Door == null)
+            {
+                Debug.Log("YOU HAVE NO KEY TO OPEN!");
+                return false;
+            }
+
+            if (Door.HasKey)
+            {
+                Debug.Log("YOU CAN OPEN DOOR!");
+                _animator.SetTrigger("DoorOpen");
+                return true;
+            }
             return false;
         }
-
-        if (Door.HasKey)
-        {
-            Debug.Log("YOU CAN OPEN DOOR!");
-            _animator.SetTrigger("DoorOpen");
-            return true;
-        }
+        
 
         return false;
 

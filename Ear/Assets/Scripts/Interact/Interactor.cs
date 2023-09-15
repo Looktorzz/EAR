@@ -18,7 +18,7 @@ public class Interactor : MonoBehaviour
 
     void Update()
     {
-        _interactionPoint.position = _interactionDirectionPoint[_index].position;
+        //_interactionPoint.position = _interactionDirectionPoint[_index].position;
         
         // Delete when game complete
         _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position, 
