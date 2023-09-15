@@ -17,24 +17,26 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private float _moveSpeed;
-    private Vector2 _moveVector2;
     
-    private Interactor _interactor;
-    private Item _item;
-    private Hand _hand;
+    [SerializeField] private Interactor _interactor;
+    [SerializeField] private Item _item;
+
+    [Header("Test")]
+    [SerializeField] private TestTrigger _testTrigger;
+    [SerializeField] private GameObject _goTest;
+    private bool isSet = true;
+
     private Rigidbody _rb;
     private InputSystems _input;
-    
-    private bool _isHoldInteract = false;
+    private Vector2 _moveVector2;
     public bool isGrabItem = false;
+
+    bool IsHoldInteract = false;
 
     private void Awake()
     {
         _input = new InputSystems();
         _rb = GetComponent<Rigidbody>();
-        _interactor = GetComponent<Interactor>();
-        _item = GetComponent<Item>();
-        _hand = GetComponent<Hand>();
         // idle
 
         _input.Player.Movement.performed += OnMovementPerformed;
@@ -74,39 +76,34 @@ public class PlayerController : MonoBehaviour
     {
         // walk
         _moveVector2 = value.ReadValue<Vector2>();
+        Debug.Log($"_moveVector2 : {_moveVector2}");
         
-        if (_moveVector2.x < 0)
+        if (!_spriteRenderer.flipX && _moveVector2.x < 0)
         {
             // Left
-            _hand.SentDirection((int)DirectionPlayer.West);
-            
-            if (!_spriteRenderer.flipX)
-            {
-                _spriteRenderer.flipX = true;
-            }
+            _interactor.SentDirection((int)DirectionPlayer.West);
+            _item.SentDirection((int)DirectionPlayer.West);
+            _spriteRenderer.flipX = true;
         }
-        else if (_moveVector2.x > 0)
+        else if (_spriteRenderer.flipX && _moveVector2.x > 0)
         {
             // Right
-            _hand.SentDirection((int)DirectionPlayer.East);
-            
-            if (_spriteRenderer.flipX)
-            {
-                _spriteRenderer.flipX = false;
-            }
+            _interactor.SentDirection((int)DirectionPlayer.East);
+            _item.SentDirection((int)DirectionPlayer.East);
+            _spriteRenderer.flipX = false;
         }
         else if (_moveVector2.y > 0)
         {
             // Back
-            _hand.SentDirection((int)DirectionPlayer.North);
+            _interactor.SentDirection((int)DirectionPlayer.North);
+            _item.SentDirection((int)DirectionPlayer.North);
         }
         else if (_moveVector2.y < 0)
         {
             // Front
-            _hand.SentDirection((int)DirectionPlayer.South);
+            _interactor.SentDirection((int)DirectionPlayer.South);
+            _item.SentDirection((int)DirectionPlayer.South);
         }
-        
-        
     }
     
     private void OnMovementCanceled(InputAction.CallbackContext value)
@@ -146,7 +143,7 @@ public class PlayerController : MonoBehaviour
             {
                 _interactor.HoldInteract();
                 Debug.LogWarning("IT's REALLY HOLD");
-                _isHoldInteract = true;
+                IsHoldInteract = true;
             }  
         }
         
@@ -161,11 +158,11 @@ public class PlayerController : MonoBehaviour
             _interactor.PressInteract();
             return;
         }
-        if (_isHoldInteract)
+        if (IsHoldInteract)
         {
             if (!context.ReadValueAsButton()) Debug.Log("Released");
             _interactor.ReleasedHoldInteract();
-            _isHoldInteract = false;
+            IsHoldInteract = false;
         }
         
     }

@@ -6,57 +6,69 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    [SerializeField] private Transform _handTransform;
+    [SerializeField] private Transform[] _itemDirectionPoint;
+    [SerializeField] private Transform _itemPoint;
+    [SerializeField] private float _itemPointRadius = 0.5f;
     [SerializeField] private LayerMask _itemMask;
-    private Collider _collider = new Collider();
-    private Hand _hand;
 
     private PlayerController _playerController;
-    private GameObject _itemInHand;
+    private GameObject _itemGameObject;
+
+    private readonly Collider[] _colliders = new Collider[3];
+    [SerializeField] private int _numFound;
+    
+    private int _index = 0;
 
     private void Start()
     {
-        _playerController = GetComponent<PlayerController>();
-        _hand = GetComponent<Hand>();
+        _playerController = gameObject.GetComponent<PlayerController>();
+    }
+
+    private void Update()
+    {
+        _itemPoint.position = _itemDirectionPoint[_index].position;
+    }
+
+    public void SentDirection(int index)
+    {
+        _index = index;
     }
 
     public void HoldItem()
     {
-        _collider = _hand.SentColliderFound(_itemMask);
+        _numFound = Physics.OverlapSphereNonAlloc(_itemPoint.position, 
+            _itemPointRadius, _colliders, _itemMask);
 
-        if(_collider != null)
+        if(_numFound > 0)
         {
-            _itemInHand = _collider.gameObject;
+            _itemGameObject = _colliders[0].gameObject;
 
-            if (_itemInHand != null)
+            if (_itemGameObject != null)
             {
                 Debug.Log("Hold Item");
-                _itemInHand.transform.SetParent(_handTransform);
-                _itemInHand.transform.localPosition = Vector3.zero;
-                _itemInHand.GetComponent<Collider>().enabled = false;
-                _itemInHand.GetComponent<Rigidbody>().useGravity = false;
-                _itemInHand.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                _itemGameObject.transform.SetParent(_itemPoint);
+                _itemGameObject.transform.localPosition = Vector3.zero;
+                _itemGameObject.GetComponent<Collider>().enabled = false;
+                _itemGameObject.GetComponent<Rigidbody>().useGravity = false;
+                _itemGameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 
                 _playerController.isGrabItem = true;
             }
-            
-            _hand.ClearCollider();
         }
     }
 
     public void PlaceItem()
     {
-        if (_itemInHand != null)
+        if (_itemGameObject != null)
         {
             Debug.Log("Place Item");
-            _itemInHand.transform.SetParent(null);
-            _itemInHand.GetComponent<Collider>().enabled = true;
-            _itemInHand.GetComponent<Rigidbody>().useGravity = true;
-            _itemInHand.GetComponent<Rigidbody>().constraints = ~RigidbodyConstraints.FreezePositionY;
+            _itemGameObject.transform.SetParent(null);
+            _itemGameObject.GetComponent<Collider>().enabled = true;
+            _itemGameObject.GetComponent<Rigidbody>().useGravity = true;
+            _itemGameObject.GetComponent<Rigidbody>().constraints = ~RigidbodyConstraints.FreezePositionY;
             
-            _collider = null;
-            _itemInHand = null;
             _playerController.isGrabItem = false;
+            
         }
     }
 }

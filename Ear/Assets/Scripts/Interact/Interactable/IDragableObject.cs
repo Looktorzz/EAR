@@ -35,11 +35,6 @@ public class IDragableObject : MonoBehaviour, IInteractable , IHoldInteractable
         return false;
     }
 
-    public void HoldCompleteInteract()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public bool ReleasedInteract(Interactor interactor)
     {
         if(IsDragNow)

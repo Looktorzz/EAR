@@ -6,13 +6,18 @@ using UnityEngine;
 
 public class Interactor : MonoBehaviour
 {
+    [SerializeField] private Transform[] _interactionDirectionPoint;
+    [SerializeField] private Transform _interactionPoint;
+    [SerializeField] private float _interactionPointRadius = 0.5f;
     [SerializeField] private LayerMask _interactableMask;
-    private Collider _collider = new Collider();
-    private Hand _hand;
 
-    private void Start()
+    private readonly Collider[] _colliders = new Collider[3];
+    [SerializeField] private int _numFound;
+
+    private int _index = 0;
+
+    void Update()
     {
-<<<<<<< HEAD
         //_interactionPoint.position = _interactionDirectionPoint[_index].position;
         
         // Delete when game complete
@@ -23,59 +28,60 @@ public class Interactor : MonoBehaviour
     public void SentDirection(int index)
     {
         _index = index;
-=======
-        _hand = GetComponent<Hand>();
->>>>>>> Movement
     }
 
     public void PressInteract()
     {
-        _collider = _hand.SentColliderFound(_interactableMask);
+        _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position, 
+            _interactionPointRadius, _colliders, _interactableMask);
 
-        if(_collider != null)
+        if(_numFound > 0)
         {
-            IInteractable interactable = _collider.GetComponent<IInteractable>();
+            var interactable = _colliders[0].GetComponent<IInteractable>();
 
             if(interactable != null)
             {
                 interactable.Interact(this);
-            }
-
-            _hand.ClearCollider();
+            } 
         }
     }
 
     public void HoldInteract()
     {
-        _collider = _hand.SentColliderFound(_interactableMask);
+        _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position,
+            _interactionPointRadius, _colliders, _interactableMask);
 
-        if(_collider != null)
+        if (_numFound > 0)
         {
-            IHoldInteractable interactable = _collider.GetComponent<IHoldInteractable>();
+            var interactable = _colliders[0].GetComponent<IHoldInteractable>();
 
             if (interactable != null)
             {
                 interactable.HoldInteract(this);
             }
-            
-            _hand.ClearCollider();
         }
     }
 
     public void ReleasedHoldInteract()
     {
-        _collider = _hand.SentColliderFound(_interactableMask);
+        _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position,
+            _interactionPointRadius, _colliders, _interactableMask);
 
-        if(_collider != null)
+        if (_numFound > 0)
         {
-            IHoldInteractable interactable = _collider.GetComponent<IHoldInteractable>();
+            var interactable = _colliders[0].GetComponent<IHoldInteractable>();
 
             if (interactable != null)
             {
                 interactable.ReleasedInteract(this);
             }
-            
-            _hand.ClearCollider();
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(_interactionPoint.position, _interactionPointRadius);
+    }
+
 }

@@ -7,20 +7,18 @@ public class IDoor : MonoBehaviour , IInteractable , IHoldInteractable
     [SerializeField] private string _prompt;
     public string InteractionPrompt => _prompt;
     private Animator _animator;
-    private CountdownTime _countdown;
+    
+    private float _currentTime = 2;
+    private float _startTime = 2;
+    private bool _isCount = false;
+    private bool _isCountComplete = false;
 
     [SerializeField] bool IsNeedKey = false;
     [SerializeField] bool IsDoorCanCloseAtomatic = false;
 
     public bool Interact(Interactor interactor)
     {
-<<<<<<< HEAD
         if (IsNeedKey)
-=======
-        /*var Door = interactor.GetComponentInChildren<Keys>();
-
-        if (Door == null)
->>>>>>> Movement
         {
             var Door = interactor.GetComponentInChildren<Keys>();
 
@@ -38,31 +36,57 @@ public class IDoor : MonoBehaviour , IInteractable , IHoldInteractable
             }
             return false;
         }
-<<<<<<< HEAD
         
-=======
-
-        if (Door.HasKey)
-        {
-            Debug.Log("YOU CAN OPEN DOOR!");
-            _animator.SetTrigger("DoorOpen");
-            return true;
-        }
-        */
->>>>>>> Movement
 
         return false;
+
     }
     
     private void Start()
     {
         _animator = GetComponent<Animator>();
     }
+    
+    public void FixedUpdate()
+    {
+        if (_isCount)
+        {
+            _currentTime -= 1 * Time.deltaTime;
+            Debug.Log($"Time : {_currentTime:0}");
+            _isCountComplete = false;
+            
+            if (_currentTime <= 0)
+            {
+                _currentTime = 0;
+                _isCount = false;
+                _isCountComplete = true;
+                
+                Debug.Log("YOU CAN OPEN DOOR!");
+                _animator.SetTrigger("DoorOpen");
+            }
+        }
+    }
+
+    public void CountdownTime(bool isTrue)
+    {
+        if (isTrue)
+        {
+            if (!_isCount)
+            {
+                _currentTime = _startTime;
+                _isCount = true;
+            }
+        }
+        else
+        {
+            _isCount = false;
+        }
+
+    }
 
     public bool HoldInteract(Interactor interactor)
     {
         var Door = interactor.GetComponentInChildren<Keys>();
-        _countdown = interactor.GetComponent<CountdownTime>();
 
         if (Door == null)
         {
@@ -72,23 +96,16 @@ public class IDoor : MonoBehaviour , IInteractable , IHoldInteractable
 
         if (Door.HasKey)
         {
-            _countdown.Countdown(true);
+            CountdownTime(true);
             return true;
         }
 
         return false;
     }
 
-    public void HoldCompleteInteract()
-    {
-        Debug.Log("YOU CAN OPEN DOOR!");
-        _animator.SetTrigger("DoorOpen");
-    }
-
     public bool ReleasedInteract(Interactor interactor)
     {
-        _countdown = interactor.GetComponent<CountdownTime>();
-        _countdown.Countdown(false);
+        CountdownTime(false);
         return false;
     }
 }
