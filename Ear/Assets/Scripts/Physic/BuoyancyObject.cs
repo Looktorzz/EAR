@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class BuoyancyObject : MonoBehaviour
 {
-    //[SerializeField] private Transform[] floaters;
-    [SerializeField] private int floatersUnderwater;
     
     [SerializeField]private float underWaterDrag = 3f;
     [SerializeField]private float underWaterAngularDrag = 1f;
@@ -19,41 +18,45 @@ public class BuoyancyObject : MonoBehaviour
     private Rigidbody m_Rigidbody;
     private bool underwater;
 
-    [SerializeField]private float waterHeight = 0f;
 
-    [SerializeField] private Transform waterUpper;
+    private Water water;
+    private bool isWater;
     
     // Start is called before the first frame update
     void Start()
     {
+        isWater = false;
         m_Rigidbody = this.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        floatersUnderwater = 0;
-        /*
-        for (int i = 0; i < floaters.Length; i++)
+        if (water != null && isWater)
         {
-            */
-            float difference = this.gameObject.transform.position.y - waterHeight;
+            ItemFloatUp(water.waterSurface);
+        }
+    }
 
-            if (difference < waterUpper.position.y)
-            {
-                m_Rigidbody.AddForceAtPosition(Vector3.up * floatingPower * Mathf.Abs(difference),this.gameObject.transform.position,ForceMode.Force);
+    void ItemFloatUp(Transform waterUpper)
+    {
+        float difference = this.gameObject.transform.position.y - waterUpper.position.y;
+
+        if (difference < waterUpper.position.y)
+        {
+            float forceMultiplier = Mathf.Abs(difference) * floatingPower;
+            
+            m_Rigidbody.AddForceAtPosition(Vector3.up * forceMultiplier,this.gameObject.transform.position,ForceMode.Force);
                 
-                floatersUnderwater += 1;
-                if (!underwater)
-                {
-                    underwater = true;
-                    SwitchStates(true);
-                }
+            if (!underwater)
+            { 
+                underwater = true; 
+                SwitchStates(true);
+                
             }
+        }
 
-        //}
-        
-        if (underwater && floatersUnderwater == 0)
+        if (underwater)
         {
             underwater = false;
             SwitchStates(false);
@@ -71,8 +74,24 @@ public class BuoyancyObject : MonoBehaviour
         {
             m_Rigidbody.drag = airDrag;
             m_Rigidbody.angularDrag = airAngularDrag;
+            m_Rigidbody.velocity = Vector3.zero;
         }
     }
-    
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Water"))
+        {
+            water = other.GetComponent<Water>();
+            isWater = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Water"))
+        {
+            isWater = false;
+        }
+    }
 }
