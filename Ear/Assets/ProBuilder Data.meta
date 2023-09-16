@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Ear/Assets/ProBuilder Data.meta
 guid: 65091278b66425d4ba8eed83cc9460d6
+========
+guid: 8e7d4f4fafd12e941aa0f51d3a78b375
+>>>>>>>> Movement:Ear/Assets/Tests/Materials.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
