@@ -24,6 +24,8 @@ public class IBaseLever : MonoBehaviour , IHoldInteractable , IInteractable
 
         if (lever != null)
         {
+            interactor.GetComponentInChildren<Item>().PlaceItemOnInteract();
+            //lever.transform.SetParent(null);
             lever.transform.SetParent(_leverPosition);
             lever.transform.localPosition = Vector3.zero;
             lever.isOnBaseLever = true;

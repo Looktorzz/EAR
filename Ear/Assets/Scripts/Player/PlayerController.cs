@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private Hand _hand;
     private Rigidbody _rb;
     private InputSystems _input;
+    private Animator _animator;
     
     private bool _isHoldInteract = false;
     public bool isGrabItem = false;
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
         _interactor = GetComponent<Interactor>();
         _item = GetComponent<Item>();
         _hand = GetComponent<Hand>();
+        _animator = GetComponentInChildren<Animator>();
         // idle
 
         _input.Player.Movement.performed += OnMovementPerformed;
@@ -74,10 +76,12 @@ public class PlayerController : MonoBehaviour
     {
         // walk
         _moveVector2 = value.ReadValue<Vector2>();
+        _animator.SetTrigger("Walking");
         
         if (_moveVector2.x < 0)
         {
             // Left
+            _moveSpeed = 5.5f;
             _hand.SentDirection((int)DirectionPlayer.West);
             
             if (!_spriteRenderer.flipX)
@@ -88,6 +92,7 @@ public class PlayerController : MonoBehaviour
         else if (_moveVector2.x > 0)
         {
             // Right
+            _moveSpeed = 5.5f;
             _hand.SentDirection((int)DirectionPlayer.East);
             
             if (_spriteRenderer.flipX)
@@ -98,11 +103,13 @@ public class PlayerController : MonoBehaviour
         else if (_moveVector2.y > 0)
         {
             // Back
+            _moveSpeed = 4.12f;
             _hand.SentDirection((int)DirectionPlayer.North);
         }
         else if (_moveVector2.y < 0)
         {
             // Front
+            _moveSpeed = 4.12f;
             _hand.SentDirection((int)DirectionPlayer.South);
         }
         
