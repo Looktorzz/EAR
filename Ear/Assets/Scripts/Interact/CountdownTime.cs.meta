@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Ear/Assets/Scripts/Player/DeadByEnvironment.cs.meta
+guid: f26d3fe571d837f498e8b2ddff881b22
+========
+guid: 89811ba24600ed44eb3df63773c8af3c
+>>>>>>>> Movement:Ear/Assets/Scripts/Interact/CountdownTime.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
