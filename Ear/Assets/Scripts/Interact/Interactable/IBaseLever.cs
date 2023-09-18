@@ -8,6 +8,7 @@ public class IBaseLever : MonoBehaviour , IHoldInteractable , IInteractable
     public string InteractionPrompt => _prompt;
     [SerializeField] private Transform _leverPosition;
     [SerializeField] private GameObject _doorLever;
+    [SerializeField] private bool _isCanPick;
     private CountdownTime _countdown;
     private Animator _animator;
     private Lever _lever;
@@ -25,10 +26,15 @@ public class IBaseLever : MonoBehaviour , IHoldInteractable , IInteractable
         if (lever != null)
         {
             interactor.GetComponentInChildren<Item>().PlaceItemOnInteract();
-            //lever.transform.SetParent(null);
             lever.transform.SetParent(_leverPosition);
             lever.transform.localPosition = Vector3.zero;
             lever.isOnBaseLever = true;
+            
+            if (_isCanPick)
+            {
+                lever.gameObject.layer = 0; 
+            }
+            
             return true;
         }
 

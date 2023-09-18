@@ -12,7 +12,6 @@ public class IConveyorTube : MonoBehaviour , IInteractable
     [SerializeField] private Transform _itemTubePoint;
     [SerializeField] private Transform _itemQuitFail;
     [SerializeField] private Transform _itemQuitComplete;
-    private GameObject _key;
     private bool isPlaceTube;
 
     private void Start()
@@ -20,30 +19,26 @@ public class IConveyorTube : MonoBehaviour , IInteractable
         isPlaceTube = false;
     }
 
-    // Yak Code Sa !!!!!!!! 
-    // Add place on interact
     public bool Interact(Interactor interactor)
     {
-        /*// Key
-        _key = interactor.GetComponentInChildren<Keys>().gameObject;
-        if (_key != null)
+        // Key
+        Keys key = interactor.GetComponentInChildren<Keys>();
+        if (key != null)
         {
-            _key.transform.SetParent(null);
-            _key.transform.SetParent(_itemKeyPoint);
-            _key.transform.localPosition = Vector3.zero;
+            interactor.GetComponentInChildren<Item>().PlaceItemOnInteract();
+            key.transform.SetParent(_itemKeyPoint);
+            key.transform.localPosition = Vector3.zero;
         }
 
         // Tube (Can't Pick Again)
         Tube tube = interactor.GetComponentInChildren<Tube>();
         if (tube != null)
         {
-            tube.transform.SetParent(null);
+            interactor.GetComponentInChildren<Item>().PlaceItemOnInteract();
             tube.transform.SetParent(_itemTubePoint);
             tube.transform.localPosition = Vector3.zero;
-            tube.gameObject.layer = 0; // Default ?? 
+            tube.gameObject.layer = 0; 
             isPlaceTube = true;
-            
-            Debug.Log($"tube.gameObject.layer : {tube.gameObject.layer}");
         }
         
         // Bucket
@@ -52,13 +47,28 @@ public class IConveyorTube : MonoBehaviour , IInteractable
         {
             if (bucket.isFull)
             {
+                GameObject keyGameObject = GetComponentInChildren<Keys>().gameObject;
+
+                if (keyGameObject == null)
+                {
+                    bucket.isFull = false;
+                    Debug.Log("Don't have key on tube");
+                    return false;
+                }
+                
                 if (isPlaceTube)
                 {
-                    _key.transform.position = _itemQuitComplete.position;
+                    keyGameObject.transform.position = _itemQuitComplete.position;
+                    keyGameObject.transform.SetParent(null);
+                    keyGameObject = null;
+                    Debug.Log("Key go Complete");
                 }
                 else
                 {
-                    _key.transform.position = _itemQuitFail.position;
+                    keyGameObject.transform.position = _itemQuitFail.position;
+                    keyGameObject.transform.SetParent(null);
+                    keyGameObject = null;
+                    Debug.Log("Key go Fail");
                 }
                 
                 bucket.isFull = false;
@@ -68,7 +78,7 @@ public class IConveyorTube : MonoBehaviour , IInteractable
             {
                 Debug.Log("Fill water in Bucket");
             }
-        }*/
+        }
 
         return false;
     }
