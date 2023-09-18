@@ -13,6 +13,8 @@ public class Item : MonoBehaviour
 
     private PlayerController _playerController;
     private GameObject _itemInHand;
+    
+    
 
     private void Start()
     {
@@ -34,7 +36,8 @@ public class Item : MonoBehaviour
                 _itemInHand.transform.SetParent(null);
                 _itemInHand.transform.SetParent(_handTransform);
                 _itemInHand.transform.localPosition = Vector3.zero;
-                _itemInHand.GetComponent<Collider>().enabled = false;
+                //_itemInHand.GetComponent<Collider>().enabled = false;
+                _itemInHand.GetComponent<Collider>().isTrigger = true;
                 _itemInHand.GetComponent<Rigidbody>().useGravity = false;
                 _itemInHand.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 
@@ -59,7 +62,8 @@ public class Item : MonoBehaviour
             {
                 Debug.Log("Place Item");
                 _itemInHand.transform.SetParent(null);
-                _itemInHand.GetComponent<Collider>().enabled = true;
+                //_itemInHand.GetComponent<Collider>().enabled = true;
+                _itemInHand.GetComponent<Collider>().isTrigger = false;
                 _itemInHand.GetComponent<Rigidbody>().useGravity = true;
                 _itemInHand.GetComponent<Rigidbody>().constraints = ~RigidbodyConstraints.FreezePositionY;
             
