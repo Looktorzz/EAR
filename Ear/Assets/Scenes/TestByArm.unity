@@ -1768,10 +1768,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89811ba24600ed44eb3df63773c8af3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startTime: 1
-  _interactableMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &750360565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2838,6 +2834,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 677486483}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1151870459 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2510734208824806009, guid: 4515a207608526041ac510d7a6c419b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 7702379280752882650}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1197726398
 GameObject:
   m_ObjectHideFlags: 0
@@ -3901,6 +3903,22 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7702379280752882650}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1751493831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151870459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f26d3fe571d837f498e8b2ddff881b22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startTime: 1
+  _interactableMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &1819799996
 GameObject:
   m_ObjectHideFlags: 0
@@ -4889,10 +4907,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 86882e0fcc75236489e35c9b711a9f70,
         type: 3}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4988340401618884249, guid: 4515a207608526041ac510d7a6c419b5, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2510734208824806009, guid: 4515a207608526041ac510d7a6c419b5,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1751493831}
     - targetCorrespondingSourceObject: {fileID: 7967596168877103125, guid: 4515a207608526041ac510d7a6c419b5,
         type: 3}
       insertIndex: -1
