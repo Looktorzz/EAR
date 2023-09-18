@@ -40,7 +40,8 @@ public class SaveLoadTest : MonoBehaviour
 [Serializable]
 public class SaveData
 {
-    [SerializeField] private string name;
+    [SerializeField] private float[] position;
+    
 }
 
 public interface ISaveable
