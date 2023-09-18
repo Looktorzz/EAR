@@ -72,9 +72,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3029174741895395480}
   - component: {fileID: 8706420180272154919}
-  - component: {fileID: 1933335343459892218}
+  - component: {fileID: 7311194737407503113}
   - component: {fileID: 669531057884214732}
   - component: {fileID: 1810238084476540032}
+  - component: {fileID: 3799861710257582100}
   - component: {fileID: 4340022319629590736}
   - component: {fileID: 1000356200225800391}
   - component: {fileID: 1383540065532505997}
@@ -130,8 +131,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!65 &1933335343459892218
-BoxCollider:
+--- !u!136 &7311194737407503113
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -148,9 +149,11 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.3, y: 1.7, z: 1}
-  m_Center: {x: 0, y: 0.8, z: 0.5}
+  serializedVersion: 2
+  m_Radius: 0.6062286
+  m_Height: 1.9590874
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.1180346, z: 0.6398996}
 --- !u!114 &669531057884214732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,6 +188,22 @@ MonoBehaviour:
   - {fileID: 8544810983500654791}
   _handPoint: {fileID: 3334913045726069392}
   _handRadius: 0.4
+--- !u!114 &3799861710257582100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510734208824806009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f26d3fe571d837f498e8b2ddff881b22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startTime: 1
+  _interactableMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &4340022319629590736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,6 +354,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6198914826521713915}
   - component: {fileID: 8783757164522061251}
+  - component: {fileID: 1910278378920113450}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -409,6 +429,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1910278378920113450
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7967596168877103125}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ac2660c6314750846af42bae11f0e504, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8817959956731925065
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,6 @@ public class IDragableObject : MonoBehaviour, IInteractable , IHoldInteractable
     [SerializeField] private string _prompt;
     public string InteractionPrompt => _prompt;
     bool IsDragNow = false;
-    [SerializeField] private GameObject player;
     Rigidbody rb;
 
     private void Start()
@@ -22,6 +21,8 @@ public class IDragableObject : MonoBehaviour, IInteractable , IHoldInteractable
 
     public bool HoldInteract(Interactor interactor)
     {
+        GameObject player = interactor.gameObject;
+        
         if (!IsDragNow)
         {
             IsDragNow = true;
