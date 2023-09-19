@@ -6,7 +6,7 @@ public class PlateDoor : MonoBehaviour
 {
     [SerializeField] private MeasurePlate measurePlate;
 
-    [SerializeField] private float maximumWeightForOpen;
+    [SerializeField] private float maximumWeightForOpen = 5f;
     [SerializeField] private float currentWeight;
 
     [SerializeField] private float slideSpeed = 1f;
@@ -22,7 +22,6 @@ public class PlateDoor : MonoBehaviour
         measurePlate.GetComponent<MeasurePlate>();
         
         
-        maximumWeightForOpen = 5f;
         closedPosition = this.transform.position;
         openedPosition = this.transform.position + Vector3.up * doorHeight;
     }
