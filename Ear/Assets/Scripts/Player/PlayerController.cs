@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
     {
         // walk
         _moveVector2 = value.ReadValue<Vector2>();
-        _animator.SetTrigger("Walking");
+        // _animator.SetTrigger("Walking");
         
         if (_moveVector2.x < 0)
         {
