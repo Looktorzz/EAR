@@ -9,7 +9,7 @@ public class Bucket : MonoBehaviour
     [SerializeField] private GameObject _bucketFullAcidWater;
     public bool isFull;
     public bool isAcidWater;
-
+    
     private void Start()
     {
         isFull = false;

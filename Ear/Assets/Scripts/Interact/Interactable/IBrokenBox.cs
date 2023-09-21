@@ -8,6 +8,7 @@ public class IBrokenBox : MonoBehaviour , IInteractable
     public string InteractionPrompt => _prompt;
     [SerializeField] private GameObject _spawnGameObject;
     [SerializeField] private Transform _spawnPoint;
+    
     public bool Interact(Interactor interactor)
     {
         Bucket bucket = interactor.GetComponentInChildren<Bucket>();
