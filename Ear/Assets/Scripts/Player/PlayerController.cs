@@ -25,9 +25,15 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rb;
     private InputSystems _input;
     private Animator _animator;
-    
+
     private bool _isHoldInteract = false;
     public bool isGrabItem = false;
+
+    private string _animName;
+    private string _animFreeze;
+    private int _handDirection;
+    private int _handFreeze;
+    public bool isFreezeHand = false;
 
     private void Awake()
     {
@@ -58,7 +64,6 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         _input.Enable();
-
     }
     
     private void OnDisable()
@@ -82,9 +87,9 @@ public class PlayerController : MonoBehaviour
         {
             // Left
             _moveSpeed = 5.5f;
-            _hand.SentDirection((int)DirectionPlayer.West);
+            _handDirection = (int) DirectionPlayer.West;
             
-            if (!_spriteRenderer.flipX)
+            if (!_spriteRenderer.flipX && !isFreezeHand)
             {
                 _spriteRenderer.flipX = true;
             }
@@ -93,9 +98,9 @@ public class PlayerController : MonoBehaviour
         {
             // Right
             _moveSpeed = 5.5f;
-            _hand.SentDirection((int)DirectionPlayer.East);
+            _handDirection = (int) DirectionPlayer.East;
             
-            if (_spriteRenderer.flipX)
+            if (_spriteRenderer.flipX && !isFreezeHand)
             {
                 _spriteRenderer.flipX = false;
             }
@@ -104,16 +109,24 @@ public class PlayerController : MonoBehaviour
         {
             // Back
             _moveSpeed = 4.12f;
-            _hand.SentDirection((int)DirectionPlayer.North);
+            _handDirection = (int) DirectionPlayer.North;
         }
         else if (_moveVector2.y < 0)
         {
             // Front
             _moveSpeed = 4.12f;
-            _hand.SentDirection((int)DirectionPlayer.South);
+            _handDirection = (int) DirectionPlayer.South;
         }
-        
-        
+
+        if (!isFreezeHand)
+        {
+            // Wait animation
+            // _animFreeze = _animName;
+            // _animator.SetTrigger(_animName);
+            
+            _handFreeze = _handDirection;
+            _hand.SentDirection(_handFreeze);
+        }
     }
     
     private void OnMovementCanceled(InputAction.CallbackContext value)

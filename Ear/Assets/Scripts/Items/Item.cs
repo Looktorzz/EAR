@@ -14,18 +14,20 @@ public class Item : MonoBehaviour
     private Hand _hand;
     
     public GameObject itemInHand;
+    public bool _isCanHold;
 
     private void Start()
     {
         _playerController = GetComponent<PlayerController>();
         _hand = GetComponent<Hand>();
+        _isCanHold = true;
     }
 
     public void HoldItem()
     {
         _collider = _hand.SentColliderFound(_itemMask);
 
-        if(_collider != null)
+        if(_collider != null && _isCanHold)
         {
             itemInHand = _collider.gameObject;
 

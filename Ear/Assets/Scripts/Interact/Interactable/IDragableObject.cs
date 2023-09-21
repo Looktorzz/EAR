@@ -25,6 +25,9 @@ public class IDragableObject : MonoBehaviour, IInteractable , IHoldInteractable
         
         if (!IsDragNow)
         {
+            player.GetComponent<Item>().PlaceItem();
+            player.GetComponent<PlayerController>().isFreezeHand = true;
+            
             IsDragNow = true;
             transform.parent = player.transform;
             Debug.Log("Check Now Drag");
@@ -43,8 +46,12 @@ public class IDragableObject : MonoBehaviour, IInteractable , IHoldInteractable
 
     public bool ReleasedInteract(Interactor interactor)
     {
+        GameObject player = interactor.gameObject;
+        
         if(IsDragNow)
         {
+            player.GetComponent<PlayerController>().isFreezeHand = false;
+            
             IsDragNow = false;
             transform.parent = null;
             Debug.Log("Check Now Not Drag");

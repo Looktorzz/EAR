@@ -8,13 +8,25 @@ public class IVent : MonoBehaviour , IInteractable
     [SerializeField] private string _prompt;
     public string InteractionPrompt => _prompt;
 
-    private bool isInteract = false;
-    
+    private GameObject _player;
+    private Item _item;
+    private bool _isInteract = false;
+    private bool _isPlayerinArea = false;
+
+    private void Start()
+    {
+        _player = GameObject.FindGameObjectWithTag("Player");
+        if (_player != null)
+        {
+            _item = _player.GetComponent<Item>();
+        }
+    }
+
     public bool Interact(Interactor interactor)
     {
-        if (interactor != null)
+        if (interactor != null && _isPlayerinArea)
         {
-            isInteract = true;
+            _isInteract = true;
             Crouching(interactor.gameObject, true);
             return true;
         }
@@ -24,8 +36,10 @@ public class IVent : MonoBehaviour , IInteractable
 
     private void Crouching(GameObject player, bool isCrouching)
     {
-        if (isInteract)
+        if (_isInteract)
         {
+            _item._isCanHold = !isCrouching;
+            _item.PlaceItem();
             CapsuleCollider capsuleCollider = player.GetComponent<CapsuleCollider>();
 
             if (isCrouching)
@@ -48,6 +62,7 @@ public class IVent : MonoBehaviour , IInteractable
     {
         if (other.TryGetComponent(out Interactor player))
         {
+            _isPlayerinArea = true;
             Crouching(player.gameObject, true);
         }
     }
@@ -57,7 +72,8 @@ public class IVent : MonoBehaviour , IInteractable
         if (other.TryGetComponent(out Interactor player))
         {
             Crouching(player.gameObject, false);
-            isInteract = false;
+            _isPlayerinArea = false;
+            _isInteract = false;
         }
     }
 }
