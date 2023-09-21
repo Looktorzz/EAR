@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -9,16 +10,13 @@ public class Item : MonoBehaviour
     [SerializeField] private Transform _handTransform;
     [SerializeField] private LayerMask _itemMask;
     private Collider _collider = new Collider();
-    private Hand _hand;
-
     private PlayerController _playerController;
-    private GameObject _itemInHand;
-
-    private Rigidbody rb;
+    private Hand _hand;
+    
+    public GameObject itemInHand;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
         _playerController = GetComponent<PlayerController>();
         _hand = GetComponent<Hand>();
     }
@@ -29,22 +27,18 @@ public class Item : MonoBehaviour
 
         if(_collider != null)
         {
-            _itemInHand = _collider.gameObject;
+            itemInHand = _collider.gameObject;
 
-            if (_itemInHand != null)
+            if (itemInHand != null)
             {
                 Debug.Log("Hold Item");
-                _itemInHand.transform.SetParent(null);
-                _itemInHand.transform.SetParent(_handTransform);
-                _itemInHand.transform.localPosition = Vector3.zero;
-                //_itemInHand.GetComponent<Collider>().enabled = false;
-                _itemInHand.GetComponent<Collider>().isTrigger = true;
-                _itemInHand.GetComponent<Rigidbody>().useGravity = false;
-                _itemInHand.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-                rb.mass += _itemInHand.GetComponent<Rigidbody>().mass;
+                itemInHand.transform.SetParent(null);
+                itemInHand.transform.SetParent(_handTransform);
+                itemInHand.transform.localPosition = Vector3.zero;
+                itemInHand.GetComponent<Collider>().isTrigger = true;
+                itemInHand.GetComponent<Rigidbody>().useGravity = false;
+                itemInHand.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 
-                // _collider = null;
-                // _itemInHand = null;
                 _playerController.isGrabItem = true;
             }
             
@@ -54,25 +48,20 @@ public class Item : MonoBehaviour
 
     public void PlaceItem()
     {
-        // _collider = _hand.SentColliderFound(_itemMask);
-
         if(_collider != null)
         {
-            _itemInHand = _collider.gameObject;
+            itemInHand = _collider.gameObject;
 
-            if (_itemInHand != null)
+            if (itemInHand != null)
             {
                 Debug.Log("Place Item");
-                _itemInHand.transform.SetParent(null);
-                //_itemInHand.GetComponent<Collider>().enabled = true;
-                _itemInHand.GetComponent<Collider>().isTrigger = false;
-                _itemInHand.GetComponent<Rigidbody>().useGravity = true;
-                _itemInHand.GetComponent<Rigidbody>().constraints = ~RigidbodyConstraints.FreezePositionY;
-                rb.mass -= _itemInHand.GetComponent<Rigidbody>().mass;
+                itemInHand.transform.SetParent(null);
+                itemInHand.GetComponent<Collider>().isTrigger = false;
+                itemInHand.GetComponent<Rigidbody>().useGravity = true;
+                itemInHand.GetComponent<Rigidbody>().constraints = ~RigidbodyConstraints.FreezePositionY;
 
-                
                 _collider = null;
-                _itemInHand = null;
+                itemInHand = null;
                 _playerController.isGrabItem = false;
             }
             
@@ -82,16 +71,14 @@ public class Item : MonoBehaviour
 
     public void PlaceItemOnInteract()
     {
-        if (_itemInHand != null)
+        if (itemInHand != null)
         {
             Debug.Log("Place Item On Interact");
-            _itemInHand.transform.SetParent(null);
-            _itemInHand.GetComponent<Collider>().enabled = true;
-            //_itemInHand.GetComponent<Rigidbody>().useGravity = true;
-            //_itemInHand.GetComponent<Rigidbody>().constraints = ~RigidbodyConstraints.FreezePositionY;
+            itemInHand.transform.SetParent(null);
+            itemInHand.GetComponent<Collider>().enabled = true;
             
             _collider = null;
-            _itemInHand = null;
+            itemInHand = null;
             _playerController.isGrabItem = false;
         }
     }

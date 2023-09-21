@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MeasurePlate : MonoBehaviour
 {
@@ -10,24 +12,20 @@ public class MeasurePlate : MonoBehaviour
 
     [SerializeField] private float weightCurrent;
     public float getWeightCurrent => weightCurrent;
-
-    private PlayerController playerController;
     
-    private Item item;
-    private Rigidbody rb;
-    private Bucket bucket;
-
-    private float enterMass;
+    private Rigidbody _rb;
+    private GameObject _player;
+    private GameObject _itemInHand;
+    private PlayerController _playerController;
+    private bool _isTrigger = false;
+    private bool _isAdd = false;
     
     private void Start()
     {
         UpdateText();
         
-        GameObject go = GameObject.FindWithTag("Player");
-        if (go != null)
-        {
-            playerController = go.GetComponent<PlayerController>();
-        }
+        _player = GameObject.FindGameObjectWithTag("Player");
+        _playerController = _player.GetComponent<PlayerController>();
         
     }
 
@@ -35,19 +33,45 @@ public class MeasurePlate : MonoBehaviour
     {
         UpdateText();
 
+        if (_isTrigger)
+        {
+            if (_playerController.isGrabItem)
+            {
+                _itemInHand = _player.GetComponent<Item>().itemInHand;
+                
+                if (_itemInHand != null && !_isAdd)
+                {
+                    Debug.Log("Add weight");
+                    WeightIncrease(_itemInHand.GetComponent<Collider>());
+                    _isAdd = true;
+                }
+            }
+            else
+            {
+                if (_itemInHand != null && _isAdd)
+                {
+                    Debug.Log("Lose weight");
+                    WeightDecrease(_itemInHand.GetComponent<Collider>());
+                    _itemInHand = null;
+                    _isAdd = false;
+                }
+            }
+        }
+        
     }
     
     private void UpdateText()
     {
         weightText.text = $"{(int)weightCurrent}";
+        
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") )
+        if (other.CompareTag("Player"))
         {
             WeightIncrease(other);
-
+            _isTrigger = true;
         }
 
         if (other.CompareTag("Item"))
@@ -62,31 +86,36 @@ public class MeasurePlate : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             WeightDecrease(other);
+            _isTrigger = false;
+            
+            if (_itemInHand != null && _isAdd)
+            {
+                Debug.Log("Lose weight");
+                WeightDecrease(_itemInHand.GetComponent<Collider>());
+                _itemInHand = null;
+                _isAdd = false;
+            }
         }
         
         if (other.CompareTag("Item"))
         {
             WeightDecrease(other);
         }
-
+        
     }
 
     private void WeightIncrease(Collider other)
-    {
-        rb = other.GetComponent<Rigidbody>();
+    { 
+        _rb = other.GetComponent<Rigidbody>();
+        weightCurrent += _rb.mass;
         
-        weightCurrent += rb.mass;
-        UpdateText();
     }
 
     private void WeightDecrease(Collider other)
     {
-        rb = other.GetComponent<Rigidbody>();
+        _rb = other.GetComponent<Rigidbody>();
+        weightCurrent -= _rb.mass;
         
-        weightCurrent -= rb.mass;
-        
-        UpdateText();
-
     }
    
 }

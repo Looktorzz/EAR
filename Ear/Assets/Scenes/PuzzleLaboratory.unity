@@ -1858,8 +1858,9 @@ MonoBehaviour:
   _prompt: 
   _itemKeyPoint: {fileID: 1151587695}
   _itemTubePoint: {fileID: 545183789}
-  _itemQuitFail: {fileID: 342688325}
-  _itemQuitComplete: {fileID: 819228215}
+  _itemQuitFirst: {fileID: 0}
+  _itemQuitSecond: {fileID: 0}
+  _isCanConnectTube: 0
 --- !u!1 &742719083
 GameObject:
   m_ObjectHideFlags: 0
@@ -2216,7 +2217,7 @@ SpriteRenderer:
   m_Size: {x: 5.12, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &758024521
@@ -2462,6 +2463,7 @@ MonoBehaviour:
   _prompt: 
   _leverPosition: {fileID: 1207241314}
   _doorLever: {fileID: 925023937}
+  _isCanPick: 0
 --- !u!95 &764565335
 Animator:
   serializedVersion: 5
@@ -3657,7 +3659,7 @@ SpriteRenderer:
   m_Size: {x: 5.12, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1273493690
@@ -3705,7 +3707,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1522778071}
-  - {fileID: 1559740553}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1327189819
@@ -3897,7 +3898,7 @@ SpriteRenderer:
   m_Size: {x: 5.12, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1380854364
@@ -3981,7 +3982,7 @@ SpriteRenderer:
   m_Size: {x: 5.12, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1489814447
@@ -4123,37 +4124,6 @@ Transform:
   m_Children:
   - {fileID: 194098100}
   - {fileID: 1794622897}
-  m_Father: {fileID: 1307981909}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1559740552
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1559740553}
-  m_Layer: 0
-  m_Name: Araikodai leaw public branch hai noi di
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1559740553
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1559740552}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
   m_Father: {fileID: 1307981909}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1570597546
@@ -5867,7 +5837,7 @@ SpriteRenderer:
   m_Size: {x: 15.44, y: 20}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &2658993916364779617
