@@ -1814,7 +1814,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prompt: 
-  player: {fileID: 1751493829}
 --- !u!54 &634097123
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3909,10 +3908,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 1090523168}
   _moveSpeed: 5.5
-  _interactor: {fileID: 1751493835}
-  _item: {fileID: 0}
-  _testTrigger: {fileID: 0}
-  _goTest: {fileID: 0}
   isGrabItem: 0
 --- !u!54 &1751493833
 Rigidbody:
@@ -3966,12 +3961,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3a7a8eb633cfc44798a06480b7e8654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactionPoint: {fileID: 777512269}
-  _interactionPointRadius: 0.4
   _interactableMask:
     serializedVersion: 2
     m_Bits: 128
-  _numFound: 0
 --- !u!136 &1751493836
 CapsuleCollider:
   m_ObjectHideFlags: 0
