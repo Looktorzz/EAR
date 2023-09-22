@@ -34,6 +34,8 @@ public class PlateDoor : MonoBehaviour
         if (measurePlate.getWeightCurrent > maximumWeightForOpen)
         {
             Debug.Log("Morethan MaxmimumWeight");
+            Vector3 targetPosition = Vector3.Lerp(closedPosition, openedPosition, maximumWeightForOpen);
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, slideSpeed * Time.deltaTime);
         }
         else if (measurePlate.getWeightCurrent > 0)
         {

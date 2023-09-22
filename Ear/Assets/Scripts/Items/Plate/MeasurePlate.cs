@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 
 public class MeasurePlate : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI weightText;
+    //[SerializeField] private TextMeshProUGUI weightText;
 
     [SerializeField] private float weightCurrent;
     public float getWeightCurrent => weightCurrent;
@@ -62,7 +62,7 @@ public class MeasurePlate : MonoBehaviour
     
     private void UpdateText()
     {
-        weightText.text = $"{(int)weightCurrent}";
+        //weightText.text = $"{(int)weightCurrent}";
         
     }
 
