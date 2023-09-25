@@ -29,6 +29,32 @@ public class PlayerController : MonoBehaviour
     private bool _isHoldInteract = false;
     public bool isGrabItem = false;
 
+    
+    //Check For Animator
+    private bool _isFront = false;
+    private bool _isBack = false;
+    
+    //Animation
+    private int _currentState;
+    private float _lockedTill;
+    
+    private static readonly int Idle = Animator.StringToHash("Idle");
+    private static readonly int WalkSide = Animator.StringToHash("WalkSide");
+    private static readonly int WalkBack = Animator.StringToHash("WalkBack");
+    private static readonly int WalkFront = Animator.StringToHash("WalkFront");
+
+    private static readonly int WalkSideHoldItem = Animator.StringToHash("WalkSideHoldItem");
+    private static readonly int WalkSideDrag = Animator.StringToHash("WalkSideDrag");
+    
+    private static readonly int WalkHoldItem = Animator.StringToHash("WalkHoldItem");
+    private static readonly int WalkGetItem = Animator.StringToHash("WalkGetItem");
+    private static readonly int WalkDrag = Animator.StringToHash("WalkDrag");
+
+
+    
+    private static readonly int WalkFrontHoldItem = Animator.StringToHash("WalkFrontHoldItem");
+    
+    
     private void Awake()
     {
         _input = new InputSystems();
@@ -40,6 +66,7 @@ public class PlayerController : MonoBehaviour
         // idle
 
         _input.Player.Movement.performed += OnMovementPerformed;
+        
         _input.Player.Movement.canceled += OnMovementCanceled;
 
         _input.Player.Run.started += OnRun;
@@ -66,10 +93,24 @@ public class PlayerController : MonoBehaviour
         _input.Disable();
     }
 
+    private void Update()
+    {
+        var state = GetState();
+
+        if (state == _currentState)
+        {
+            return;
+        }
+        _animator.CrossFade(state,0,0);
+        _currentState = state;
+    }
+
     private void FixedUpdate()
     {
         _rb.velocity = new Vector3(_moveVector2.x * _moveSpeed, 
             _rb.velocity.y, _moveVector2.y * _moveSpeed);
+        
+        
     }
     
     private void OnMovementPerformed(InputAction.CallbackContext value)
@@ -80,6 +121,9 @@ public class PlayerController : MonoBehaviour
         
         if (_moveVector2.x < 0)
         {
+            _isBack = false;
+            _isFront = false;
+
             // Left
             _moveSpeed = 5.5f;
             _hand.SentDirection((int)DirectionPlayer.West);
@@ -88,9 +132,15 @@ public class PlayerController : MonoBehaviour
             {
                 _spriteRenderer.flipX = true;
             }
+            
+            //_animator.SetFloat("WalkSide",1);
+
         }
         else if (_moveVector2.x > 0)
         {
+            _isBack = false;
+            _isFront = false;
+
             // Right
             _moveSpeed = 5.5f;
             _hand.SentDirection((int)DirectionPlayer.East);
@@ -99,20 +149,29 @@ public class PlayerController : MonoBehaviour
             {
                 _spriteRenderer.flipX = false;
             }
+            
+            //_animator.SetFloat("WalkSide",1);
+
         }
         else if (_moveVector2.y > 0)
         {
             // Back
             _moveSpeed = 4.12f;
             _hand.SentDirection((int)DirectionPlayer.North);
+            
+            _isFront = false;
+            _isBack = true;
         }
         else if (_moveVector2.y < 0)
         {
             // Front
             _moveSpeed = 4.12f;
             _hand.SentDirection((int)DirectionPlayer.South);
+            
+            _isBack = false;
+            _isFront = true;
+            
         }
-        
         
     }
     
@@ -193,6 +252,36 @@ public class PlayerController : MonoBehaviour
                 // Place item
                 _item.PlaceItem();
             }
+        }
+    }
+
+    private int GetState()
+    {
+        if (Time.time < _lockedTill)
+        {
+            return _currentState;
+        }
+
+
+
+        if (_isFront)
+        {
+            
+            return WalkFront;
+        }
+
+        
+        if (_isBack)
+        {
+            return WalkBack;
+        }
+        
+        return _rb.velocity.x == 0 ? Idle : WalkSide;
+
+        int LockState(int s, float t)
+        {
+            _lockedTill = Time.time + t;
+            return s;
         }
     }
 }
