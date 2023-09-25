@@ -61,7 +61,7 @@ public class IBaseLever : MonoBehaviour , IHoldInteractable , IInteractable
         _lever.FlipYSpriteLever(true);
         Debug.Log("Lever Flip Y");
         
-        _animator.SetTrigger("DoorOpen");
+        _animator.SetTrigger("OpenByLever");
     }
 
     public bool ReleasedInteract(Interactor interactor)
