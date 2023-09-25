@@ -2,21 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IDragableObject : MonoBehaviour, IInteractable , IHoldInteractable
+public class IDragableObject : MonoBehaviour, IHoldInteractable
 {
-    [SerializeField] private string _prompt;
-    public string InteractionPrompt => _prompt;
     bool IsDragNow = false;
     Rigidbody rb;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-    }
-    public bool Interact(Interactor interactor)
-    {    
-        Debug.Log("Something Wrong!");
-        return false;
     }
 
     public bool HoldInteract(Interactor interactor)
