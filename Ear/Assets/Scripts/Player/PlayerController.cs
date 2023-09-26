@@ -29,30 +29,22 @@ public class PlayerController : MonoBehaviour
     private bool _isHoldInteract = false;
     public bool isGrabItem = false;
 
+    private string _animName;
+    private string _animFreeze;
+    private int _handDirection;
+    private int _handFreeze;
+    public bool isFreezeHand = false;
+
     
     //Check For Animator
-    private bool _isFront = false;
     private bool _isBack = false;
     
     //Animation
-    private int _currentState;
-    private float _lockedTill;
-    
-    private static readonly int Idle = Animator.StringToHash("Idle");
-    private static readonly int WalkSide = Animator.StringToHash("WalkSide");
-    private static readonly int WalkBack = Animator.StringToHash("WalkBack");
-    private static readonly int WalkFront = Animator.StringToHash("WalkFront");
-
-    private static readonly int WalkSideHoldItem = Animator.StringToHash("WalkSideHoldItem");
-    private static readonly int WalkSideDrag = Animator.StringToHash("WalkSideDrag");
-    
-    private static readonly int WalkHoldItem = Animator.StringToHash("WalkHoldItem");
-    private static readonly int WalkGetItem = Animator.StringToHash("WalkGetItem");
-    private static readonly int WalkDrag = Animator.StringToHash("WalkDrag");
-
+    private float _animHorizontal, _animVertical;
 
     
-    private static readonly int WalkFrontHoldItem = Animator.StringToHash("WalkFrontHoldItem");
+    
+    
     
     
     private void Awake()
@@ -80,6 +72,9 @@ public class PlayerController : MonoBehaviour
 
         _input.Player.GrabItem.started += OnGrabItem;
         _input.Player.GrabItem.canceled += OnGrabItem;
+        
+        _animator.SetFloat("Horizontal", 0);
+        _animator.SetFloat("Vertical", 0);
     }
 
     private void OnEnable()
@@ -95,14 +90,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        var state = GetState();
 
-        if (state == _currentState)
-        {
-            return;
-        }
-        _animator.CrossFade(state,0,0);
-        _currentState = state;
     }
 
     private void FixedUpdate()
@@ -118,59 +106,83 @@ public class PlayerController : MonoBehaviour
         // walk
         _moveVector2 = value.ReadValue<Vector2>();
         // _animator.SetTrigger("Walking");
+
+        
         
         if (_moveVector2.x < 0)
         {
-            _isBack = false;
-            _isFront = false;
-
             // Left
             _moveSpeed = 5.5f;
-            _hand.SentDirection((int)DirectionPlayer.West);
+            _handDirection = (int) DirectionPlayer.West;
             
-            if (!_spriteRenderer.flipX)
+            if (!_spriteRenderer.flipX && !isFreezeHand)
             {
                 _spriteRenderer.flipX = true;
             }
+
             
-            //_animator.SetFloat("WalkSide",1);
 
         }
         else if (_moveVector2.x > 0)
         {
-            _isBack = false;
-            _isFront = false;
-
             // Right
             _moveSpeed = 5.5f;
-            _hand.SentDirection((int)DirectionPlayer.East);
+            _handDirection = (int) DirectionPlayer.East;
             
-            if (_spriteRenderer.flipX)
+            if (_spriteRenderer.flipX && !isFreezeHand)
             {
                 _spriteRenderer.flipX = false;
             }
             
-            //_animator.SetFloat("WalkSide",1);
 
         }
         else if (_moveVector2.y > 0)
         {
             // Back
             _moveSpeed = 4.12f;
-            _hand.SentDirection((int)DirectionPlayer.North);
-            
-            _isFront = false;
-            _isBack = true;
+            _handDirection = (int) DirectionPlayer.North;
+
         }
         else if (_moveVector2.y < 0)
         {
             // Front
             _moveSpeed = 4.12f;
-            _hand.SentDirection((int)DirectionPlayer.South);
+            _handDirection = (int) DirectionPlayer.South;
+
             
-            _isBack = false;
-            _isFront = true;
-            
+        }
+        
+        if (!isFreezeHand)
+        {
+            // Wait animation
+            // _animFreeze = _animName;
+            // _animator.SetTrigger(_animName);
+
+            _handFreeze = _handDirection;
+            _hand.SentDirection(_handFreeze);
+
+            switch (_handFreeze)
+            {
+                case (int)DirectionPlayer.East:
+                    _animator.SetFloat("Horizontal",-1);
+                    _animator.SetFloat("Vertical",0);
+                    
+                    break;
+                case (int)DirectionPlayer.West:
+                    _animator.SetFloat("Horizontal",1);
+                    _animator.SetFloat("Vertical",0);
+                    
+                    break;
+                case (int)DirectionPlayer.North:
+                    _animator.SetFloat("Horizontal",0);
+                    _animator.SetFloat("Vertical",1);
+                    break;
+                case (int)DirectionPlayer.South:
+                    _animator.SetFloat("Horizontal",0);
+                    _animator.SetFloat("Vertical",-1);
+                    break;
+
+            }
         }
         
     }
@@ -179,6 +191,9 @@ public class PlayerController : MonoBehaviour
     {
         // idle
         _moveVector2 = Vector2.zero;
+        _animator.SetFloat("Horizontal", 0);
+        _animator.SetFloat("Vertical", 0);
+
     }
     
     private void OnRun(InputAction.CallbackContext context)
@@ -208,11 +223,15 @@ public class PlayerController : MonoBehaviour
     {
         if (context.ReadValueAsButton())
         {
+            
             if(context.interaction is HoldInteraction)
             {
                 _interactor.HoldInteract();
                 Debug.LogWarning("IT's REALLY HOLD");
                 _isHoldInteract = true;
+                
+                _animator.SetBool("IsDrag",_isHoldInteract);
+
             }  
         }
         
@@ -221,6 +240,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnInteractHoldCanceled(InputAction.CallbackContext context)
     {
+        _animator.SetBool("IsDrag",false);
+
         if (context.interaction is PressInteraction) // Just Press No Hold Interact!
         {
             Debug.LogWarning("IT's Just PRESS");
@@ -229,9 +250,13 @@ public class PlayerController : MonoBehaviour
         }
         if (_isHoldInteract)
         {
+
             if (!context.ReadValueAsButton()) Debug.Log("Released");
             _interactor.ReleasedHoldInteract();
             _isHoldInteract = false;
+            
+            _animator.SetBool("IsDrag",_isHoldInteract);
+
         }
         
     }
@@ -255,33 +280,5 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private int GetState()
-    {
-        if (Time.time < _lockedTill)
-        {
-            return _currentState;
-        }
-
-
-
-        if (_isFront)
-        {
-            
-            return WalkFront;
-        }
-
-        
-        if (_isBack)
-        {
-            return WalkBack;
-        }
-        
-        return _rb.velocity.x == 0 ? Idle : WalkSide;
-
-        int LockState(int s, float t)
-        {
-            _lockedTill = Time.time + t;
-            return s;
-        }
-    }
+  
 }
