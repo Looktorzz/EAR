@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     private string _animName;
     private string _animFreeze;
     private int _handDirection;
-    private int _handFreeze;
+    public int handFreeze;
     public bool isFreezeHand = false;
 
     private void Awake()
@@ -124,8 +124,8 @@ public class PlayerController : MonoBehaviour
             // _animFreeze = _animName;
             // _animator.SetTrigger(_animName);
             
-            _handFreeze = _handDirection;
-            _hand.SentDirection(_handFreeze);
+            handFreeze = _handDirection;
+            _hand.SentDirection(handFreeze);
         }
     }
     
