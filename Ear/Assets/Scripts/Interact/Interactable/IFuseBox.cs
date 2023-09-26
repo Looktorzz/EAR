@@ -8,7 +8,7 @@ public class IFuseBox : MonoBehaviour, IInteractable
     public string InteractionPrompt => _prompt;
     
     [SerializeField] private Transform _fusePosition;
-    public bool _isHaveFuse = false;
+    public bool isHaveFuse = false;
     
     public bool Interact(Interactor interactor)
     {
@@ -20,7 +20,7 @@ public class IFuseBox : MonoBehaviour, IInteractable
             interactor.GetComponentInChildren<Item>().PlaceItemOnInteract();
             fuse.transform.SetParent(_fusePosition);
             fuse.transform.localPosition = Vector3.zero;
-            _isHaveFuse = true;
+            isHaveFuse = true;
             Debug.Log("Complete Fill Fuse.");
             
             return true;
