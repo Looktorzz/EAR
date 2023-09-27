@@ -2,22 +2,24 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Lever : MonoBehaviour
 {
-    private SpriteRenderer _spriteLever;
+    [SerializeField] private GameObject _close;
+    [SerializeField] private GameObject _open;
     public bool isOnBaseLever;
 
     private void Start()
     {
-        _spriteLever = GetComponentInChildren<SpriteRenderer>();
+        SetLeverOpen(false);
     }
 
     private void Update()
     {
         if (!isOnBaseLever)
         {
-            _spriteLever.flipY = false;
+            SetLeverOpen(false);
         }
         else
         {
@@ -28,8 +30,9 @@ public class Lever : MonoBehaviour
         }
     }
 
-    public void FlipYSpriteLever(bool isTrue)
+    public void SetLeverOpen(bool isOpen)
     {
-        _spriteLever.flipY = isTrue;
+        _close.SetActive(!isOpen);
+        _open.SetActive(isOpen);
     }
 }

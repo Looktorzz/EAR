@@ -18,6 +18,7 @@ public class IDragableObject : MonoBehaviour, IHoldInteractable
         
         if (!IsDragNow)
         {
+            // ++Animation drag
             player.GetComponent<Item>().PlaceItem();
             player.GetComponent<PlayerController>().isFreezeHand = true;
             
@@ -43,6 +44,7 @@ public class IDragableObject : MonoBehaviour, IHoldInteractable
         
         if(IsDragNow)
         {
+            // --Animation drag
             player.GetComponent<PlayerController>().isFreezeHand = false;
             
             IsDragNow = false;

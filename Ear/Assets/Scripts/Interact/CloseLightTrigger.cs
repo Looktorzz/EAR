@@ -13,6 +13,8 @@ public class CloseLightTrigger : MonoBehaviour
         if (other.CompareTag("Player") && !_isPass)
         {
             // Close Light
+            // ++Sound Close Light
+            // ??Sound PaKaiFire Where??
             for (int i = 0; i < _generator._lightGameObjects.Count; i++)
             {
                 _generator._lightGameObjects[i].GetComponent<Light>().enabled = false;

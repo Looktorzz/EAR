@@ -25,10 +25,12 @@ public class ILever : MonoBehaviour, IInteractable
     {
         if (_isOpen)
         {
+            // ++Sound fail (pak pak)
             return false;
         }
         
         // Open ( If have more 1 sound or anim / Add variable at upper c: )
+        // ++Sound open door by interact lever
         _isOpen = true;
         _close.SetActive(!_isOpen);
         _open.SetActive(_isOpen);

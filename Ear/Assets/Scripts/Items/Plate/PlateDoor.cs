@@ -16,7 +16,6 @@ public class PlateDoor : MonoBehaviour
     private Vector3 closedPosition;
     private Vector3 openedPosition;
     
-    // Start is called before the first frame update
     void Start()
     {
         measurePlate.GetComponent<MeasurePlate>();
@@ -26,7 +25,6 @@ public class PlateDoor : MonoBehaviour
         openedPosition = this.transform.position + Vector3.up * doorHeight;
     }
 
-    // Update is called once per frame
     void Update()
     {
         float weightPercent = measurePlate.getWeightCurrent / maximumWeightForOpen;
@@ -49,6 +47,5 @@ public class PlateDoor : MonoBehaviour
         }
 
     }
-    
     
 }

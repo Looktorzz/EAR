@@ -21,8 +21,7 @@ public class IBaseLever : MonoBehaviour , IHoldInteractable , IInteractable
     public bool Interact(Interactor interactor)
     {
         Lever lever = interactor.GetComponentInChildren<Lever>();
-        Debug.Log("Test Click Lever");
-
+        
         if (lever != null)
         {
             interactor.GetComponentInChildren<Item>().PlaceItemOnInteract();
@@ -38,6 +37,8 @@ public class IBaseLever : MonoBehaviour , IHoldInteractable , IInteractable
             return true;
         }
 
+        // ++Sound fail (pak pak)
+        Debug.Log("You don't have Lever");
         return false;
     }
     
@@ -48,24 +49,27 @@ public class IBaseLever : MonoBehaviour , IHoldInteractable , IInteractable
 
         if (_lever != null)
         {
+            // ++Sound hold interact Lever ( rotate Lever )
             _countdown.Countdown(true);
             return true;
         }
 
-        Debug.Log("Don't have Lever");
+        // ++Sound fail (pak pak)
+        Debug.Log("Don't have Lever on BaseLever");
         return false;
     }
 
     public void HoldCompleteInteract()
     {
-        _lever.FlipYSpriteLever(true);
-        Debug.Log("Lever Flip Y");
-        
+        // Open ( If have more 1 sound or anim / Add variable at upper c: )
+        // ++Sound open door by interact lever
+        _lever.SetLeverOpen(true);
         _animator.SetTrigger("OpenByLever");
     }
 
     public bool ReleasedInteract(Interactor interactor)
     {
+        // --Stop Sound hold interact Lever ( rotate Lever )
         _countdown = interactor.GetComponent<CountdownTime>();
         _countdown.Countdown(false);
         return false;

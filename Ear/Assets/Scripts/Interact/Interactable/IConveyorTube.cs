@@ -8,7 +8,7 @@ public class IConveyorTube : MonoBehaviour , IInteractable
 {
     [SerializeField] private string _prompt;
     public string InteractionPrompt => _prompt;
-    [SerializeField] private Transform _itemKeyPoint;
+    [SerializeField] private Transform _itemPoint;
     [SerializeField] private Transform _itemTubePoint;
     [SerializeField] private Transform _itemQuitFirst;
     [SerializeField] private Transform _itemQuitSecond;
@@ -27,7 +27,7 @@ public class IConveyorTube : MonoBehaviour , IInteractable
         if (key != null)
         {
             interactor.GetComponentInChildren<Item>().PlaceItemOnInteract();
-            key.transform.SetParent(_itemKeyPoint);
+            key.transform.SetParent(_itemPoint);
             key.transform.localPosition = Vector3.zero;
         }
 
@@ -51,9 +51,9 @@ public class IConveyorTube : MonoBehaviour , IInteractable
         {
             if (bucket.isFull)
             {
-                GameObject keyGameObject = GetComponentInChildren<Keys>().gameObject;
+                GameObject go = _itemPoint.GetChild(0).gameObject;
 
-                if (keyGameObject == null)
+                if (go == null)
                 {
                     bucket.isFull = false;
                     Debug.Log("Don't have key on tube");
@@ -62,17 +62,19 @@ public class IConveyorTube : MonoBehaviour , IInteractable
                 
                 if (!isPlaceTube)
                 {
-                    keyGameObject.transform.position = _itemQuitFirst.position;
-                    keyGameObject.transform.SetParent(null);
-                    keyGameObject = null;
-                    Debug.Log("Key go FirstPosition");
+                    // ++Sound item drop
+                    go.transform.position = _itemQuitFirst.position;
+                    go.transform.SetParent(null);
+                    go = null;
+                    Debug.Log("Item go FirstPosition");
                 }
                 else
                 {
-                    keyGameObject.transform.position = _itemQuitSecond.position;
-                    keyGameObject.transform.SetParent(null);
-                    keyGameObject = null;
-                    Debug.Log("Key go SecondPosition");
+                    // ++Sound item drop
+                    go.transform.position = _itemQuitSecond.position;
+                    go.transform.SetParent(null);
+                    go = null;
+                    Debug.Log("Item go SecondPosition");
                 }
                 
                 bucket.isFull = false;
@@ -84,6 +86,7 @@ public class IConveyorTube : MonoBehaviour , IInteractable
             }
         }
 
+        // ++Sound fail (pak pak)
         return false;
     }
 }

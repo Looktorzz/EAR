@@ -25,6 +25,7 @@ public class Interactor : MonoBehaviour
 
             if(interactable != null)
             {
+                // ++Animation interact something
                 interactable.Interact(this);
             }
 
@@ -42,6 +43,7 @@ public class Interactor : MonoBehaviour
 
             if (interactable != null)
             {
+                // ++Animation hold interact something
                 interactable.HoldInteract(this);
             }
             
@@ -59,6 +61,7 @@ public class Interactor : MonoBehaviour
 
             if (interactable != null)
             {
+                // --Animation released hold interact
                 interactable.ReleasedInteract(this);
             }
             

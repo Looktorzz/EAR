@@ -33,6 +33,8 @@ public class Item : MonoBehaviour
 
             if (itemInHand != null)
             {
+                // ++Sound Hold/Grab Item
+                // ++Animation Hold/Grab Item
                 Debug.Log("Hold Item");
                 itemInHand.transform.SetParent(null);
                 itemInHand.transform.SetParent(_handTransform);
@@ -56,6 +58,8 @@ public class Item : MonoBehaviour
 
             if (itemInHand != null)
             {
+                // ++Sound Place Item
+                // ++Animation Place Item
                 Debug.Log("Place Item");
                 itemInHand.transform.SetParent(null);
                 itemInHand.GetComponent<Collider>().isTrigger = false;
@@ -75,6 +79,8 @@ public class Item : MonoBehaviour
     {
         if (itemInHand != null)
         {
+            // ++Sound install something
+            // ++Animation install something
             Debug.Log("Place Item On Interact");
             itemInHand.transform.SetParent(null);
             itemInHand.GetComponent<Collider>().enabled = true;

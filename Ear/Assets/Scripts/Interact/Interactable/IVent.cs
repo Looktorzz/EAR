@@ -30,7 +30,7 @@ public class IVent : MonoBehaviour , IInteractable
             Crouching(interactor.gameObject, true);
             return true;
         }
-
+        
         return false;
     }
 
@@ -44,15 +44,18 @@ public class IVent : MonoBehaviour , IInteractable
 
             if (isCrouching)
             {
+                // ++Animation crouching
                 capsuleCollider.height = 1;
                 capsuleCollider.center = new Vector3(0,0.5f,0.55f);
             }
             else
             {
+                // --Animation crouching
                 capsuleCollider.height = 2;
                 capsuleCollider.center = new Vector3(0,1,0.55f);
             }
         
+            // Test ez crouching
             player.transform.GetChild(0).gameObject.SetActive(!isCrouching);
             player.transform.GetChild(1).gameObject.SetActive(isCrouching);
         }

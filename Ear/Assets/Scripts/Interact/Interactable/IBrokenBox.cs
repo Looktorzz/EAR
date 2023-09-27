@@ -15,6 +15,7 @@ public class IBrokenBox : MonoBehaviour , IInteractable
 
         if (bucket == null)
         {
+            // ++Sound fail (pak pak)
             Debug.Log("You don't have Bucket");
             return false;
         }
@@ -23,6 +24,7 @@ public class IBrokenBox : MonoBehaviour , IInteractable
         {
             if (bucket.isAcidWater)
             {
+                // ++Sound Destroy Box
                 Instantiate(_spawnGameObject, _spawnPoint.position, Quaternion.identity);
                 bucket.isFull = false;
                 
@@ -39,6 +41,7 @@ public class IBrokenBox : MonoBehaviour , IInteractable
             Debug.Log("Fill water in Bucket");
         }
 
+        // ++Sound fail (pak pak)
         return false;
     }
 }

@@ -25,6 +25,7 @@ public class ITube : MonoBehaviour , IInteractable
     {
         if (isFilledWater)
         {
+            // ++Sound fail (pak pak)
             return false;
         }
         
@@ -32,6 +33,7 @@ public class ITube : MonoBehaviour , IInteractable
 
         if (bucket == null)
         {
+            // ++Sound fail (pak pak)
             Debug.Log("You don't have Bucket");
             return false;
         }
@@ -58,6 +60,7 @@ public class ITube : MonoBehaviour , IInteractable
             Debug.Log("Fill water in Bucket");
         }
 
+        // ++Sound fail (pak pak)
         return false;
     }
 }

@@ -44,6 +44,7 @@ public class ILeakyBasin : MonoBehaviour, IInteractable
 
         if (bucket == null)
         {
+            // ++Sound fail (pak pak)
             Debug.Log("You don't have Bucket");
             return false;
         }
@@ -57,6 +58,7 @@ public class ILeakyBasin : MonoBehaviour, IInteractable
             if (_currentWeight >= _maximumWaterWeight)
             {
                 // Full (Not use Full Sprite / Use only Changing Sprite) 
+                // ++Animation water leak
                 _objectDataSo.objectDatas[_objectIndex.index].weight = _maximumWaterWeight;
                 _fullBasin.SetActive(true);
                 _almostFullBasin.SetActive(false);
@@ -79,6 +81,7 @@ public class ILeakyBasin : MonoBehaviour, IInteractable
             Debug.Log("Fill water in Bucket");
         }
 
+        // ++Sound fail (pak pak)
         return false;
     }
 
@@ -93,6 +96,7 @@ public class ILeakyBasin : MonoBehaviour, IInteractable
             if (_currentWeight <= _basinEmptyWeight)
             {
                 // Empty
+                // --Animation water leak
                 _objectDataSo.objectDatas[_objectIndex.index].weight = _basinEmptyWeight;
                 _objectIndex.ChangeIndex(NameObject.BasinEmpty);
 

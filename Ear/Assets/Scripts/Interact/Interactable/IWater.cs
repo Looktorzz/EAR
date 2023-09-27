@@ -55,7 +55,6 @@ public class IWater : MonoBehaviour , IHoldInteractable , IInteractable
     {
         _bucket.isAcidWater = isAcidWater;
         _bucket.isFull = true;
-        Debug.Log("Hello");
     }
 
     public bool ReleasedInteract(Interactor interactor)

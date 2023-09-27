@@ -23,6 +23,7 @@ public class Bucket : MonoBehaviour
     {
         if (isFull)
         {
+            // ++Sound Add Water (Tak num)
             _bucketEmpty.SetActive(false);
             
             if (isAcidWater)
@@ -38,6 +39,7 @@ public class Bucket : MonoBehaviour
         }
         else
         {
+            // ++Sound Delete Water (Tay num)
             _bucketEmpty.SetActive(true);
             _bucketFullWater.SetActive(false);
             _bucketFullAcidWater.SetActive(false);
