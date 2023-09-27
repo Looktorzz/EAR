@@ -9,7 +9,7 @@ public class Bucket : MonoBehaviour
     [SerializeField] private GameObject _bucketFullAcidWater;
     public bool isFull;
     public bool isAcidWater;
-    
+
     private void Start()
     {
         isFull = false;
@@ -24,16 +24,19 @@ public class Bucket : MonoBehaviour
             if (isAcidWater)
             {
                 _bucketFullAcidWater.SetActive(true);
+                GetComponent<ObjectIndex>().ChangeIndex(NameObject.Bucket);
             }
             else
             {
                 _bucketFullWater.SetActive(true);
+                GetComponent<ObjectIndex>().ChangeIndex(NameObject.Bucket);
             }
         }
         else
         {
             _bucketFullWater.SetActive(false);
             _bucketFullAcidWater.SetActive(false);
+            GetComponent<ObjectIndex>().ChangeIndex(NameObject.EmptyBucket);
         }
     }
 }

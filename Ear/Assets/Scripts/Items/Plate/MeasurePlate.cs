@@ -8,12 +8,11 @@ using UnityEngine.InputSystem;
 
 public class MeasurePlate : MonoBehaviour
 {
+    [SerializeField] private ObjectDataSO _objectDataSo;
     [SerializeField] private TextMeshProUGUI weightText;
-
     [SerializeField] private float weightCurrent;
     public float getWeightCurrent => weightCurrent;
     
-    private Rigidbody _rb;
     private GameObject _player;
     private GameObject _itemInHand;
     private PlayerController _playerController;
@@ -105,16 +104,16 @@ public class MeasurePlate : MonoBehaviour
     }
 
     private void WeightIncrease(Collider other)
-    { 
-        _rb = other.GetComponent<Rigidbody>();
-        weightCurrent += _rb.mass;
+    {
+        int index = other.GetComponent<ObjectIndex>().index;
+        weightCurrent += _objectDataSo.objectDatas[index].weight;;
         
     }
 
     private void WeightDecrease(Collider other)
     {
-        _rb = other.GetComponent<Rigidbody>();
-        weightCurrent -= _rb.mass;
+        int index = other.GetComponent<ObjectIndex>().index;
+        weightCurrent -= _objectDataSo.objectDatas[index].weight;;
         
     }
    

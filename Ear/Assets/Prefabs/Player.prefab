@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 4340022319629590736}
   - component: {fileID: 1000356200225800391}
   - component: {fileID: 1383540065532505997}
+  - component: {fileID: 6677467164958816192}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -170,6 +171,8 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 8783757164522061251}
   _moveSpeed: 5.5
   isGrabItem: 0
+  handFreeze: 0
+  isFreezeHand: 0
 --- !u!114 &1810238084476540032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,6 +255,22 @@ MonoBehaviour:
   _itemMask:
     serializedVersion: 2
     m_Bits: 64
+  itemInHand: {fileID: 0}
+  _isCanHold: 0
+--- !u!114 &6677467164958816192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510734208824806009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e38c7a17e1f06d48bd8894ee794c045, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nameObject: 0
+  index: 0
 --- !u!1 &3532933818296934153
 GameObject:
   m_ObjectHideFlags: 0

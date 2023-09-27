@@ -7,9 +7,6 @@ using UnityEngine;
 public class LeakyBucket : Bucket
 {
     [SerializeField] private TextMeshProUGUI massText;
-    
-    
-    
     private Rigidbody rb;
     private float bucketMass;
     
@@ -17,8 +14,6 @@ public class LeakyBucket : Bucket
     [SerializeField]private float currentWaterWeight = 0f;
     
     private float speedWaterDecrease = 0.1f;
-    
-    
     
     private void Start()
     {

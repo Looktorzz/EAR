@@ -275,6 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8323260cf56a6be41ac018a7a2d5b0dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectDataSo: {fileID: 11400000, guid: cddff7ce5e33d3943b811f3171db857d, type: 2}
   weightText: {fileID: 5180703724173523131}
   weightCurrent: 0
 --- !u!1 &8080376779313597750
