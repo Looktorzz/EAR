@@ -16,9 +16,18 @@ MonoBehaviour:
   - name: Player
     nameObject: 0
     weight: 5
-  - name: EmptyBucket
+  - name: Bucket Empty
     nameObject: 1
     weight: 1
-  - name: Bucket
-    nameObject: 1
-    weight: 2
+  - name: Bucket Full
+    nameObject: 2
+    weight: 3
+  - name: Basin Empty
+    nameObject: 3
+    weight: 5
+  - name: Basin Full
+    nameObject: 4
+    weight: 10
+  - name: Basin Changing
+    nameObject: 5
+    weight: 0

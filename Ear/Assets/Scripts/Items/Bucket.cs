@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Bucket : MonoBehaviour
 {
+    [SerializeField] private GameObject _bucketEmpty;
     [SerializeField] private GameObject _bucketFullWater;
     [SerializeField] private GameObject _bucketFullAcidWater;
     public bool isFull;
@@ -13,6 +14,7 @@ public class Bucket : MonoBehaviour
     private void Start()
     {
         isFull = false;
+        _bucketEmpty.SetActive(true);
         _bucketFullWater.SetActive(false);
         _bucketFullAcidWater.SetActive(false);
     }
@@ -21,22 +23,25 @@ public class Bucket : MonoBehaviour
     {
         if (isFull)
         {
+            _bucketEmpty.SetActive(false);
+            
             if (isAcidWater)
             {
                 _bucketFullAcidWater.SetActive(true);
-                GetComponent<ObjectIndex>().ChangeIndex(NameObject.Bucket);
+                GetComponent<ObjectIndex>().ChangeIndex(NameObject.BucketFull);
             }
             else
             {
                 _bucketFullWater.SetActive(true);
-                GetComponent<ObjectIndex>().ChangeIndex(NameObject.Bucket);
+                GetComponent<ObjectIndex>().ChangeIndex(NameObject.BucketFull);
             }
         }
         else
         {
+            _bucketEmpty.SetActive(true);
             _bucketFullWater.SetActive(false);
             _bucketFullAcidWater.SetActive(false);
-            GetComponent<ObjectIndex>().ChangeIndex(NameObject.EmptyBucket);
+            GetComponent<ObjectIndex>().ChangeIndex(NameObject.BucketEmpty);
         }
     }
 }

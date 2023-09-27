@@ -6,19 +6,19 @@ public class IBasin : MonoBehaviour , IInteractable
 {
     [SerializeField] private string _prompt;
     public string InteractionPrompt => _prompt;
-    private bool isFilledWater;
-    private int _numFilled = 0;
-
+    
     [SerializeField] private GameObject _fullBasin;
     [SerializeField] private GameObject _almostFullBasin;
-    [SerializeField] private GameObject _EmptyBasin;
+    [SerializeField] private GameObject _emptyBasin;
+    private bool isFilledWater;
+    private int _numFilled = 0;
 
     private void Start()
     {
         isFilledWater = false;
         _fullBasin.SetActive(false);
         _almostFullBasin.SetActive(false);
-        _EmptyBasin.SetActive(true);
+        _emptyBasin.SetActive(true);
     }
 
     public bool Interact(Interactor interactor)
@@ -45,14 +45,14 @@ public class IBasin : MonoBehaviour , IInteractable
                 case 2: // Almost
                     _fullBasin.SetActive(false);
                     _almostFullBasin.SetActive(true);
-                    _EmptyBasin.SetActive(false);
+                    _emptyBasin.SetActive(false);
                     break;
                 
                 case 3: // Full
                     isFilledWater = true;
                     _fullBasin.SetActive(true);
                     _almostFullBasin.SetActive(false);
-                    _EmptyBasin.SetActive(false);
+                    _emptyBasin.SetActive(false);
                     break;
             }
             

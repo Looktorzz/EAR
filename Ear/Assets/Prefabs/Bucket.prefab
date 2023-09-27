@@ -275,6 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c859c698b8fef948b2815c2328f2d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bucketEmpty: {fileID: 3950875255576306801}
   _bucketFullWater: {fileID: 6714046234306399933}
   _bucketFullAcidWater: {fileID: 2561815110109281765}
   isFull: 0

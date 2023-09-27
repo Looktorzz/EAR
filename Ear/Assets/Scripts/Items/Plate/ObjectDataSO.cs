@@ -20,6 +20,9 @@ public class ObjectData
 public enum NameObject
 {
     Player,
-    EmptyBucket,
-    Bucket,
+    BucketEmpty,
+    BucketFull,
+    BasinEmpty,
+    BasinFull,
+    BasinChanging,
 }
