@@ -167,6 +167,7 @@ public class PlayerController : MonoBehaviour
                     _animator.SetFloat("Horizontal",-1);
                     _animator.SetFloat("Vertical",0);
                     
+                    
                     break;
                 case (int)DirectionPlayer.West:
                     _animator.SetFloat("Horizontal",1);
