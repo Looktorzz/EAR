@@ -25,16 +25,28 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rb;
     private InputSystems _input;
     private Animator _animator;
-
+    
     private bool _isHoldInteract = false;
     public bool isGrabItem = false;
 
     private string _animName;
     private string _animFreeze;
     private int _handDirection;
-    public int handFreeze;
+    private int _handFreeze;
     public bool isFreezeHand = false;
 
+    
+    //Check For Animator
+    private bool _isBack = false;
+    
+    //Animation
+    private float _animHorizontal, _animVertical;
+
+    
+    
+    
+    
+    
     private void Awake()
     {
         _input = new InputSystems();
@@ -46,6 +58,7 @@ public class PlayerController : MonoBehaviour
         // idle
 
         _input.Player.Movement.performed += OnMovementPerformed;
+        
         _input.Player.Movement.canceled += OnMovementCanceled;
 
         _input.Player.Run.started += OnRun;
@@ -59,11 +72,15 @@ public class PlayerController : MonoBehaviour
 
         _input.Player.GrabItem.started += OnGrabItem;
         _input.Player.GrabItem.canceled += OnGrabItem;
+        
+        _animator.SetFloat("Horizontal", 0);
+        _animator.SetFloat("Vertical", 0);
     }
 
     private void OnEnable()
     {
         _input.Enable();
+
     }
     
     private void OnDisable()
@@ -71,10 +88,17 @@ public class PlayerController : MonoBehaviour
         _input.Disable();
     }
 
+    private void Update()
+    {
+
+    }
+
     private void FixedUpdate()
     {
         _rb.velocity = new Vector3(_moveVector2.x * _moveSpeed, 
             _rb.velocity.y, _moveVector2.y * _moveSpeed);
+        
+        
     }
     
     private void OnMovementPerformed(InputAction.CallbackContext value)
@@ -82,6 +106,8 @@ public class PlayerController : MonoBehaviour
         // walk
         _moveVector2 = value.ReadValue<Vector2>();
         // _animator.SetTrigger("Walking");
+
+        
         
         if (_moveVector2.x < 0)
         {
@@ -93,6 +119,9 @@ public class PlayerController : MonoBehaviour
             {
                 _spriteRenderer.flipX = true;
             }
+
+            
+
         }
         else if (_moveVector2.x > 0)
         {
@@ -104,35 +133,68 @@ public class PlayerController : MonoBehaviour
             {
                 _spriteRenderer.flipX = false;
             }
+            
+
         }
         else if (_moveVector2.y > 0)
         {
             // Back
             _moveSpeed = 4.12f;
             _handDirection = (int) DirectionPlayer.North;
+
         }
         else if (_moveVector2.y < 0)
         {
             // Front
             _moveSpeed = 4.12f;
             _handDirection = (int) DirectionPlayer.South;
-        }
 
+            
+        }
+        
         if (!isFreezeHand)
         {
             // Wait animation
             // _animFreeze = _animName;
             // _animator.SetTrigger(_animName);
-            
-            handFreeze = _handDirection;
-            _hand.SentDirection(handFreeze);
+
+            _handFreeze = _handDirection;
+            _hand.SentDirection(_handFreeze);
+
+            switch (_handFreeze)
+            {
+                case (int)DirectionPlayer.East:
+                    _animator.SetFloat("Horizontal",-1);
+                    _animator.SetFloat("Vertical",0);
+                    
+                    
+                    break;
+                case (int)DirectionPlayer.West:
+                    _animator.SetFloat("Horizontal",1);
+                    _animator.SetFloat("Vertical",0);
+                    
+                    break;
+                case (int)DirectionPlayer.North:
+                    _animator.SetFloat("Horizontal",0);
+                    _animator.SetFloat("Vertical",1);
+                    break;
+                case (int)DirectionPlayer.South:
+                    _animator.SetFloat("Horizontal",0);
+                    _animator.SetFloat("Vertical",-1);
+                    break;
+
+            }
         }
+        
     }
     
     private void OnMovementCanceled(InputAction.CallbackContext value)
     {
         // idle
         _moveVector2 = Vector2.zero;
+        _animator.SetFloat("Horizontal", 0);
+        _animator.SetFloat("Vertical", 0);
+
     }
     
     private void OnRun(InputAction.CallbackContext context)
@@ -162,11 +224,15 @@ public class PlayerController : MonoBehaviour
     {
         if (context.ReadValueAsButton())
         {
+            
             if(context.interaction is HoldInteraction)
             {
                 _interactor.HoldInteract();
                 Debug.LogWarning("IT's REALLY HOLD");
                 _isHoldInteract = true;
+                
+                _animator.SetBool("IsDrag",_isHoldInteract);
+
             }  
         }
         
@@ -175,6 +241,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnInteractHoldCanceled(InputAction.CallbackContext context)
     {
+        _animator.SetBool("IsDrag",false);
+
         if (context.interaction is PressInteraction) // Just Press No Hold Interact!
         {
             Debug.LogWarning("IT's Just PRESS");
@@ -183,9 +251,13 @@ public class PlayerController : MonoBehaviour
         }
         if (_isHoldInteract)
         {
+
             if (!context.ReadValueAsButton()) Debug.Log("Released");
             _interactor.ReleasedHoldInteract();
             _isHoldInteract = false;
+            
+            _animator.SetBool("IsDrag",_isHoldInteract);
+
         }
         
     }
@@ -208,4 +280,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+  
 }

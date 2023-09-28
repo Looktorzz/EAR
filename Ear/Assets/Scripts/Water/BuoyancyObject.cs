@@ -14,12 +14,13 @@ public class BuoyancyObject : MonoBehaviour
     [SerializeField]private float airAngularDrag = 0.05f;
 
     [SerializeField]private float floatingPower = 15f;
-
+    
     private Rigidbody m_Rigidbody;
     private bool underwater;
 
 
     private Water water;
+    private Transform waterSurface;
     private bool isWater;
     
     // Start is called before the first frame update
@@ -30,13 +31,13 @@ public class BuoyancyObject : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    /*void FixedUpdate()
     {
         if (water != null && isWater)
         {
             ItemFloatUp(water.waterSurface);
         }
-    }
+    }*/
 
     void ItemFloatUp(Transform waterUpper)
     {
@@ -46,13 +47,13 @@ public class BuoyancyObject : MonoBehaviour
         {
             float forceMultiplier = Mathf.Abs(difference) * floatingPower;
             
-            m_Rigidbody.AddForceAtPosition(Vector3.up * forceMultiplier,this.gameObject.transform.position,ForceMode.Force);
-                
+            m_Rigidbody.AddForce(Vector3.up * forceMultiplier);
+
+
             if (!underwater)
             { 
                 underwater = true; 
                 SwitchStates(true);
-                
             }
         }
 
@@ -83,15 +84,33 @@ public class BuoyancyObject : MonoBehaviour
         if (other.CompareTag("Water"))
         {
             water = other.GetComponent<Water>();
+            
+            GetComponent<Rigidbody>().constraints = ~RigidbodyConstraints.FreezePosition;
+            
             isWater = true;
+            
+        }
+        
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Water"))
+        {
+            water = other.GetComponent<Water>();
+        
+            ItemFloatUp(water.waterSurface);
+
         }
     }
+
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Water"))
         {
             isWater = false;
+            water = null;
         }
     }
 }
