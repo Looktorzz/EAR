@@ -37,15 +37,6 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Run"",
-                    ""type"": ""Button"",
-                    ""id"": ""662f0421-6d0a-42c5-b6d2-194aa1be6aff"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""0ca5e056-f1fa-4173-9067-c362cc57b773"",
@@ -241,28 +232,6 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""e846b6e5-c503-4c88-ae97-ecad8a891d7e"",
-                    ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Run"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""6afe281a-41d6-4db2-9922-d933dc9f6fdc"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Run"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""598d780d-2aab-4674-9066-6c08cf973605"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
@@ -324,7 +293,6 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
-        m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_GrabItem = m_Player.FindAction("GrabItem", throwIfNotFound: true);
         m_Player_InteractHold = m_Player.FindAction("InteractHold", throwIfNotFound: true);
@@ -390,7 +358,6 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Movement;
-    private readonly InputAction m_Player_Run;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_GrabItem;
     private readonly InputAction m_Player_InteractHold;
@@ -399,7 +366,6 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
         private @InputSystems m_Wrapper;
         public PlayerActions(@InputSystems wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
-        public InputAction @Run => m_Wrapper.m_Player_Run;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @GrabItem => m_Wrapper.m_Player_GrabItem;
         public InputAction @InteractHold => m_Wrapper.m_Player_InteractHold;
@@ -415,9 +381,6 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
-            @Run.started += instance.OnRun;
-            @Run.performed += instance.OnRun;
-            @Run.canceled += instance.OnRun;
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
@@ -434,9 +397,6 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
-            @Run.started -= instance.OnRun;
-            @Run.performed -= instance.OnRun;
-            @Run.canceled -= instance.OnRun;
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
@@ -466,7 +426,6 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnMovement(InputAction.CallbackContext context);
-        void OnRun(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnGrabItem(InputAction.CallbackContext context);
         void OnInteractHold(InputAction.CallbackContext context);

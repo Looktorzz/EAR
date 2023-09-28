@@ -189,7 +189,7 @@ SpriteRenderer:
   m_Size: {x: 1.16, y: 0.98}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &23705606
@@ -273,7 +273,7 @@ SpriteRenderer:
   m_Size: {x: 0.53, y: 0.49}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &40446736
@@ -433,7 +433,7 @@ SpriteRenderer:
   m_Size: {x: 0.37, y: 0.54}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &245301548
@@ -624,7 +624,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2588188, y: -0.0014751999, z: 0.0003952787, w: 0.96592474}
-  m_LocalPosition: {x: 3.2538087, y: 5.5699997, z: -8.69954}
+  m_LocalPosition: {x: 15.00684, y: 5.5699997, z: -8.432045}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -891,7 +891,7 @@ Transform:
   m_GameObject: {fileID: 332545224}
   serializedVersion: 2
   m_LocalRotation: {x: 0.25881886, y: -0.0014661853, z: 0.0003616363, w: 0.96592474}
-  m_LocalPosition: {x: 3.2538087, y: 5.5699997, z: -8.69954}
+  m_LocalPosition: {x: 15.00684, y: 5.5699997, z: -8.432045}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2784,7 +2784,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Path: {fileID: 1197726399}
-  m_PathPosition: 0.85476714
+  m_PathPosition: 1.2990743
   m_PositionUnits: 0
   m_PathOffset: {x: 0, y: 0, z: 0}
   m_XDamping: 0
@@ -2949,7 +2949,7 @@ SpriteRenderer:
   m_Size: {x: 0.37, y: 0.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1420641457
@@ -3635,6 +3635,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waterSurface: {fileID: 1071242822}
+  directionBack: 0
+  directionForward: 0
+  directionLeft: 0
+  directionRight: 0
+  waterForce: 100
 --- !u!1 &1727388845
 GameObject:
   m_ObjectHideFlags: 0
@@ -4281,7 +4286,7 @@ SpriteRenderer:
   m_Size: {x: 1.16, y: 0.9}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1988479739
@@ -4588,7 +4593,7 @@ SpriteRenderer:
   m_Size: {x: 0.91, y: 0.97}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &2116309852
@@ -5872,12 +5877,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ae012effb68a646b858435797bd17c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bucketEmpty: {fileID: 3749222135091871509}
-  _bucketFullWater: {fileID: 81319318740719687}
-  _bucketFullAcidWater: {fileID: 3792019674942253605}
-  isFull: 0
-  isAcidWater: 0
-  _objectDataSo: {fileID: 11400000, guid: cddff7ce5e33d3943b811f3171db857d, type: 2}
 --- !u!4 &5426924274601660302
 Transform:
   m_ObjectHideFlags: 0
@@ -6391,7 +6390,7 @@ PrefabInstance:
     - target: {fileID: 3029174741895395480, guid: 4515a207608526041ac510d7a6c419b5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.03
+      value: 14.64
       objectReference: {fileID: 0}
     - target: {fileID: 3029174741895395480, guid: 4515a207608526041ac510d7a6c419b5,
         type: 3}
@@ -6401,7 +6400,7 @@ PrefabInstance:
     - target: {fileID: 3029174741895395480, guid: 4515a207608526041ac510d7a6c419b5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.52
+      value: -3.26
       objectReference: {fileID: 0}
     - target: {fileID: 3029174741895395480, guid: 4515a207608526041ac510d7a6c419b5,
         type: 3}
@@ -6437,6 +6436,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3334913045726069392, guid: 4515a207608526041ac510d7a6c419b5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 3334913045726069392, guid: 4515a207608526041ac510d7a6c419b5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.41
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6895,7 +6904,6 @@ MonoBehaviour:
   _almostFullBasin: {fileID: 4922851501982833071}
   _emptyBasin: {fileID: 7139009391735253097}
   _objectDataSo: {fileID: 11400000, guid: cddff7ce5e33d3943b811f3171db857d, type: 2}
-  _waterInBucket: 2
 --- !u!212 &9174201475768960646
 SpriteRenderer:
   m_ObjectHideFlags: 0

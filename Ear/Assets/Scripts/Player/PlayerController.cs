@@ -32,9 +32,8 @@ public class PlayerController : MonoBehaviour
     private string _animName;
     private string _animFreeze;
     private int _handDirection;
-    private int _handFreeze;
+    public int handFreeze;
     public bool isFreezeHand = false;
-
     
     //Check For Animator
     private bool _isBack = false;
@@ -42,11 +41,6 @@ public class PlayerController : MonoBehaviour
     //Animation
     private float _animHorizontal, _animVertical;
 
-    
-    
-    
-    
-    
     private void Awake()
     {
         _input = new InputSystems();
@@ -58,17 +52,11 @@ public class PlayerController : MonoBehaviour
         // idle
 
         _input.Player.Movement.performed += OnMovementPerformed;
-        
         _input.Player.Movement.canceled += OnMovementCanceled;
-
-        _input.Player.Run.started += OnRun;
-        _input.Player.Run.canceled += OnRun;
-
 
         _input.Player.InteractHold.started += OnInteractHoldStart;
         _input.Player.InteractHold.performed += OnInteractHoldPerformed;
         _input.Player.InteractHold.canceled += OnInteractHoldCanceled;
-
 
         _input.Player.GrabItem.started += OnGrabItem;
         _input.Player.GrabItem.canceled += OnGrabItem;
@@ -80,7 +68,6 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         _input.Enable();
-
     }
     
     private void OnDisable()
@@ -88,17 +75,10 @@ public class PlayerController : MonoBehaviour
         _input.Disable();
     }
 
-    private void Update()
-    {
-
-    }
-
     private void FixedUpdate()
     {
         _rb.velocity = new Vector3(_moveVector2.x * _moveSpeed, 
             _rb.velocity.y, _moveVector2.y * _moveSpeed);
-        
-        
     }
     
     private void OnMovementPerformed(InputAction.CallbackContext value)
@@ -106,8 +86,6 @@ public class PlayerController : MonoBehaviour
         // walk
         _moveVector2 = value.ReadValue<Vector2>();
         // _animator.SetTrigger("Walking");
-
-        
         
         if (_moveVector2.x < 0)
         {
@@ -119,9 +97,6 @@ public class PlayerController : MonoBehaviour
             {
                 _spriteRenderer.flipX = true;
             }
-
-            
-
         }
         else if (_moveVector2.x > 0)
         {
@@ -133,46 +108,34 @@ public class PlayerController : MonoBehaviour
             {
                 _spriteRenderer.flipX = false;
             }
-            
-
         }
         else if (_moveVector2.y > 0)
         {
             // Back
             _moveSpeed = 4.12f;
             _handDirection = (int) DirectionPlayer.North;
-
         }
         else if (_moveVector2.y < 0)
         {
             // Front
             _moveSpeed = 4.12f;
             _handDirection = (int) DirectionPlayer.South;
-
-            
         }
         
         if (!isFreezeHand)
         {
-            // Wait animation
-            // _animFreeze = _animName;
-            // _animator.SetTrigger(_animName);
+            handFreeze = _handDirection;
+            _hand.SentDirection(handFreeze);
 
-            _handFreeze = _handDirection;
-            _hand.SentDirection(_handFreeze);
-
-            switch (_handFreeze)
+            switch (handFreeze)
             {
                 case (int)DirectionPlayer.East:
                     _animator.SetFloat("Horizontal",-1);
                     _animator.SetFloat("Vertical",0);
-                    
-                    
                     break;
                 case (int)DirectionPlayer.West:
                     _animator.SetFloat("Horizontal",1);
                     _animator.SetFloat("Vertical",0);
-                    
                     break;
                 case (int)DirectionPlayer.North:
                     _animator.SetFloat("Horizontal",0);
@@ -195,20 +158,6 @@ public class PlayerController : MonoBehaviour
         _animator.SetFloat("Horizontal", 0);
         _animator.SetFloat("Vertical", 0);
 
-    }
-    
-    private void OnRun(InputAction.CallbackContext context)
-    {
-        if (context.ReadValueAsButton())
-        {
-            // run
-            _moveSpeed = 10;
-        }
-        else
-        {
-            // walk
-            _moveSpeed = 5.5f;
-        }
     }
 
     private void OnInteractHoldStart(InputAction.CallbackContext context)
