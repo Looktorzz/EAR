@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f162d0cea4bef7c43b5eda2436e91c04, type: 3}
-  m_Color: {r: 0, g: 0.77647066, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.36947107, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -206,7 +206,7 @@ MonoBehaviour:
   _prompt: 
   _fullBasin: {fileID: 3407675409032666828}
   _almostFullBasin: {fileID: 4922851501900271567}
-  _EmptyBasin: {fileID: 7139009391421980169}
+  _emptyBasin: {fileID: 7139009391421980169}
 --- !u!1 &4922851501900271567
 GameObject:
   m_ObjectHideFlags: 0

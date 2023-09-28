@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,19 +19,57 @@ public class MeasurePlate : MonoBehaviour
     private PlayerController _playerController;
     private bool _isTrigger = false;
     private bool _isAdd = false;
+
+    [SerializeField] private GameObject _boxPhysic;
+    [SerializeField] private LayerMask _layerMask;
+    [SerializeField] private Collider[] _colliders = new Collider[10];
     
     private void Start()
     {
-        UpdateText();
+        // UpdateText();
         
         _player = GameObject.FindGameObjectWithTag("Player");
         _playerController = _player.GetComponent<PlayerController>();
+        _colliders = null;
+    }
+    
+    private void FoundCollider()
+    {
+        Physics.OverlapBoxNonAlloc(_boxPhysic.transform.position, _boxPhysic.transform.localScale, 
+            _colliders, Quaternion.identity, _layerMask);
+    }
+    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawCube(_boxPhysic.transform.position, _boxPhysic.transform.localScale);
+    }
+
+    private float _weight;
+
+    private void PlusWeight()
+    {
+        _weight = 0;
+
+        for (int i = 0; i < _colliders.Length; i++)
+        {
+            int index = _colliders[i].GetComponent<ObjectIndex>().index;
+            _weight += _objectDataSo.objectDatas[index].weight;
+        }
         
+        Array.Clear(_colliders,0,_colliders.Length);
     }
 
     private void Update()
     {
-        UpdateText();
+        FoundCollider();
+        if (_colliders != null)
+        {
+            PlusWeight();
+            weightText.text = _weight.ToString("0");
+        }
+
+        /*UpdateText();
 
         if (_isTrigger)
         {
@@ -55,11 +94,11 @@ public class MeasurePlate : MonoBehaviour
                     _isAdd = false;
                 }
             }
-        }
-        
+        }*/
+
     }
     
-    private void UpdateText()
+    /*private void UpdateText()
     {
         weightText.text = $"{(int)weightCurrent}";
         
@@ -106,15 +145,15 @@ public class MeasurePlate : MonoBehaviour
     private void WeightIncrease(Collider other)
     {
         int index = other.GetComponent<ObjectIndex>().index;
-        weightCurrent += _objectDataSo.objectDatas[index].weight;;
+        weightCurrent += _objectDataSo.objectDatas[index].weight;
         
     }
 
     private void WeightDecrease(Collider other)
     {
         int index = other.GetComponent<ObjectIndex>().index;
-        weightCurrent -= _objectDataSo.objectDatas[index].weight;;
+        weightCurrent -= _objectDataSo.objectDatas[index].weight;
         
-    }
+    }*/
    
 }
