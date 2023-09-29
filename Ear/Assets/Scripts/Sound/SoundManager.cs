@@ -8,6 +8,8 @@ public class SoundManager : MonoBehaviour
 {
     [SerializeField] private AudioMixerGroup bgmMixerGroup;
     [SerializeField] private AudioMixerGroup sfxMixerGroup;
+    [SerializeField] private AudioMixerGroup ambientMixerGroup;
+    
     [SerializeField] private Sound[] _sounds;
 
     
@@ -47,6 +49,10 @@ public class SoundManager : MonoBehaviour
                 case Sound.SoundType.SoundFX:
                     sound.audioSource.outputAudioMixerGroup = sfxMixerGroup;
                     break;
+                
+                case Sound.SoundType.Ambient:
+                    sound.audioSource.outputAudioMixerGroup = ambientMixerGroup;
+                    break;
             }
         }
         
@@ -77,7 +83,12 @@ public class SoundManager : MonoBehaviour
     {
         bgmMixerGroup.audioMixer.SetFloat("BGM", Mathf.Log10(SoundSetting.BackGroundMusic) * 20);
         sfxMixerGroup.audioMixer.SetFloat("SFX", Mathf.Log10(SoundSetting.SoundEffect) * 20);
+        ambientMixerGroup.audioMixer.SetFloat("Ambient", Mathf.Log10(SoundSetting.AmbientSound) * 20);
+    }
 
+    public void Mute()
+    {
+        
     }
 }
 
@@ -90,6 +101,8 @@ public class SoundManager : MonoBehaviour
     {
         BackgroundMusic,
         SoundFX,
+        Ambient,
+        Test,
     }
 
     public SoundType soundType;
