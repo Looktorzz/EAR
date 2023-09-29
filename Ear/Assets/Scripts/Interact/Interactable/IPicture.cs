@@ -36,6 +36,7 @@ public class IPicture : MonoBehaviour, IInteractable
             _canva.SetActive(_isOpen);
         }
         
+        // ++Sound Paper
         return true;
     }
 }

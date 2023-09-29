@@ -67,4 +67,11 @@ public class MeasurePlate : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") || other.CompareTag("Item"))
+        {
+            // ++Sound trigger
+        }
+    }
 }
