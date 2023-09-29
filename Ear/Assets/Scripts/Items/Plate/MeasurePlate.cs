@@ -11,51 +11,48 @@ public class MeasurePlate : MonoBehaviour
 {
     [SerializeField] private ObjectDataSO _objectDataSo;
     [SerializeField] private TextMeshProUGUI weightText;
-    [SerializeField] private float weightCurrent;
-    public float getWeightCurrent => weightCurrent;
-    
-    private GameObject _player;
-    private GameObject _itemInHand;
-    private PlayerController _playerController;
-    private bool _isTrigger = false;
-    private bool _isAdd = false;
+    public float _weightCurrent = 0;
+    public float getWeightCurrent => _weightCurrent;
 
     [SerializeField] private GameObject _boxPhysic;
     [SerializeField] private LayerMask _layerMask;
-    [SerializeField] private Collider[] _colliders = new Collider[10];
-    
-    private void Start()
-    {
-        // UpdateText();
-        
-        _player = GameObject.FindGameObjectWithTag("Player");
-        _playerController = _player.GetComponent<PlayerController>();
-        _colliders = null;
-    }
-    
+    [SerializeField] private Collider[] _colliders;
+    private GameObject _itemInHand;
+
     private void FoundCollider()
     {
-        Physics.OverlapBoxNonAlloc(_boxPhysic.transform.position, _boxPhysic.transform.localScale, 
-            _colliders, Quaternion.identity, _layerMask);
+        _colliders = Physics.OverlapBox(_boxPhysic.transform.position, _boxPhysic.transform.localScale/2,
+            Quaternion.identity, _layerMask);
     }
     
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawCube(_boxPhysic.transform.position, _boxPhysic.transform.localScale);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(_boxPhysic.transform.position, _boxPhysic.transform.localScale);
     }
-
-    private float _weight;
-
+    
     private void PlusWeight()
     {
-        _weight = 0;
+        float weight = 0;
 
         for (int i = 0; i < _colliders.Length; i++)
         {
-            int index = _colliders[i].GetComponent<ObjectIndex>().index;
-            _weight += _objectDataSo.objectDatas[index].weight;
+            int index;
+            
+            if (_colliders[i].TryGetComponent<Item>(out Item itemInPlayer))
+            {
+                if (itemInPlayer.itemInHand != null)
+                {
+                    index = itemInPlayer.itemInHand.GetComponent<ObjectIndex>().index;
+                    weight += _objectDataSo.objectDatas[index].weight;
+                }
+            }
+            
+            index = _colliders[i].GetComponent<ObjectIndex>().index;
+            weight += _objectDataSo.objectDatas[index].weight;
         }
+
+        _weightCurrent = weight;
         
         Array.Clear(_colliders,0,_colliders.Length);
     }
@@ -66,94 +63,8 @@ public class MeasurePlate : MonoBehaviour
         if (_colliders != null)
         {
             PlusWeight();
-            weightText.text = _weight.ToString("0");
+            weightText.text = ((int) _weightCurrent).ToString("0");
         }
-
-        /*UpdateText();
-
-        if (_isTrigger)
-        {
-            if (_playerController.isGrabItem)
-            {
-                _itemInHand = _player.GetComponent<Item>().itemInHand;
-                
-                if (_itemInHand != null && !_isAdd)
-                {
-                    Debug.Log("Add weight");
-                    WeightIncrease(_itemInHand.GetComponent<Collider>());
-                    _isAdd = true;
-                }
-            }
-            else
-            {
-                if (_itemInHand != null && _isAdd)
-                {
-                    Debug.Log("Lose weight");
-                    WeightDecrease(_itemInHand.GetComponent<Collider>());
-                    _itemInHand = null;
-                    _isAdd = false;
-                }
-            }
-        }*/
-
-    }
-    
-    /*private void UpdateText()
-    {
-        weightText.text = $"{(int)weightCurrent}";
-        
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            WeightIncrease(other);
-            _isTrigger = true;
-        }
-
-        if (other.CompareTag("Item"))
-        {
-            WeightIncrease(other);
-        }
-        
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            WeightDecrease(other);
-            _isTrigger = false;
-            
-            if (_itemInHand != null && _isAdd)
-            {
-                Debug.Log("Lose weight");
-                WeightDecrease(_itemInHand.GetComponent<Collider>());
-                _itemInHand = null;
-                _isAdd = false;
-            }
-        }
-        
-        if (other.CompareTag("Item"))
-        {
-            WeightDecrease(other);
-        }
-        
-    }
-
-    private void WeightIncrease(Collider other)
-    {
-        int index = other.GetComponent<ObjectIndex>().index;
-        weightCurrent += _objectDataSo.objectDatas[index].weight;
-        
-    }
-
-    private void WeightDecrease(Collider other)
-    {
-        int index = other.GetComponent<ObjectIndex>().index;
-        weightCurrent -= _objectDataSo.objectDatas[index].weight;
-        
-    }*/
-   
 }

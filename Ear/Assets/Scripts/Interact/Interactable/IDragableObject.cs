@@ -9,7 +9,7 @@ public class IDragableObject : MonoBehaviour, IHoldInteractable
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        // rb = GetComponent<Rigidbody>();
     }
 
     public bool HoldInteract(Interactor interactor)
@@ -25,7 +25,7 @@ public class IDragableObject : MonoBehaviour, IHoldInteractable
             IsDragNow = true;
             transform.parent = player.transform;
             Debug.Log("Check Now Drag");
-            rb.isKinematic = true;
+            // rb.isKinematic = true;
             return true;
         }
 
@@ -50,7 +50,7 @@ public class IDragableObject : MonoBehaviour, IHoldInteractable
             IsDragNow = false;
             transform.parent = null;
             Debug.Log("Check Now Not Drag");
-            rb.isKinematic = false;
+            // rb.isKinematic = false;
             return true;
         }
         return false;

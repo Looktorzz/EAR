@@ -1,28 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlateDoor : MonoBehaviour
 {
     [SerializeField] private MeasurePlate measurePlate;
-
     [SerializeField] private float maximumWeightForOpen = 5f;
-    [SerializeField] private float currentWeight;
-
     [SerializeField] private float slideSpeed = 1f;
     
     [Header("Height")] 
-    [SerializeField] private float doorHeight = 2f;
-    private Vector3 closedPosition;
-    private Vector3 openedPosition;
+    [SerializeField] private Transform closedPoint;
+    [SerializeField] private Transform openedPoint;
     
     void Start()
     {
         measurePlate.GetComponent<MeasurePlate>();
-        
-        
-        closedPosition = this.transform.position;
-        openedPosition = this.transform.position + Vector3.up * doorHeight;
     }
 
     void Update()
@@ -31,21 +24,17 @@ public class PlateDoor : MonoBehaviour
 
         if (measurePlate.getWeightCurrent > maximumWeightForOpen)
         {
-            Debug.Log("Morethan MaxmimumWeight");
-            Vector3 targetPosition = Vector3.Lerp(closedPosition, openedPosition, maximumWeightForOpen);
+            Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, maximumWeightForOpen);
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, slideSpeed * Time.deltaTime);
         }
         else if (measurePlate.getWeightCurrent > 0)
         {
-            Debug.Log("Itworks > 0 ");
-
-            Vector3 targetPosition = Vector3.Lerp(closedPosition, openedPosition, weightPercent);
+            Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, weightPercent);
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, slideSpeed * Time.deltaTime);
-            
         }
         else if (measurePlate.getWeightCurrent == 0)
         {
-            transform.position = Vector3.MoveTowards(transform.position, closedPosition, slideSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, closedPoint.position, slideSpeed * Time.deltaTime);
         }
 
     }
