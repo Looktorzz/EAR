@@ -12,6 +12,13 @@ public class IBasin : MonoBehaviour , IInteractable
     [SerializeField] private GameObject _emptyBasin;
     private bool isFilledWater;
     private int _numFilled = 0;
+    
+    [SerializeField] private ObjectDataSO _objectDataSo;
+    private ObjectIndex _objectIndex;
+    private float _basinEmptyWeight;
+    private float _waterInBucket;
+    private float _maximumWaterWeight;
+    private float _currentWeight;
 
     private void Start()
     {
@@ -19,6 +26,14 @@ public class IBasin : MonoBehaviour , IInteractable
         _fullBasin.SetActive(false);
         _almostFullBasin.SetActive(false);
         _emptyBasin.SetActive(true);
+        
+        _objectIndex = GetComponent<ObjectIndex>();
+        _basinEmptyWeight = _objectDataSo.objectDatas[_objectIndex.index].weight;
+        _maximumWaterWeight = _objectDataSo.objectDatas[(int) NameObject.BasinFull].weight;
+        _waterInBucket = _objectDataSo.objectDatas[(int) NameObject.BucketFull].weight -
+                         _objectDataSo.objectDatas[(int) NameObject.BucketEmpty].weight;
+
+        _objectDataSo.objectDatas[(int) NameObject.BasinChanging].weight = _basinEmptyWeight;
     }
 
     public bool Interact(Interactor interactor)
@@ -41,6 +56,8 @@ public class IBasin : MonoBehaviour , IInteractable
         if (bucket.isFull)
         {
             _numFilled++;
+            _objectIndex.ChangeIndex(NameObject.BasinChanging);
+            _objectDataSo.objectDatas[_objectIndex.index].weight += _waterInBucket;
 
             switch (_numFilled)
             {
@@ -55,6 +72,8 @@ public class IBasin : MonoBehaviour , IInteractable
                     _fullBasin.SetActive(true);
                     _almostFullBasin.SetActive(false);
                     _emptyBasin.SetActive(false);
+                    _objectDataSo.objectDatas[_objectIndex.index].weight = _basinEmptyWeight;
+                    _objectIndex.ChangeIndex(NameObject.BasinFull);
                     break;
             }
             
