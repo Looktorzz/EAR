@@ -29,12 +29,12 @@ public class PlayerController : MonoBehaviour
     private bool _isHoldInteract = false;
     public bool isGrabItem = false;
 
-    private string _animName;
-    private string _animFreeze;
     private int _handDirection;
     public int handFreeze;
     public bool isFreezeHand = false;
     
+    //Check Status
+    private bool _isMoving;
     //Check Reset
     [SerializeField]private bool _isDead;
     public bool isDead => _isDead;
@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
         _moveVector2 = value.ReadValue<Vector2>();
         // _animator.SetTrigger("Walking");
         
-        if (_moveVector2.x < 0)
+        if (_moveVector2.x < 0 || _isMoving)
         {
             // Left
             _moveSpeed = 5.5f;
@@ -101,8 +101,13 @@ public class PlayerController : MonoBehaviour
             {
                 _spriteRenderer.flipX = true;
             }
+
+            if (handFreeze == 1)
+            {
+                
+            }
         }
-        else if (_moveVector2.x > 0)
+        else if (_moveVector2.x > 0 || _isMoving)
         {
             // Right
             _moveSpeed = 5.5f;
@@ -112,14 +117,20 @@ public class PlayerController : MonoBehaviour
             {
                 _spriteRenderer.flipX = false;
             }
+
+            if (handFreeze == 0)
+            {
+                
+            }
+            
         }
-        else if (_moveVector2.y > 0)
+        else if (_moveVector2.y > 0 || _isMoving)
         {
             // Back
             _moveSpeed = 4.12f;
             _handDirection = (int) DirectionPlayer.North;
         }
-        else if (_moveVector2.y < 0)
+        else if (_moveVector2.y < 0 || _isMoving)
         {
             // Front
             _moveSpeed = 4.12f;
@@ -131,36 +142,32 @@ public class PlayerController : MonoBehaviour
             handFreeze = _handDirection;
             _hand.SentDirection(handFreeze);
 
-            switch (handFreeze)
-            {
-                case (int)DirectionPlayer.East:
-                    _animator.SetFloat("Horizontal",-1);
-                    _animator.SetFloat("Vertical",0);
-                    break;
-                case (int)DirectionPlayer.West:
-                    _animator.SetFloat("Horizontal",1);
-                    _animator.SetFloat("Vertical",0);
-                    break;
-                case (int)DirectionPlayer.North:
-                    _animator.SetFloat("Horizontal",0);
-                    _animator.SetFloat("Vertical",1);
-                    break;
-                case (int)DirectionPlayer.South:
-                    _animator.SetFloat("Horizontal",0);
-                    _animator.SetFloat("Vertical",-1);
-                    break;
-
-            }
+            CheckHandFreezeForAnimation();
         }
         
+
     }
     
     private void OnMovementCanceled(InputAction.CallbackContext value)
     {
         // idle
+        _isMoving = false;
         _moveVector2 = Vector2.zero;
         _animator.SetFloat("Horizontal", 0);
         _animator.SetFloat("Vertical", 0);
+        
+        if (isGrabItem)
+        {
+            if (handFreeze == (int)DirectionPlayer.East)
+            {
+                _animator.SetFloat("Horizontal",0.3f);
+            }
+            if (handFreeze == (int)DirectionPlayer.West)
+            {
+                _animator.SetFloat("Horizontal",0.3f);
+            }
+        }
+        
 
     }
 
@@ -168,6 +175,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.ReadValueAsButton())
         {
+
             //Debug.LogWarning("IT's JUST PRESS BY HOLD BUTTON");
         }
 
@@ -184,7 +192,6 @@ public class PlayerController : MonoBehaviour
                 Debug.LogWarning("IT's REALLY HOLD");
                 _isHoldInteract = true;
                 
-                _animator.SetBool("IsDrag",_isHoldInteract);
 
             }  
         }
@@ -194,8 +201,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnInteractHoldCanceled(InputAction.CallbackContext context)
     {
-        _animator.SetBool("IsDrag",false);
-
+        
         if (context.interaction is PressInteraction) // Just Press No Hold Interact!
         {
             Debug.LogWarning("IT's Just PRESS");
@@ -209,8 +215,6 @@ public class PlayerController : MonoBehaviour
             _interactor.ReleasedHoldInteract();
             _isHoldInteract = false;
             
-            _animator.SetBool("IsDrag",_isHoldInteract);
-
         }
         
     }
@@ -225,14 +229,65 @@ public class PlayerController : MonoBehaviour
             {
                 // Hold item
                 _item.HoldItem();
+                
+                
             }
             else
             {
                 // Place item
+                
                 _item.PlaceItem();
             }
         }
     }
 
+    public void CheckHandFreezeForAnimation()
+    {
+        switch (handFreeze)
+        {
+            case (int)DirectionPlayer.East:
+                _animator.SetFloat("Horizontal",-1);
+                _animator.SetFloat("Vertical", 0);
+
+                break;
+            case (int)DirectionPlayer.West:
+                _animator.SetFloat("Horizontal",1);
+                _animator.SetFloat("Vertical",0);
+                break;
+            case (int)DirectionPlayer.North:
+                _animator.SetFloat("Horizontal",0);
+                _animator.SetFloat("Vertical",1);
+                break;
+            case (int)DirectionPlayer.South:
+                _animator.SetFloat("Horizontal",0);
+                _animator.SetFloat("Vertical",-1);
+                break;
+            default:
+                _animator.SetFloat("Horizontal",0);
+                _animator.SetFloat("Vertical",0);
+                break;
+
+        }
+    }
+    
+    public IEnumerator CheckDurationAnimation(string nameAnim,float duration)
+    {
+        _isMoving = false;
+        _animator.SetBool(nameAnim,true); 
+        Debug.Log("First");
+        yield return new WaitForSeconds(duration);
+        Debug.Log("Second");
+        _isMoving = true;
+    }
+
   
+}
+
+public enum  AnimName
+{
+    Horizontal,
+    Vertical,
+    IsHoldDrag,
+    IsGrabItem,
+    OnCrouch
 }

@@ -11,6 +11,7 @@ public class Item : MonoBehaviour
     [SerializeField] private LayerMask _itemMask;
     private Collider _collider = new Collider();
     private PlayerController _playerController;
+    private Animator _animator;
     private Hand _hand;
     
     public GameObject itemInHand;
@@ -19,6 +20,7 @@ public class Item : MonoBehaviour
     private void Start()
     {
         _playerController = GetComponent<PlayerController>();
+        _animator = GetComponentInChildren<Animator>();
         _hand = GetComponent<Hand>();
         _isCanHold = true;
     }
@@ -35,6 +37,7 @@ public class Item : MonoBehaviour
             {
                 // ++Sound Hold/Grab Item
                 // ++Animation Hold/Grab Item
+                
                 Debug.Log("Hold Item");
                 itemInHand.transform.SetParent(null);
                 itemInHand.transform.SetParent(_handTransform);
@@ -42,6 +45,9 @@ public class Item : MonoBehaviour
                 itemInHand.GetComponent<Collider>().isTrigger = true;
                 itemInHand.GetComponent<Rigidbody>().useGravity = false;
                 itemInHand.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+
+                StartCoroutine(_playerController.CheckDurationAnimation("IsGrabItem",2));
+                //_animator.SetBool("IsGrabItem",true);
                 
                 _playerController.isGrabItem = true;
             }
@@ -68,6 +74,13 @@ public class Item : MonoBehaviour
 
                 _collider = null;
                 itemInHand = null;
+                
+                _playerController.CheckHandFreezeForAnimation();
+                _animator.SetBool("IsGrabItem",false);
+                _animator.SetFloat("Horizontal", 0);
+                _animator.SetFloat("Vertical", 0);
+
+                
                 _playerController.isGrabItem = false;
             }
             
@@ -87,6 +100,8 @@ public class Item : MonoBehaviour
             
             _collider = null;
             itemInHand = null;
+            
+
             _playerController.isGrabItem = false;
         }
     }
