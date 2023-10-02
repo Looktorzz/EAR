@@ -35,6 +35,10 @@ public class PlayerController : MonoBehaviour
     public int handFreeze;
     public bool isFreezeHand = false;
     
+    //Check Reset
+    [SerializeField]private bool _isDead;
+    public bool isDead => _isDead;
+    
     //Check For Animator
     private bool _isBack = false;
     
