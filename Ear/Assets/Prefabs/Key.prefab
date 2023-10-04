@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1931440655089159857}
   - component: {fileID: 1843017530400365783}
   - component: {fileID: 3041435654191032749}
+  - component: {fileID: 1438183213160947676}
   m_Layer: 6
   m_Name: Key
   m_TagString: Item
@@ -105,6 +106,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HasKey: 1
+--- !u!114 &1438183213160947676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4239935612102112990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab6d4fdc70a50ff479183236e978460f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  underWaterDrag: 3
+  underWaterAngularDrag: 1
+  airDrag: 0
+  airAngularDrag: 0.05
+  floatingPower: 15
 --- !u!1 &8890473135450327017
 GameObject:
   m_ObjectHideFlags: 0

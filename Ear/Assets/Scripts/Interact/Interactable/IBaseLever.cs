@@ -29,7 +29,7 @@ public class IBaseLever : MonoBehaviour , IHoldInteractable , IInteractable
             lever.transform.localPosition = Vector3.zero;
             lever.isOnBaseLever = true;
             
-            if (_isCanPick)
+            if (!_isCanPick)
             {
                 lever.gameObject.layer = 0; 
             }

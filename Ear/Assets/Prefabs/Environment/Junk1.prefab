@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4298174813984564393
+--- !u!1 &4427702589377764683
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,37 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2499471647729218959}
-  - component: {fileID: 8061790158851099232}
-  m_Layer: 7
-  m_Name: Sprite
+  - component: {fileID: 6196537634500192351}
+  - component: {fileID: 8251902829792769273}
+  m_Layer: 0
+  m_Name: Junk1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2499471647729218959
+--- !u!4 &6196537634500192351
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4298174813984564393}
+  m_GameObject: {fileID: 4427702589377764683}
   serializedVersion: 2
   m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1605450768931327592}
+  m_Father: {fileID: 7884977861686827933}
   m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
---- !u!212 &8061790158851099232
+--- !u!212 &8251902829792769273
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4298174813984564393}
+  m_GameObject: {fileID: 4427702589377764683}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -73,18 +73,18 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: dc268fc3e32d2974cb3faf602ef9be4c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9b50d75a24bf93f4faf19937b8ed781a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.82, y: 2.83}
+  m_Size: {x: 2.35, y: 3.17}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &7598768849227280604
+--- !u!1 &7486876462485390512
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,39 +92,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1605450768931327592}
-  - component: {fileID: 3842484492986708602}
-  - component: {fileID: 1672952915194249267}
-  m_Layer: 7
-  m_Name: BrokenBox
+  - component: {fileID: 7884977861686827933}
+  - component: {fileID: 7588226601072331582}
+  m_Layer: 0
+  m_Name: Junk1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1605450768931327592
+--- !u!4 &7884977861686827933
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7598768849227280604}
+  m_GameObject: {fileID: 7486876462485390512}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -2.8899999, y: -0.10999997, z: 0.33000004}
+  m_LocalScale: {x: 0.8333334, y: 0.83333397, z: 0.83333397}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2499471647729218959}
+  - {fileID: 6196537634500192351}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &3842484492986708602
+--- !u!65 &7588226601072331582
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7598768849227280604}
+  m_GameObject: {fileID: 7486876462485390512}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -137,20 +136,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.9525194, y: 2.9804122, z: 1.1952517}
-  m_Center: {x: 0.00000071525574, y: 1.4086031, z: 0.26498467}
---- !u!114 &1672952915194249267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7598768849227280604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96b908bd6345c774ebe414c5f777497b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prompt: BrokenBoxSpawnKey
-  _spawnGameObject: {fileID: 0}
-  _spawnPoint: {fileID: 1605450768931327592}
+  m_Size: {x: 2.4989524, y: 3.2324815, z: 0.92558414}
+  m_Center: {x: 0.005315145, y: 1.5733674, z: 0.26045594}

@@ -25,4 +25,7 @@ public enum NameObject
     BasinEmpty,
     BasinFull,
     BasinChanging,
+    Lever,
+    Fuse,
+    Rod,
 }

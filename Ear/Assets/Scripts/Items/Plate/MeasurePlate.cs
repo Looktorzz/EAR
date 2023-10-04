@@ -10,14 +10,24 @@ using UnityEngine.InputSystem;
 public class MeasurePlate : MonoBehaviour
 {
     [SerializeField] private ObjectDataSO _objectDataSo;
-    [SerializeField] private TextMeshProUGUI weightText;
+    [SerializeField] private TextMeshProUGUI weightTextOne;
+    [SerializeField] private TextMeshProUGUI weightTextTwo;
     public float _weightCurrent = 0;
     public float getWeightCurrent => _weightCurrent;
+    
+    [SerializeField] private GameObject _closeMonitor;
+    [SerializeField] private GameObject _openMonitor;
 
     [SerializeField] private GameObject _boxPhysic;
     [SerializeField] private LayerMask _layerMask;
     [SerializeField] private Collider[] _colliders;
     private GameObject _itemInHand;
+    
+    private void Start()
+    {
+        _closeMonitor.SetActive(true);
+        _openMonitor.SetActive(false);
+    }
 
     private void FoundCollider()
     {
@@ -53,8 +63,23 @@ public class MeasurePlate : MonoBehaviour
         }
 
         _weightCurrent = weight;
+        CheckOnOffMonitor(_weightCurrent);
         
         Array.Clear(_colliders,0,_colliders.Length);
+    }
+
+    private void CheckOnOffMonitor(float num)
+    {
+        if (num > 0)
+        {
+            _closeMonitor.SetActive(false);
+            _openMonitor.SetActive(true);
+        }
+        else
+        {
+            _closeMonitor.SetActive(true);
+            _openMonitor.SetActive(false);
+        }
     }
 
     private void Update()
@@ -63,7 +88,8 @@ public class MeasurePlate : MonoBehaviour
         if (_colliders != null)
         {
             PlusWeight();
-            weightText.text = ((int) _weightCurrent).ToString("0");
+            weightTextOne.text = ((int) _weightCurrent).ToString("0");
+            weightTextTwo.text = ((int) _weightCurrent).ToString("0");
         }
     }
 
