@@ -19,8 +19,29 @@ public class SoundManager : MonoBehaviour
     
     public enum SoundName
     {
-        BackgroundMusic,
-        SoundEffect,
+        WoodDrop,
+        Lever,
+        DragBucket,
+        WaterDrip,
+        WaterFill,
+        GateOpen,
+        GateClose,
+        WaterDrop,
+        WaterDrop2,
+        WaterFillPipe,
+        WaterFillPipe2,
+        ConnectPipe,
+        DragPipe,
+        PressSwitch,
+        LeverImpact,
+        LeverImpact2,
+        Generator,
+        InsertFuse,
+        LightOn,
+        WaterSplash,
+        Acid,
+        GateRoll,
+        GateNearlyClose,
         
     }
 
@@ -39,6 +60,7 @@ public class SoundManager : MonoBehaviour
             sound.audioSource.clip = sound.clip;
             sound.audioSource.volume = sound.volume;
             sound.audioSource.loop = sound.loop;
+            sound.audioSource.pitch = sound.pitch;
             
             switch (sound.soundType)
             {
@@ -63,6 +85,7 @@ public class SoundManager : MonoBehaviour
     
     public void Play(SoundName name)
     {
+
         Sound sound = GetSound(name);
         
         if (sound.audioSource == null)
@@ -73,6 +96,8 @@ public class SoundManager : MonoBehaviour
 
         sound.audioSource.Play();
     }
+    
+    
 
     private Sound GetSound(SoundName name)
     {
@@ -102,7 +127,6 @@ public class SoundManager : MonoBehaviour
         BackgroundMusic,
         SoundFX,
         Ambient,
-        Test,
     }
 
     public SoundType soundType;
@@ -116,7 +140,11 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] private bool _loop;
     public bool loop => _loop;
-
+    
+    [Range(0f,1f)]
+    [SerializeField] private float _pitch = 1;
+    public float pitch => _pitch;
+    
     [HideInInspector]
     public AudioSource audioSource;
 }
