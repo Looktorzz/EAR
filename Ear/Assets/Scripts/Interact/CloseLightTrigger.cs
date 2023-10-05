@@ -17,7 +17,7 @@ public class CloseLightTrigger : MonoBehaviour
             // ??Sound PaKaiFire Where??
             for (int i = 0; i < _generator._lightGameObjects.Count; i++)
             {
-                _generator._lightGameObjects[i].GetComponent<Light>().enabled = false;
+                _generator._lightGameObjects[i].GetComponentInChildren<Light>().enabled = false;
                 _isPass = true;
             }
         }
