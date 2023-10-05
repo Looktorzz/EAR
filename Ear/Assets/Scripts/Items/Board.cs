@@ -49,6 +49,8 @@ public class Board : MonoBehaviour
                 _rotationVector3.x = 90;
                 _rotationQuaternion.eulerAngles = _rotationVector3;
                 this.transform.rotation = _rotationQuaternion;
+                BoxCollider boxCollider = this.GetComponent<BoxCollider>();
+                boxCollider.size = new Vector3(boxCollider.size.x,boxCollider.size.y,0.05f);
                 
                 this.gameObject.layer = 0;
                 this.gameObject.tag = "Untagged";

@@ -30,7 +30,7 @@ MonoBehaviour:
     weight: 10
   - name: Basin Changing
     nameObject: 5
-    weight: 0
+    weight: 5
   - name: Lever
     nameObject: 6
     weight: 1
@@ -40,3 +40,6 @@ MonoBehaviour:
   - name: Rod
     nameObject: 8
     weight: 2
+  - name: Key
+    nameObject: 9
+    weight: 1

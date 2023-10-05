@@ -28,4 +28,5 @@ public enum NameObject
     Lever,
     Fuse,
     Rod,
+    Key,
 }
