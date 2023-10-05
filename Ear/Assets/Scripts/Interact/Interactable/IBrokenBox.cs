@@ -25,7 +25,10 @@ public class IBrokenBox : MonoBehaviour , IInteractable
             if (bucket.isAcidWater)
             {
                 // ++Sound Destroy Box
-                Instantiate(_spawnGameObject, _spawnPoint.position, Quaternion.identity);
+                if (_spawnGameObject != null)
+                {
+                    Instantiate(_spawnGameObject, _spawnPoint.position, Quaternion.identity);
+                }
                 bucket.isFull = false;
                 
                 Destroy(gameObject);

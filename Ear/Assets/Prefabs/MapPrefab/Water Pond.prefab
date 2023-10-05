@@ -482,7 +482,7 @@ Transform:
   m_GameObject: {fileID: 7568075594911823483}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -193.38518, y: -2.4999998, z: 1.2965751}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 9.22113, y: 1, z: 8.47315}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -594,6 +594,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waterSurface: {fileID: 3863883759327037242}
+  directionBack: 0
+  directionForward: 0
+  directionLeft: 0
+  directionRight: 0
+  waterForce: 100
 --- !u!114 &7890303821133452758
 MonoBehaviour:
   m_ObjectHideFlags: 0

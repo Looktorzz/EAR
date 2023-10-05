@@ -65,6 +65,8 @@ public class IConveyorTube : MonoBehaviour , IInteractable
                     // ++Sound item drop
                     go.transform.position = _itemQuitFirst.position;
                     go.transform.SetParent(null);
+                    go.GetComponent<Collider>().enabled = true;
+                    go.GetComponent<Rigidbody>().useGravity = true;
                     go = null;
                     Debug.Log("Item go FirstPosition");
                 }
@@ -73,6 +75,8 @@ public class IConveyorTube : MonoBehaviour , IInteractable
                     // ++Sound item drop
                     go.transform.position = _itemQuitSecond.position;
                     go.transform.SetParent(null);
+                    go.GetComponent<Collider>().enabled = true;
+                    go.GetComponent<Rigidbody>().useGravity = true;
                     go = null;
                     Debug.Log("Item go SecondPosition");
                 }

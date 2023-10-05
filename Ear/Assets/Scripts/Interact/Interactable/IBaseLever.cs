@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class IBaseLever : MonoBehaviour , IHoldInteractable , IInteractable
 {
@@ -29,7 +30,7 @@ public class IBaseLever : MonoBehaviour , IHoldInteractable , IInteractable
             lever.transform.localPosition = Vector3.zero;
             lever.isOnBaseLever = true;
             
-            if (_isCanPick)
+            if (!_isCanPick)
             {
                 lever.gameObject.layer = 0; 
             }
@@ -64,7 +65,9 @@ public class IBaseLever : MonoBehaviour , IHoldInteractable , IInteractable
         // Open ( If have more 1 sound or anim / Add variable at upper c: )
         // ++Sound open door by interact lever
         _lever.SetLeverOpen(true);
-        _animator.SetTrigger("OpenByLever");
+        // _animator.SetTrigger("OpenByLever");
+        Vector3 posDoor = _doorLever.transform.position;
+        _doorLever.transform.DOLocalMoveY(posDoor.y + 4, 2).SetEase(Ease.OutBounce);
     }
 
     public bool ReleasedInteract(Interactor interactor)

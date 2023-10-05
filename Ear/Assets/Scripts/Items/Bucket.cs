@@ -25,16 +25,15 @@ public class Bucket : MonoBehaviour
         {
             // ++Sound Add Water (Tak num)
             _bucketEmpty.SetActive(false);
+            GetComponent<ObjectIndex>().ChangeIndex(NameObject.BucketFull);
             
             if (isAcidWater)
             {
                 _bucketFullAcidWater.SetActive(true);
-                GetComponent<ObjectIndex>().ChangeIndex(NameObject.BucketFull);
             }
             else
             {
                 _bucketFullWater.SetActive(true);
-                GetComponent<ObjectIndex>().ChangeIndex(NameObject.BucketFull);
             }
         }
         else

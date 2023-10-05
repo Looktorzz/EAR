@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &611356965920960298
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6444779889913209748}
+  m_Layer: 0
+  m_Name: closePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6444779889913209748
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611356965920960298}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -7.41, y: 3.32, z: 0}
+  m_LocalScale: {x: 1, y: 4, z: 7.2181}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5357542221698902370}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1014688896966071390
 GameObject:
   m_ObjectHideFlags: 0
@@ -30,6 +61,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2426310409778437912}
+  - {fileID: 6444779889913209748}
+  - {fileID: 8890166755499175028}
   - {fileID: 6053993847870194511}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -153,9 +186,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   measurePlate: {fileID: 646995762477268473}
   maximumWeightForOpen: 7
-  currentWeight: 0
   slideSpeed: 2
-  doorHeight: 5
+  closedPoint: {fileID: 6444779889913209748}
+  openedPoint: {fileID: 8890166755499175028}
+--- !u!1 &3330598726013278135
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8890166755499175028}
+  m_Layer: 0
+  m_Name: openPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8890166755499175028
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3330598726013278135}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -7.41, y: 6.3999996, z: 0}
+  m_LocalScale: {x: 1, y: 4, z: 7.2181}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5357542221698902370}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5226874837212134227
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,7 +341,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectDataSo: {fileID: 11400000, guid: cddff7ce5e33d3943b811f3171db857d, type: 2}
   weightText: {fileID: 5180703724173523131}
-  weightCurrent: 0
+  _boxPhysic: {fileID: 5226874837212134227}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 200
+  _colliders: []
 --- !u!1 &8080376779313597750
 GameObject:
   m_ObjectHideFlags: 0

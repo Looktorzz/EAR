@@ -1,51 +1,59 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlateDoor : MonoBehaviour
 {
     [SerializeField] private MeasurePlate measurePlate;
-
     [SerializeField] private float maximumWeightForOpen = 5f;
-    [SerializeField] private float currentWeight;
-
     [SerializeField] private float slideSpeed = 1f;
+    [SerializeField] private bool _isLimit;
     
     [Header("Height")] 
-    [SerializeField] private float doorHeight = 2f;
-    private Vector3 closedPosition;
-    private Vector3 openedPosition;
+    [SerializeField] private Transform closedPoint;
+    [SerializeField] private Transform openedPoint;
     
     void Start()
     {
         measurePlate.GetComponent<MeasurePlate>();
-        
-        
-        closedPosition = this.transform.position;
-        openedPosition = this.transform.position + Vector3.up * doorHeight;
     }
 
     void Update()
     {
+        Debug.Log($"measurePlate.getWeightCurrent : {measurePlate.getWeightCurrent}");
+        
         float weightPercent = measurePlate.getWeightCurrent / maximumWeightForOpen;
 
-        if (measurePlate.getWeightCurrent > maximumWeightForOpen)
+        if (_isLimit)
         {
-            Debug.Log("Morethan MaxmimumWeight");
-            Vector3 targetPosition = Vector3.Lerp(closedPosition, openedPosition, maximumWeightForOpen);
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, slideSpeed * Time.deltaTime);
+            if (measurePlate.getWeightCurrent == maximumWeightForOpen)
+            {
+                Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, maximumWeightForOpen);
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, slideSpeed * Time.deltaTime);
+            }
+            else
+            {
+                Debug.Log("Close Door");
+                transform.position = Vector3.MoveTowards(transform.position, closedPoint.position, slideSpeed * Time.deltaTime);
+            }
         }
-        else if (measurePlate.getWeightCurrent > 0)
+        else
         {
-            Debug.Log("Itworks > 0 ");
-
-            Vector3 targetPosition = Vector3.Lerp(closedPosition, openedPosition, weightPercent);
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, slideSpeed * Time.deltaTime);
-            
-        }
-        else if (measurePlate.getWeightCurrent == 0)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, closedPosition, slideSpeed * Time.deltaTime);
+            if (measurePlate.getWeightCurrent > maximumWeightForOpen)
+            {
+                Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, maximumWeightForOpen);
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, slideSpeed * Time.deltaTime);
+            }
+            else if (measurePlate.getWeightCurrent > 0)
+            {
+                Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, weightPercent);
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, slideSpeed * Time.deltaTime);
+            }
+            else if (measurePlate.getWeightCurrent == 0)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, closedPoint.position, slideSpeed * Time.deltaTime);
+            }
         }
 
     }

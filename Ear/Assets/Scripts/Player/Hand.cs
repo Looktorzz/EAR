@@ -13,7 +13,7 @@ public class Hand : MonoBehaviour
     [SerializeField] private float _handRadius = 0.4f;
     private int _index = 0;
     
-    private readonly Collider[] _colliders = new Collider[3];
+    private Collider[] _colliders = new Collider[3];
     
     void Update()
     {
