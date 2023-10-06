@@ -36,6 +36,7 @@ public class Item : MonoBehaviour
             if (itemInHand != null)
             {
                 // ++Sound Hold/Grab Item
+                
                 // ++Animation Hold/Grab Item
                 
                 Debug.Log("Hold Item");
@@ -92,6 +93,7 @@ public class Item : MonoBehaviour
         if (itemInHand != null)
         {
             // ++Sound install something
+            SoundManager.instance.Play(SoundManager.SoundName.Insert);
             
             // ++Animation install something
             Debug.Log("Place Item On Interact");
@@ -101,7 +103,13 @@ public class Item : MonoBehaviour
             _collider = null;
             itemInHand = null;
             
-
+            _playerController.CheckHandFreezeForAnimation();
+            _animator.SetBool("IsGrabItem",false);
+            _animator.SetFloat("Horizontal", 0);
+            _animator.SetFloat("Vertical", 0);
+            
+            
+            
             _playerController.isGrabItem = false;
         }
     }

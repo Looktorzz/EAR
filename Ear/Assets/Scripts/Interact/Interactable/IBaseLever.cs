@@ -70,6 +70,8 @@ public class IBaseLever : MonoBehaviour , IHoldInteractable , IInteractable
         // _animator.SetTrigger("OpenByLever");
         Vector3 posDoor = _doorLever.transform.position;
         _doorLever.transform.DOLocalMoveY(posDoor.y + 1, 3).SetEase(Ease.OutBounce);
+        
+        SoundManager.instance.Play(SoundManager.SoundName.GateOpen);
     }
 
     public bool ReleasedInteract(Interactor interactor)

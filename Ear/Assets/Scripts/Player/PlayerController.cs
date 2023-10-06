@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
     
     private bool _isHoldInteract = false;
     public bool isGrabItem = false;
+    public bool _isCanCrouching = false;
+
 
     private int _handDirection;
     public int handFreeze;
@@ -44,6 +46,10 @@ public class PlayerController : MonoBehaviour
     
     //Animation
     private float _animHorizontal, _animVertical;
+    private float timeCountForBroken = 0;
+    private float timeTriggerForBroken = 15f;
+    
+    
     
     //Sound
     private bool isPlaySound;
@@ -149,6 +155,33 @@ public class PlayerController : MonoBehaviour
 
             _isMoving = true;
         }
+
+
+        if (handFreeze == (int)DirectionPlayer.West)
+        {
+            if (_moveVector2.x > 0)
+            {
+                _animator.SetFloat("Vertical", 1);
+            }
+            else if (_moveVector2.x < 0)
+            {
+                _animator.SetFloat("Vertical", 0);
+                _animator.SetFloat("Horizontal", 1);
+            }
+        }
+        
+        if (handFreeze == (int)DirectionPlayer.East)
+        {
+            if (_moveVector2.x < 0)
+            {
+                _animator.SetFloat("Vertical", 1);
+            }
+            else if (_moveVector2.x > 0)
+            {
+                _animator.SetFloat("Vertical", 0);
+                _animator.SetFloat("Horizontal", 1);
+            }
+        }
         
         if (!isFreezeHand)
         {
@@ -179,6 +212,11 @@ public class PlayerController : MonoBehaviour
             if (handFreeze == (int)DirectionPlayer.West)
             {
                 _animator.SetFloat("Horizontal",0.3f);
+            }
+
+            if (handFreeze == (int)DirectionPlayer.North)
+            {
+                _animator.SetFloat("Vertical",0.3f);
             }
         }
         
@@ -230,6 +268,11 @@ public class PlayerController : MonoBehaviour
             _isHoldInteract = false;
             
         }
+
+        if (!_isHoldInteract)
+        {
+            _animator.SetBool("IsHoldDrag",false);
+        }
         
     }
     
@@ -262,7 +305,7 @@ public class PlayerController : MonoBehaviour
             case (int)DirectionPlayer.East:
                 _animator.SetFloat("Horizontal",-1);
                 _animator.SetFloat("Vertical", 0);
-
+              
                 break;
             case (int)DirectionPlayer.West:
                 _animator.SetFloat("Horizontal",1);
@@ -303,6 +346,34 @@ public class PlayerController : MonoBehaviour
 
         isPlaySound = false;
     }
+    
+    public void Crouching(GameObject player, bool isCrouching)
+    {
+        if (_isCanCrouching)
+        {
+            _item._isCanHold = !isCrouching;
+            _item.PlaceItem();
+            CapsuleCollider capsuleCollider = player.GetComponent<CapsuleCollider>();
+
+            if (isCrouching)
+            {
+                // ++Animation crouching
+                capsuleCollider.height = 1;
+                capsuleCollider.center = new Vector3(0,0.5f,0.55f);
+                
+                _animator.SetBool("OnCrouch",true);
+            }
+            else
+            {
+                // --Animation crouching
+                capsuleCollider.height = 2;
+                capsuleCollider.center = new Vector3(0,1,0.55f);
+                
+                _animator.SetBool("OnCrouch",false);
+            }
+        }
+    }
+
     
 
   

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
@@ -56,10 +57,13 @@ public class SoundManager : MonoBehaviour
         Interact,
         Fail,
         BGMFloor1,
+        Insert,
+        
     }
 
     private void Awake()
     {
+
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
@@ -87,10 +91,17 @@ public class SoundManager : MonoBehaviour
         }
         
         _instance = this;
+        
+        
         DontDestroyOnLoad(this.gameObject);
     }
 
-    
+    public void Update()
+    {
+        
+    }
+
+
     public void Play(SoundName name)
     {
 

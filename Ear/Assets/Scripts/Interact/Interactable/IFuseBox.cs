@@ -40,6 +40,7 @@ public class IFuseBox : MonoBehaviour, IInteractable
             }
             
             // ++Sound open fuse box
+            SoundManager.instance.Play(SoundManager.SoundName.FuseBoxOn);
             
             _isOpen = true;
             _close.SetActive(!_isOpen);
@@ -48,6 +49,8 @@ public class IFuseBox : MonoBehaviour, IInteractable
             if (_isHaveFuseInside)
             {
                 // ++Sound item drop
+                
+                
                 _fuseItem.SetActive(true);
             }
             

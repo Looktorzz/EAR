@@ -31,10 +31,15 @@ public class Interactor : MonoBehaviour
             if(interactable != null)
             {
                 // ++Animation interact something
-
-                SoundManager.instance.Play(SoundManager.SoundName.Interact);
+                
                 interactable.Interact(this);
+                if (!_playerController._isCanCrouching)
+                {
+                    _animator.SetTrigger("Interact");
+                }
+                
             }
+            
 
             _hand.ClearCollider();
         }
@@ -51,9 +56,10 @@ public class Interactor : MonoBehaviour
             if (interactable != null)
             {
                 // ++Animation hold interact something
-                _animator.SetBool("IsHoldDrag",true);
                 
                 interactable.HoldInteract(this);
+                _animator.SetBool("IsHoldDrag",true);
+
             }
             
             _hand.ClearCollider();
@@ -76,6 +82,7 @@ public class Interactor : MonoBehaviour
 
             }
             
+            _animator.SetBool("IsHoldDrag",false);
             _hand.ClearCollider();
         }
     }

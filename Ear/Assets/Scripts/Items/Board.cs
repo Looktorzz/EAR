@@ -40,6 +40,7 @@ public class Board : MonoBehaviour
                     Debug.Log("Up Down 0");
                     break;
             }
+            
         }
         
         if (gameObject.GetComponentInParent<PlayerController>() == null)
@@ -55,6 +56,9 @@ public class Board : MonoBehaviour
                 this.gameObject.layer = 0;
                 this.gameObject.tag = "Untagged";
                 this.enabled = false;
+                
+                SoundManager.instance.Play(SoundManager.SoundName.PlankDrop);
+
             }
         }
     }

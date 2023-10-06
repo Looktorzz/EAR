@@ -13,6 +13,8 @@ public class PlateDoor : MonoBehaviour
     [Header("Height")] 
     [SerializeField] private Transform closedPoint;
     [SerializeField] private Transform openedPoint;
+
+    [SerializeField]private AudioClip openSound;
     
     void Start()
     {
@@ -51,6 +53,8 @@ public class PlateDoor : MonoBehaviour
             {
                 transform.position = Vector3.MoveTowards(transform.position, closedPoint.position, slideSpeed * Time.deltaTime);
             }
+            
+            GetComponent<AudioSource>().PlayOneShot(openSound);
         }
 
     }
