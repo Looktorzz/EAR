@@ -182,6 +182,7 @@ GameObject:
   - component: {fileID: 1247931291454503257}
   - component: {fileID: 7247456121406385707}
   - component: {fileID: 338853376420515623}
+  - component: {fileID: 2121744379601296301}
   m_Layer: 7
   m_Name: LeakyBasin
   m_TagString: Item
@@ -294,6 +295,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nameObject: 3
   index: 0
+--- !u!114 &2121744379601296301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8677372731762030350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d91fe8e5167903f41bc69ab4f50f83e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8771518882091975129
 GameObject:
   m_ObjectHideFlags: 0
