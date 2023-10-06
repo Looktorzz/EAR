@@ -46,8 +46,7 @@ public class Item : MonoBehaviour
                 itemInHand.GetComponent<Rigidbody>().useGravity = false;
                 itemInHand.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 
-                StartCoroutine(_playerController.CheckDurationAnimation("IsGrabItem",2));
-                //_animator.SetBool("IsGrabItem",true);
+                _animator.SetBool("IsGrabItem",true);
                 
                 _playerController.isGrabItem = true;
             }

@@ -31,6 +31,8 @@ public class Interactor : MonoBehaviour
             if(interactable != null)
             {
                 // ++Animation interact something
+
+                SoundManager.instance.Play(SoundManager.SoundName.Interact);
                 interactable.Interact(this);
             }
 
@@ -50,7 +52,7 @@ public class Interactor : MonoBehaviour
             {
                 // ++Animation hold interact something
                 _animator.SetBool("IsHoldDrag",true);
-
+                
                 interactable.HoldInteract(this);
             }
             

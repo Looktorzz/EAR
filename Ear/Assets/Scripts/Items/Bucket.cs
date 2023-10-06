@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bucket : MonoBehaviour
@@ -11,12 +12,16 @@ public class Bucket : MonoBehaviour
     public bool isFull;
     public bool isAcidWater;
 
+    public AudioClip fillWaterSound;
+    public AudioClip pourWaterSound;
+    
     private void Start()
     {
         isFull = false;
         _bucketEmpty.SetActive(true);
         _bucketFullWater.SetActive(false);
         _bucketFullAcidWater.SetActive(false);
+
     }
 
     private void Update()
@@ -30,11 +35,13 @@ public class Bucket : MonoBehaviour
             if (isAcidWater)
             {
                 _bucketFullAcidWater.SetActive(true);
+
             }
             else
             {
                 _bucketFullWater.SetActive(true);
             }
+            
         }
         else
         {
@@ -43,8 +50,8 @@ public class Bucket : MonoBehaviour
             _bucketFullWater.SetActive(false);
             _bucketFullAcidWater.SetActive(false);
             GetComponent<ObjectIndex>().ChangeIndex(NameObject.BucketEmpty);
-            
-            SoundManager.instance.Play(SoundManager.SoundName.WaterSplash);
+
+
         }
     }
 }

@@ -20,6 +20,8 @@ public class IWater : MonoBehaviour , IHoldInteractable , IInteractable
             if (bucket.isAcidWater == isAcidWater)
             {
                 bucket.isFull = false;
+                
+                SoundManager.instance.Play(SoundManager.SoundName.AcidDrip);
                 return true;
             }
             else
@@ -39,21 +41,26 @@ public class IWater : MonoBehaviour , IHoldInteractable , IInteractable
         if (_bucket == null)
         {
             Debug.Log("Don't have Bucket");
+            
+            SoundManager.instance.Play(SoundManager.SoundName.Fail);
             return false;
         }
 
         if (!_bucket.isFull)
         {
             _countdown.Countdown(true);
+            
             return true;
         }
-
+        
         return false;
     }
     
     public void HoldCompleteInteract()
     {
         _bucket.isAcidWater = isAcidWater;
+        
+        SoundManager.instance.Play(SoundManager.SoundName.WaterFill);
         _bucket.isFull = true;
     }
 

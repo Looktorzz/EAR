@@ -15,11 +15,14 @@ public class CloseLightTrigger : MonoBehaviour
             // Close Light
             // ++Sound Close Light
             // ??Sound PaKaiFire Where??
+            SoundManager.instance.Play(SoundManager.SoundName.BlackOut);
+            
             for (int i = 0; i < _generator._lightGameObjects.Count; i++)
             {
                 _generator._lightGameObjects[i].GetComponentInChildren<Light>().enabled = false;
                 _isPass = true;
             }
+            
         }
     }
 }

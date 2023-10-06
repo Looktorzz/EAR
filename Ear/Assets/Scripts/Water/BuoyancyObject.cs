@@ -23,7 +23,6 @@ public class BuoyancyObject : MonoBehaviour
     private Transform waterSurface;
     private bool isWater;
 
-    private bool isPlaySound = false;
     
     // Start is called before the first frame update
     void Start()
@@ -90,12 +89,6 @@ public class BuoyancyObject : MonoBehaviour
             GetComponent<Rigidbody>().constraints = ~RigidbodyConstraints.FreezePosition;
             
             isWater = true;
-
-            if (!isPlaySound)
-            {
-                SoundManager.instance.Play(SoundManager.SoundName.WaterSplash);
-                isPlaySound = true;
-            }
             
         }
     }

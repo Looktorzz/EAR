@@ -8,7 +8,6 @@ public class SoundManager : MonoBehaviour
 {
     [SerializeField] private AudioMixerGroup bgmMixerGroup;
     [SerializeField] private AudioMixerGroup sfxMixerGroup;
-    [SerializeField] private AudioMixerGroup ambientMixerGroup;
     
     [SerializeField] private Sound[] _sounds;
 
@@ -42,7 +41,21 @@ public class SoundManager : MonoBehaviour
         Acid,
         GateRoll,
         GateNearlyClose,
-        
+        PlankDrop,
+        SteelSplash,
+        WaterPouring,
+        WaterLeak,
+        Chain1,
+        Chain2,
+        Elevator,
+        AcidDrip,
+        FuseBoxOn,
+        FuseBoxOff,
+        BlackOut,
+        FootStep,
+        Interact,
+        Fail,
+        BGMFloor1,
     }
 
     private void Awake()
@@ -60,7 +73,6 @@ public class SoundManager : MonoBehaviour
             sound.audioSource.clip = sound.clip;
             sound.audioSource.volume = sound.volume;
             sound.audioSource.loop = sound.loop;
-            sound.audioSource.pitch = sound.pitch;
             
             switch (sound.soundType)
             {
@@ -70,10 +82,6 @@ public class SoundManager : MonoBehaviour
                 
                 case Sound.SoundType.SoundFX:
                     sound.audioSource.outputAudioMixerGroup = sfxMixerGroup;
-                    break;
-                
-                case Sound.SoundType.Ambient:
-                    sound.audioSource.outputAudioMixerGroup = ambientMixerGroup;
                     break;
             }
         }
@@ -108,7 +116,6 @@ public class SoundManager : MonoBehaviour
     {
         bgmMixerGroup.audioMixer.SetFloat("BGM", Mathf.Log10(SoundSetting.BackGroundMusic) * 20);
         sfxMixerGroup.audioMixer.SetFloat("SFX", Mathf.Log10(SoundSetting.SoundEffect) * 20);
-        ambientMixerGroup.audioMixer.SetFloat("Ambient", Mathf.Log10(SoundSetting.AmbientSound) * 20);
     }
 
     public void Mute()
@@ -126,7 +133,6 @@ public class SoundManager : MonoBehaviour
     {
         BackgroundMusic,
         SoundFX,
-        Ambient,
     }
 
     public SoundType soundType;
@@ -140,10 +146,6 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] private bool _loop;
     public bool loop => _loop;
-    
-    [Range(0f,1f)]
-    [SerializeField] private float _pitch = 1;
-    public float pitch => _pitch;
     
     [HideInInspector]
     public AudioSource audioSource;

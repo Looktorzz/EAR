@@ -39,6 +39,7 @@ public class IBaseLever : MonoBehaviour , IHoldInteractable , IInteractable
         }
 
         // ++Sound fail (pak pak)
+        SoundManager.instance.Play(SoundManager.SoundName.Fail);
         Debug.Log("You don't have Lever");
         return false;
     }
@@ -56,6 +57,7 @@ public class IBaseLever : MonoBehaviour , IHoldInteractable , IInteractable
         }
 
         // ++Sound fail (pak pak)
+        SoundManager.instance.Play(SoundManager.SoundName.Fail);
         Debug.Log("Don't have Lever on BaseLever");
         return false;
     }

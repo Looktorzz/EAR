@@ -44,7 +44,11 @@ public class PlayerController : MonoBehaviour
     
     //Animation
     private float _animHorizontal, _animVertical;
-
+    
+    //Sound
+    private bool isPlaySound;
+    private float soundDuration = 0.5f;
+    
     private void Awake()
     {
         _input = new InputSystems();
@@ -79,10 +83,20 @@ public class PlayerController : MonoBehaviour
         _input.Disable();
     }
 
+    private void Update()
+    {
+        if (_isMoving && !isPlaySound)
+        {
+            StartCoroutine(PlaySoundCoroutine(SoundManager.SoundName.FootStep));
+        }
+
+    }
+
     private void FixedUpdate()
     {
         _rb.velocity = new Vector3(_moveVector2.x * _moveSpeed, 
             _rb.velocity.y, _moveVector2.y * _moveSpeed);
+
     }
     
     private void OnMovementPerformed(InputAction.CallbackContext value)
@@ -91,7 +105,7 @@ public class PlayerController : MonoBehaviour
         _moveVector2 = value.ReadValue<Vector2>();
         // _animator.SetTrigger("Walking");
         
-        if (_moveVector2.x < 0 || _isMoving)
+        if (_moveVector2.x < 0)
         {
             // Left
             _moveSpeed = 5.5f;
@@ -101,13 +115,10 @@ public class PlayerController : MonoBehaviour
             {
                 _spriteRenderer.flipX = true;
             }
-
-            if (handFreeze == 1)
-            {
-                
-            }
+            
+            _isMoving = true;
         }
-        else if (_moveVector2.x > 0 || _isMoving)
+        else if (_moveVector2.x > 0)
         {
             // Right
             _moveSpeed = 5.5f;
@@ -118,23 +129,25 @@ public class PlayerController : MonoBehaviour
                 _spriteRenderer.flipX = false;
             }
 
-            if (handFreeze == 0)
-            {
-                
-            }
-            
+            _isMoving = true;
+
         }
-        else if (_moveVector2.y > 0 || _isMoving)
+        else if (_moveVector2.y > 0)
         {
             // Back
             _moveSpeed = 4.12f;
             _handDirection = (int) DirectionPlayer.North;
+            
+            _isMoving = true;
+
         }
-        else if (_moveVector2.y < 0 || _isMoving)
+        else if (_moveVector2.y < 0)
         {
             // Front
             _moveSpeed = 4.12f;
             _handDirection = (int) DirectionPlayer.South;
+
+            _isMoving = true;
         }
         
         if (!isFreezeHand)
@@ -144,17 +157,18 @@ public class PlayerController : MonoBehaviour
 
             CheckHandFreezeForAnimation();
         }
-        
 
     }
     
     private void OnMovementCanceled(InputAction.CallbackContext value)
     {
         // idle
-        _isMoving = false;
         _moveVector2 = Vector2.zero;
         _animator.SetFloat("Horizontal", 0);
         _animator.SetFloat("Vertical", 0);
+        
+        _isMoving = false;
+
         
         if (isGrabItem)
         {
@@ -279,6 +293,17 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Second");
         _isMoving = true;
     }
+    
+    IEnumerator PlaySoundCoroutine(SoundManager.SoundName soundName)
+    {
+        isPlaySound = true;
+        SoundManager.instance.Play(soundName);
+
+        yield return new WaitForSeconds(soundDuration);
+
+        isPlaySound = false;
+    }
+    
 
   
 }
