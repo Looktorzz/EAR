@@ -69,7 +69,7 @@ public class IBaseLever : MonoBehaviour , IHoldInteractable , IInteractable
         _lever.SetLeverOpen(true);
         // _animator.SetTrigger("OpenByLever");
         Vector3 posDoor = _doorLever.transform.position;
-        _doorLever.transform.DOLocalMoveY(posDoor.y + 4, 2).SetEase(Ease.OutBounce);
+        _doorLever.transform.DOLocalMoveY(posDoor.y + 1, 3).SetEase(Ease.OutBounce);
     }
 
     public bool ReleasedInteract(Interactor interactor)

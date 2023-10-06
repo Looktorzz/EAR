@@ -11,7 +11,7 @@ public class IVent : MonoBehaviour , IInteractable
     private GameObject _player;
     private Item _item;
     private bool _isInteract = false;
-    private bool _isPlayerinArea = false;
+    private bool _isPlayerInArea = false;
 
     private void Start()
     {
@@ -24,7 +24,7 @@ public class IVent : MonoBehaviour , IInteractable
 
     public bool Interact(Interactor interactor)
     {
-        if (interactor != null && _isPlayerinArea)
+        if (interactor != null && _isPlayerInArea)
         {
             _isInteract = true;
             Crouching(interactor.gameObject, true);
@@ -54,10 +54,6 @@ public class IVent : MonoBehaviour , IInteractable
                 capsuleCollider.height = 2;
                 capsuleCollider.center = new Vector3(0,1,0.55f);
             }
-        
-            // Test ez crouching
-            player.transform.GetChild(0).gameObject.SetActive(!isCrouching);
-            player.transform.GetChild(1).gameObject.SetActive(isCrouching);
         }
     }
 
@@ -65,7 +61,7 @@ public class IVent : MonoBehaviour , IInteractable
     {
         if (other.TryGetComponent(out Interactor player))
         {
-            _isPlayerinArea = true;
+            _isPlayerInArea = true;
             Crouching(player.gameObject, true);
         }
     }
@@ -75,7 +71,7 @@ public class IVent : MonoBehaviour , IInteractable
         if (other.TryGetComponent(out Interactor player))
         {
             Crouching(player.gameObject, false);
-            _isPlayerinArea = false;
+            _isPlayerInArea = false;
             _isInteract = false;
         }
     }

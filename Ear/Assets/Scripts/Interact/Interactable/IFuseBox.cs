@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class IFuseBox : MonoBehaviour, IInteractable
 {
@@ -13,6 +15,7 @@ public class IFuseBox : MonoBehaviour, IInteractable
     [SerializeField] private GameObject _open;
     [SerializeField] private GameObject _fuseItem;
     [SerializeField] private bool _isHaveFuseInside;
+    [SerializeField] private bool _isUseKeyToOpen;
     private bool _isOpen = false;
     public bool isHaveFuse = false;
 
@@ -26,6 +29,16 @@ public class IFuseBox : MonoBehaviour, IInteractable
     {
         if (!_isOpen)
         {
+            if (_isUseKeyToOpen)
+            {
+                Keys key = interactor.GetComponentInChildren<Keys>();
+                if (key == null)
+                {
+                    Debug.Log("Can't Open Fuse Box");
+                    return false;
+                }
+            }
+            
             // ++Sound open fuse box
             
             _isOpen = true;
