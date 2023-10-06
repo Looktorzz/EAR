@@ -98,6 +98,7 @@ public class MeasurePlate : MonoBehaviour
         if (other.CompareTag("Player") || other.CompareTag("Item"))
         {
             // ++Sound trigger
+            SoundManager.instance.Play(SoundManager.SoundName.PressSwitch);
         }
     }
 }

@@ -93,6 +93,7 @@ public class Item : MonoBehaviour
         if (itemInHand != null)
         {
             // ++Sound install something
+            
             // ++Animation install something
             Debug.Log("Place Item On Interact");
             itemInHand.transform.SetParent(null);

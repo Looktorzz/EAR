@@ -24,7 +24,9 @@ public class IGenerator : MonoBehaviour, IInteractable
         if (_fuseBox.isHaveFuse)
         {
             // Open Light
-            // ++Sound Open Light 
+            // ++Sound Open Light
+            SoundManager.instance.Play(SoundManager.SoundName.LightOn);          
+            
             for (int i = 0; i < _lightGameObjects.Count; i++)
             {
                 _lightGameObjects[i].GetComponent<Light>().enabled = true;
@@ -39,6 +41,7 @@ public class IGenerator : MonoBehaviour, IInteractable
         }
         
         // ++Sound fail (pak pak)
+        
         Debug.Log("Fill Fuse in Fuse Box First."); 
         return false;
     }

@@ -25,6 +25,8 @@ public class IBrokenBox : MonoBehaviour , IInteractable
             if (bucket.isAcidWater)
             {
                 // ++Sound Destroy Box
+                SoundManager.instance.Play(SoundManager.SoundName.Acid);
+                
                 if (_spawnGameObject != null)
                 {
                     Instantiate(_spawnGameObject, _spawnPoint.position, Quaternion.identity);

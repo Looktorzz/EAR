@@ -69,6 +69,8 @@ public class IConveyorTube : MonoBehaviour , IInteractable
                     go.GetComponent<Rigidbody>().useGravity = true;
                     go = null;
                     Debug.Log("Item go FirstPosition");
+                    
+                    SoundManager.instance.Play(SoundManager.SoundName.WaterFillPipe);
                 }
                 else
                 {
@@ -79,6 +81,8 @@ public class IConveyorTube : MonoBehaviour , IInteractable
                     go.GetComponent<Rigidbody>().useGravity = true;
                     go = null;
                     Debug.Log("Item go SecondPosition");
+                    
+                    SoundManager.instance.Play(SoundManager.SoundName.WaterFillPipe);
                 }
                 
                 bucket.isFull = false;
@@ -91,6 +95,8 @@ public class IConveyorTube : MonoBehaviour , IInteractable
         }
 
         // ++Sound fail (pak pak)
+        SoundManager.instance.Play(SoundManager.SoundName.LeverImpact);
+
         return false;
     }
 }

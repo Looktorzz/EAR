@@ -41,6 +41,7 @@ public class IBasin : MonoBehaviour , IInteractable
         if (isFilledWater)
         {
             // ++Sound fail (pak pak)
+
             return false;
         }
         
@@ -49,6 +50,7 @@ public class IBasin : MonoBehaviour , IInteractable
         if (bucket == null)
         {
             // ++Sound fail (pak pak)
+
             Debug.Log("You don't have Bucket");
             return false;
         }
@@ -65,6 +67,9 @@ public class IBasin : MonoBehaviour , IInteractable
                     _fullBasin.SetActive(false);
                     _almostFullBasin.SetActive(true);
                     _emptyBasin.SetActive(false);
+                    
+                    SoundManager.instance.Play(SoundManager.SoundName.WaterFill);
+
                     break;
                 
                 case 3: // Full
@@ -74,6 +79,9 @@ public class IBasin : MonoBehaviour , IInteractable
                     _emptyBasin.SetActive(false);
                     _objectDataSo.objectDatas[_objectIndex.index].weight = _basinEmptyWeight;
                     _objectIndex.ChangeIndex(NameObject.BasinFull);
+                    
+                    SoundManager.instance.Play(SoundManager.SoundName.WaterFill);
+
                     break;
             }
             
@@ -87,6 +95,7 @@ public class IBasin : MonoBehaviour , IInteractable
         }
 
         // ++Sound fail (pak pak)
+
         return false;
     }
 }

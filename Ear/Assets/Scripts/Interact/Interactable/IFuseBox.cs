@@ -27,6 +27,7 @@ public class IFuseBox : MonoBehaviour, IInteractable
         if (!_isOpen)
         {
             // ++Sound open fuse box
+            
             _isOpen = true;
             _close.SetActive(!_isOpen);
             _open.SetActive(_isOpen);
@@ -52,6 +53,8 @@ public class IFuseBox : MonoBehaviour, IInteractable
             isHaveFuse = true;
             Debug.Log("Complete Fill Fuse.");
             
+            SoundManager.instance.Play(SoundManager.SoundName.InsertFuse);
+
             return true;
         }
 

@@ -43,6 +43,8 @@ public class Bucket : MonoBehaviour
             _bucketFullWater.SetActive(false);
             _bucketFullAcidWater.SetActive(false);
             GetComponent<ObjectIndex>().ChangeIndex(NameObject.BucketEmpty);
+            
+            SoundManager.instance.Play(SoundManager.SoundName.WaterSplash);
         }
     }
 }

@@ -93,7 +93,7 @@ public class SoundManager : MonoBehaviour
             Debug.LogError("Sound :" + name);
             return;
         }
-
+        
         sound.audioSource.Play();
     }
     

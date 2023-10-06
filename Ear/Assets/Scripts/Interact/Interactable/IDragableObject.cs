@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class IDragableObject : MonoBehaviour, IHoldInteractable
@@ -7,6 +8,9 @@ public class IDragableObject : MonoBehaviour, IHoldInteractable
     bool IsDragNow = false;
     Rigidbody rb;
 
+    [SerializeField] private bool isBasin;
+    [SerializeField] private bool isBox;
+    
     private void Start()
     {
         // rb = GetComponent<Rigidbody>();
@@ -27,6 +31,11 @@ public class IDragableObject : MonoBehaviour, IHoldInteractable
             Debug.Log("Check Now Drag");
             // rb.isKinematic = true;
             return true;
+        }
+
+        if (isBasin)
+        {
+            SoundManager.instance.Play(SoundManager.SoundName.DragBucket);
         }
 
         Debug.LogWarning("They are No Hold Interact");
