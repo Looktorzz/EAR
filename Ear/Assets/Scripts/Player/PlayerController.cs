@@ -374,9 +374,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Water"))
+        {
+            StartCoroutine(RespawnTime());
+        }
+    }
 
-  
+
+    IEnumerator RespawnTime()
+    {
+        _isDead = true;
+
+        yield return new WaitForSeconds(1f);
+        _isDead = false;
+    }
 }
 
 public enum  AnimName

@@ -13,12 +13,12 @@ public class PlateDoor : MonoBehaviour
     [Header("Height")] 
     [SerializeField] private Transform closedPoint;
     [SerializeField] private Transform openedPoint;
-
-    [SerializeField]private AudioClip openSound;
     
     void Start()
     {
         measurePlate.GetComponent<MeasurePlate>();
+        
+        
     }
 
     void Update()
@@ -31,11 +31,14 @@ public class PlateDoor : MonoBehaviour
             {
                 Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, maximumWeightForOpen);
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, slideSpeed * Time.deltaTime);
-            }
+                SoundManager.instance.Play(SoundManager.SoundName.Chain1);
+
+            }   
             else
             {
                 transform.position = Vector3.MoveTowards(transform.position, closedPoint.position, slideSpeed * Time.deltaTime);
             }
+            
         }
         else
         {
@@ -54,7 +57,6 @@ public class PlateDoor : MonoBehaviour
                 transform.position = Vector3.MoveTowards(transform.position, closedPoint.position, slideSpeed * Time.deltaTime);
             }
             
-            GetComponent<AudioSource>().PlayOneShot(openSound);
         }
 
     }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,7 @@ public class CheckPoint : MonoBehaviour
     private PlayerController pc;
     
     [SerializeField]private bool isClear = false;
-
+    
     [SerializeField] private GameObject[] resetObject;
     
     // Start is called before the first frame update
@@ -21,7 +22,7 @@ public class CheckPoint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (pc.isDead && !isClear )
+        if (pc.isDead && !isClear)
         {
             player.transform.position = respawnPoint.position;
             foreach (GameObject go in resetObject)
@@ -33,6 +34,14 @@ public class CheckPoint : MonoBehaviour
                 Debug.Log("IsDead");
 
             }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isClear = true;
         }
     }
 }

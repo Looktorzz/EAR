@@ -21,6 +21,11 @@ public class SceneLoader : MonoBehaviour
 
         SceneManager.LoadScene(LevelIndex);
     }
+
+    public void BackToMainMenu()
+    {
+        StartCoroutine(LoadLevel(0));
+    }
     
     
 }
