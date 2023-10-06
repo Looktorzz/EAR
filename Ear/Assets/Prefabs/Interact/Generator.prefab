@@ -29,10 +29,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1567800725398618426}
   - {fileID: 8192067350936287937}
   - {fileID: 2133284338260531188}
   - {fileID: 2594351504065285088}
-  - {fileID: 1567800725398618426}
   m_Father: {fileID: 8605468942008168846}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2931411875533949227
@@ -701,6 +701,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prompt: 
+  _doorTrigger: {fileID: 0}
   _openGenerator: {fileID: 1010522606601217799}
   _closeGenerator: {fileID: 8051247654223343113}
   _fuseBox: {fileID: 0}
@@ -735,10 +736,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7587254720152492355}
   - {fileID: 8767217184050836529}
   - {fileID: 2458975878589051514}
   - {fileID: 3810366844563159609}
-  - {fileID: 7587254720152492355}
   m_Father: {fileID: 8605468942008168846}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8897802335593150576
