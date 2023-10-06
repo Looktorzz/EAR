@@ -33,7 +33,8 @@ public class IBrokenBox : MonoBehaviour , IInteractable
                 }
                 bucket.isFull = false;
                 
-                Destroy(gameObject);
+                this.gameObject.SetActive(false);
+                // Destroy(gameObject);
                 return true;
             }
             else
