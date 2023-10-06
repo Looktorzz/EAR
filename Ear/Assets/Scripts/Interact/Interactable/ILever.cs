@@ -12,10 +12,13 @@ public class ILever : MonoBehaviour, IInteractable
     private Animator _animator;
     private bool _isOpen;
     
+    [SerializeField] DoorCanPause _DoorcanPause;
+    [SerializeField] bool _IsDoorSlowClose_AndCanStop = false;
+
     private void Start()
     {
-        _animator = _doorLever.GetComponent<Animator>();
-        
+        if(!_IsDoorSlowClose_AndCanStop) _animator = _doorLever.GetComponent<Animator>();
+
         _isOpen = false;
         _close.SetActive(!_isOpen);
         _open.SetActive(_isOpen);
@@ -34,7 +37,21 @@ public class ILever : MonoBehaviour, IInteractable
         _isOpen = true;
         _close.SetActive(!_isOpen);
         _open.SetActive(_isOpen);
-        _animator.SetTrigger("OpenByLever");
+
+        if (_DoorcanPause != null)
+        {
+            _DoorcanPause.OpenDoor();
+        }
+
+        if(!_IsDoorSlowClose_AndCanStop) _animator.SetTrigger("OpenByLever");
+
         return true;
+    }
+
+    public void DoorClose()
+    {
+        _isOpen = false;
+        _close.SetActive(!_isOpen);
+        _open.SetActive(_isOpen);
     }
 }

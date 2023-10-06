@@ -13,25 +13,59 @@ public class Hand : MonoBehaviour
     [SerializeField] private float _handRadius = 0.4f;
     private int _index = 0;
 
-    /*[SerializeField] private Material _materialOutline;
+    [SerializeField] private Material _materialOutline;
+    [SerializeField] private Material _materialDefault;
     [SerializeField] private LayerMask _layerMask;
-    private Material _materialDefault;
-    private GameObject _gameObject;*/
+    private GameObject _gameObject;
+    private GameObject _gameObject2;
+
 
     private Collider[] _colliders = new Collider[3];
+    private Collider[] _colliderForOutLine = new Collider[3];
+
+    private IInteractable _interactable;
+    [SerializeField] int _numFound;
+    bool IsfirstTime =  true;
     // public Collider[] _colliders = null;
-    
+
     void Update()
     {
         _handPoint.position = _handDirectionPoint[_index].position;
+        // ==============================
+
+        _numFound = Physics.OverlapSphereNonAlloc(_handPoint.position, _handRadius, _colliderForOutLine, _layerMask);
+        if (_numFound > 0)
+        {
+            _gameObject = _colliderForOutLine[0].gameObject;
+        }
+        else
+        {
+            _gameObject = null;
+            if (!IsfirstTime)
+            {
+                _gameObject2.GetComponentInChildren<SpriteRenderer>().material = _materialDefault;
+            }
+            
+        }
         
-        /*_gameObject = SentColliderFound(_layerMask).gameObject;
         if (_gameObject != null)
         {
-            Debug.Log($"_gameObject.name = {_gameObject.name}");
-            _materialDefault = _gameObject.GetComponentInChildren<SpriteRenderer>().material;
-            _gameObject.GetComponentInChildren<SpriteRenderer>().material = _materialOutline;
-        }*/
+            if (IsfirstTime)
+            {
+                _gameObject2 = _gameObject; 
+                IsfirstTime = false;
+            } 
+            if (_gameObject != _gameObject2)
+            {
+                _gameObject2.GetComponentInChildren<SpriteRenderer>().material = _materialDefault;
+                _gameObject2 = _gameObject;
+                return;
+            }
+                _gameObject2.GetComponentInChildren<SpriteRenderer>().material = _materialOutline;
+            
+            
+            
+        }
 
     }
 

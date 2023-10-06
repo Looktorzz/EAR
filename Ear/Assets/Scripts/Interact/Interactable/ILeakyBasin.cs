@@ -107,6 +107,6 @@ public class ILeakyBasin : MonoBehaviour, IInteractable
             }
         }
         
-        Debug.Log($"_objectDataSo.objectDatas[_index].weight = {_objectDataSo.objectDatas[_objectIndex.index].weight}");
+        //Debug.Log($"_objectDataSo.objectDatas[_index].weight = {_objectDataSo.objectDatas[_objectIndex.index].weight}");
     }
 }

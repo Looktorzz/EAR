@@ -21,7 +21,7 @@ public class PlateDoor : MonoBehaviour
 
     void Update()
     {
-        Debug.Log($"measurePlate.getWeightCurrent : {measurePlate.getWeightCurrent}");
+        //Debug.Log($"measurePlate.getWeightCurrent : {measurePlate.getWeightCurrent}");
         
         float weightPercent = measurePlate.getWeightCurrent / maximumWeightForOpen;
 
@@ -34,7 +34,7 @@ public class PlateDoor : MonoBehaviour
             }
             else
             {
-                Debug.Log("Close Door");
+                //Debug.Log("Close Door");
                 transform.position = Vector3.MoveTowards(transform.position, closedPoint.position, slideSpeed * Time.deltaTime);
             }
         }

@@ -9,17 +9,20 @@ public class IButton : MonoBehaviour, IInteractable
     [SerializeField] private string _prompt;
     public string InteractionPrompt => _prompt;
     
-    [SerializeField] private GameObject _door;
-    private bool _isStop = false;
-    
+    [SerializeField] private DoorCanPause _door;
+
+
     public bool Interact(Interactor interactor)
     {
-        _isStop =  !_isStop;
-        if (_isStop)
+        if (_door != null)
         {
             // Freeze
-            Vector3 pos = _door.GetComponent<Transform>().position;
-            _door.GetComponent<Transform>().position = pos;
+            if (_door.IsDoorOpen)
+            {
+                _door.PauseDoor();
+                return true;
+            }
+            return false;
         }
         else
         {
