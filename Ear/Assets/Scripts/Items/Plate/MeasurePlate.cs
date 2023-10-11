@@ -17,6 +17,8 @@ public class MeasurePlate : MonoBehaviour
     
     [SerializeField] private GameObject _closeMonitor;
     [SerializeField] private GameObject _openMonitor;
+    [SerializeField] private GameObject _plateNotTrigger;
+    [SerializeField] private GameObject _plateTrigger;
 
     [SerializeField] private GameObject _boxPhysic;
     [SerializeField] private LayerMask _layerMask;
@@ -27,6 +29,9 @@ public class MeasurePlate : MonoBehaviour
     {
         _closeMonitor.SetActive(true);
         _openMonitor.SetActive(false);
+        
+        _plateNotTrigger.SetActive(true);
+        _plateTrigger.SetActive(false);
     }
 
     private void FoundCollider()
@@ -74,11 +79,17 @@ public class MeasurePlate : MonoBehaviour
         {
             _closeMonitor.SetActive(false);
             _openMonitor.SetActive(true);
+            
+            _plateNotTrigger.SetActive(false);
+            _plateTrigger.SetActive(true);
         }
         else
         {
             _closeMonitor.SetActive(true);
             _openMonitor.SetActive(false);
+            
+            _plateNotTrigger.SetActive(true);
+            _plateTrigger.SetActive(false);
         }
     }
 
