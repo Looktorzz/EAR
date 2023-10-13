@@ -3,22 +3,17 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class IDragableObject : MonoBehaviour, IHoldInteractable
+public class IDragableObject : MonoBehaviour, IHoldGrabItem
 {
     bool IsDragNow = false;
     Rigidbody rb;
 
     [SerializeField] private bool isBasin;
     [SerializeField] private bool isBox;
-    
-    private void Start()
-    {
-        // rb = GetComponent<Rigidbody>();
-    }
 
-    public bool HoldInteract(Interactor interactor)
+    public bool HoldInteract(Item item)
     {
-        GameObject player = interactor.gameObject;
+        GameObject player = item.gameObject;
         
         if (!IsDragNow)
         {
@@ -47,9 +42,9 @@ public class IDragableObject : MonoBehaviour, IHoldInteractable
         throw new System.NotImplementedException();
     }
 
-    public bool ReleasedInteract(Interactor interactor)
+    public bool ReleasedInteract(Item item)
     {
-        GameObject player = interactor.gameObject;
+        GameObject player = item.gameObject;
         
         if(IsDragNow)
         {

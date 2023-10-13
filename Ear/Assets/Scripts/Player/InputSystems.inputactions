@@ -15,27 +15,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Interact",
-                    "type": "Button",
-                    "id": "0ca5e056-f1fa-4173-9067-c362cc57b773",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Tap",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "GrabItem",
-                    "type": "Button",
-                    "id": "978d5fce-d4f3-4539-ac99-4f59caca015b",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "InteractHold",
                     "type": "Button",
                     "id": "85b2ea2b-cad9-4c0d-b7d2-fa4cae3d83c5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold,Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "HoldGrabItem",
+                    "type": "Button",
+                    "id": "26e89162-093a-4252-a6fa-fec8354552aa",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Hold,Press",
@@ -189,7 +180,7 @@
                 {
                     "name": "Left",
                     "id": "b2875761-e56a-451c-981a-4a37ae6ff4a6",
-                    "path": "",
+                    "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -200,7 +191,7 @@
                 {
                     "name": "Right",
                     "id": "35950bbd-7a96-45c8-a979-c838e151f608",
-                    "path": "",
+                    "path": "<Gamepad>/leftStick/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -210,56 +201,45 @@
                 },
                 {
                     "name": "",
-                    "id": "598d780d-2aab-4674-9066-6c08cf973605",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e247448f-af1a-4e45-8335-525b340e5ae3",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "GrabItem",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "23cfcc41-03f3-487c-bd43-18bbe0568cd3",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "GrabItem",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2d5554d1-7c8f-47c8-a477-added42f9783",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "948b9d5c-3fea-4be0-bbb1-3e571b4b36e2",
                     "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "InteractHold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "76b06609-7512-4824-8288-21c0d4d3b8ca",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InteractHold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0d23b3c7-0aef-4242-837e-1cf585d78885",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HoldGrabItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "60bca7ee-084b-4732-9e3f-9f28ffd2040a",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HoldGrabItem",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

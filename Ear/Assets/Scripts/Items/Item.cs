@@ -9,6 +9,7 @@ public class Item : MonoBehaviour
 {
     [SerializeField] private Transform _handTransform;
     [SerializeField] private LayerMask _itemMask;
+    [SerializeField] private LayerMask _DragItemMask;
     private Collider _collider = new Collider();
     private PlayerController _playerController;
     private Animator _animator;
@@ -111,6 +112,48 @@ public class Item : MonoBehaviour
             
             
             _playerController.isGrabItem = false;
+        }
+    }
+    
+    public void HoldInteract()
+    {
+        _collider = _hand.SentColliderFound(_DragItemMask);
+
+        if(_collider != null)
+        {
+            IHoldGrabItem item = _collider.GetComponent<IHoldGrabItem>();
+
+            if (item != null)
+            {
+                // ++Animation Drag Item
+                _animator.SetBool("IsHoldDrag",true);
+                _animator.SetFloat("Horizontal", 0);
+                _animator.SetFloat("Vertical", 0);
+                
+                item.HoldInteract(this);
+            }
+            
+            _hand.ClearCollider();
+        }
+    }
+
+    public void ReleasedHoldInteract()
+    {
+        _collider = _hand.SentColliderFound(_DragItemMask);
+
+        if(_collider != null)
+        {
+            IHoldGrabItem item = _collider.GetComponent<IHoldGrabItem>();
+
+            if (item != null)
+            {
+                // --Animation released hold interact
+                
+                item.ReleasedInteract(this);
+            }
+            
+            _animator.SetBool("IsHoldDrag",false);
+            _hand.ClearCollider();
         }
     }
 }

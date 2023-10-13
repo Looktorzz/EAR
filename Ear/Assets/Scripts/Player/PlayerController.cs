@@ -27,10 +27,10 @@ public class PlayerController : MonoBehaviour
     private Animator _animator;
     
     private bool _isHoldInteract = false;
+    private bool _isHoldGrabItem = false;
     public bool isGrabItem = false;
     public bool _isCanCrouching = false;
-
-
+    
     private int _handDirection;
     public int handFreeze;
     public bool isFreezeHand = false;
@@ -48,9 +48,7 @@ public class PlayerController : MonoBehaviour
     private float _animHorizontal, _animVertical;
     private float timeCountForBroken = 0;
     private float timeTriggerForBroken = 15f;
-    
-    
-    
+
     //Sound
     private bool isPlaySound;
     private float soundDuration = 0.5f;
@@ -72,9 +70,10 @@ public class PlayerController : MonoBehaviour
         _input.Player.InteractHold.performed += OnInteractHoldPerformed;
         _input.Player.InteractHold.canceled += OnInteractHoldCanceled;
 
-        _input.Player.GrabItem.started += OnGrabItem;
-        _input.Player.GrabItem.canceled += OnGrabItem;
-        
+        _input.Player.HoldGrabItem.started += OnHoldGrabItemStart;
+        _input.Player.HoldGrabItem.performed += OnHoldGrabItemPerformed;
+        _input.Player.HoldGrabItem.canceled += OnHoldGrabItemCanceled;
+
         _animator.SetFloat("Horizontal", 0);
         _animator.SetFloat("Vertical", 0);
     }
@@ -243,8 +242,6 @@ public class PlayerController : MonoBehaviour
                 _interactor.HoldInteract();
                 Debug.LogWarning("IT's REALLY HOLD");
                 _isHoldInteract = true;
-                
-
             }  
         }
         
@@ -276,9 +273,33 @@ public class PlayerController : MonoBehaviour
         
     }
     
-    private void OnGrabItem(InputAction.CallbackContext context)
+    private void OnHoldGrabItemStart(InputAction.CallbackContext context)
     {
         if (context.ReadValueAsButton())
+        {
+            //Debug.LogWarning("IT's JUST PRESS BY HOLD BUTTON");
+        }
+
+    }
+
+    private void OnHoldGrabItemPerformed(InputAction.CallbackContext context)
+    {
+        if (context.ReadValueAsButton())
+        {
+            if(context.interaction is HoldInteraction)
+            {
+                _item.HoldInteract();
+                Debug.LogWarning("IT's REALLY HOLD");
+                _isHoldGrabItem = true;
+            }  
+        }
+        
+    }
+
+
+    private void OnHoldGrabItemCanceled(InputAction.CallbackContext context)
+    {
+        if (context.interaction is PressInteraction) // Just Press No Hold Interact!
         {
             Debug.Log("OnGrabItem Work!");
             
@@ -286,16 +307,28 @@ public class PlayerController : MonoBehaviour
             {
                 // Hold item
                 _item.HoldItem();
-                
-                
             }
             else
             {
                 // Place item
-                
                 _item.PlaceItem();
             }
+            
+            return;
         }
+        if (_isHoldGrabItem)
+        {
+            if (!context.ReadValueAsButton()) Debug.Log("Released");
+            _item.ReleasedHoldInteract();
+            _isHoldGrabItem = false;
+            
+        }
+
+        if (!_isHoldGrabItem)
+        {
+            _animator.SetBool("IsHoldDrag",false);
+        }
+        
     }
 
     public void CheckHandFreezeForAnimation()
@@ -305,7 +338,6 @@ public class PlayerController : MonoBehaviour
             case (int)DirectionPlayer.East:
                 _animator.SetFloat("Horizontal",-1);
                 _animator.SetFloat("Vertical", 0);
-              
                 break;
             case (int)DirectionPlayer.West:
                 _animator.SetFloat("Horizontal",1);

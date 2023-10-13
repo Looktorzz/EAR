@@ -37,27 +37,18 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Interact"",
-                    ""type"": ""Button"",
-                    ""id"": ""0ca5e056-f1fa-4173-9067-c362cc57b773"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Tap"",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""GrabItem"",
-                    ""type"": ""Button"",
-                    ""id"": ""978d5fce-d4f3-4539-ac99-4f59caca015b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""InteractHold"",
                     ""type"": ""Button"",
                     ""id"": ""85b2ea2b-cad9-4c0d-b7d2-fa4cae3d83c5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold,Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HoldGrabItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""26e89162-093a-4252-a6fa-fec8354552aa"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Hold,Press"",
@@ -211,7 +202,7 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Left"",
                     ""id"": ""b2875761-e56a-451c-981a-4a37ae6ff4a6"",
-                    ""path"": """",
+                    ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -222,57 +213,13 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Right"",
                     ""id"": ""35950bbd-7a96-45c8-a979-c838e151f608"",
-                    ""path"": """",
+                    ""path"": ""<Gamepad>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""598d780d-2aab-4674-9066-6c08cf973605"",
-                    ""path"": ""<Keyboard>/f"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e247448f-af1a-4e45-8335-525b340e5ae3"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""GrabItem"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""23cfcc41-03f3-487c-bd43-18bbe0568cd3"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""GrabItem"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2d5554d1-7c8f-47c8-a477-added42f9783"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -284,6 +231,39 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
                     ""action"": ""InteractHold"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""76b06609-7512-4824-8288-21c0d4d3b8ca"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InteractHold"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0d23b3c7-0aef-4242-837e-1cf585d78885"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HoldGrabItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""60bca7ee-084b-4732-9e3f-9f28ffd2040a"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HoldGrabItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -293,9 +273,8 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
-        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
-        m_Player_GrabItem = m_Player.FindAction("GrabItem", throwIfNotFound: true);
         m_Player_InteractHold = m_Player.FindAction("InteractHold", throwIfNotFound: true);
+        m_Player_HoldGrabItem = m_Player.FindAction("HoldGrabItem", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -358,17 +337,15 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Movement;
-    private readonly InputAction m_Player_Interact;
-    private readonly InputAction m_Player_GrabItem;
     private readonly InputAction m_Player_InteractHold;
+    private readonly InputAction m_Player_HoldGrabItem;
     public struct PlayerActions
     {
         private @InputSystems m_Wrapper;
         public PlayerActions(@InputSystems wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
-        public InputAction @Interact => m_Wrapper.m_Player_Interact;
-        public InputAction @GrabItem => m_Wrapper.m_Player_GrabItem;
         public InputAction @InteractHold => m_Wrapper.m_Player_InteractHold;
+        public InputAction @HoldGrabItem => m_Wrapper.m_Player_HoldGrabItem;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -381,15 +358,12 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
-            @Interact.started += instance.OnInteract;
-            @Interact.performed += instance.OnInteract;
-            @Interact.canceled += instance.OnInteract;
-            @GrabItem.started += instance.OnGrabItem;
-            @GrabItem.performed += instance.OnGrabItem;
-            @GrabItem.canceled += instance.OnGrabItem;
             @InteractHold.started += instance.OnInteractHold;
             @InteractHold.performed += instance.OnInteractHold;
             @InteractHold.canceled += instance.OnInteractHold;
+            @HoldGrabItem.started += instance.OnHoldGrabItem;
+            @HoldGrabItem.performed += instance.OnHoldGrabItem;
+            @HoldGrabItem.canceled += instance.OnHoldGrabItem;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -397,15 +371,12 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
-            @Interact.started -= instance.OnInteract;
-            @Interact.performed -= instance.OnInteract;
-            @Interact.canceled -= instance.OnInteract;
-            @GrabItem.started -= instance.OnGrabItem;
-            @GrabItem.performed -= instance.OnGrabItem;
-            @GrabItem.canceled -= instance.OnGrabItem;
             @InteractHold.started -= instance.OnInteractHold;
             @InteractHold.performed -= instance.OnInteractHold;
             @InteractHold.canceled -= instance.OnInteractHold;
+            @HoldGrabItem.started -= instance.OnHoldGrabItem;
+            @HoldGrabItem.performed -= instance.OnHoldGrabItem;
+            @HoldGrabItem.canceled -= instance.OnHoldGrabItem;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -426,8 +397,7 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnMovement(InputAction.CallbackContext context);
-        void OnInteract(InputAction.CallbackContext context);
-        void OnGrabItem(InputAction.CallbackContext context);
         void OnInteractHold(InputAction.CallbackContext context);
+        void OnHoldGrabItem(InputAction.CallbackContext context);
     }
 }

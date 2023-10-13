@@ -40,7 +40,6 @@ public class Interactor : MonoBehaviour
                 
             }
             
-
             _hand.ClearCollider();
         }
     }
@@ -59,6 +58,9 @@ public class Interactor : MonoBehaviour
                 
                 interactable.HoldInteract(this);
                 _animator.SetBool("IsHoldDrag",true);
+                
+                this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                this.gameObject.GetComponent<PlayerController>().isFreezeHand = true;
 
             }
             
@@ -78,10 +80,12 @@ public class Interactor : MonoBehaviour
             {
                 // --Animation released hold interact
                 interactable.ReleasedInteract(this);
-                _animator.SetBool("IsHoldDrag",false);
 
             }
             
+            this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+            this.gameObject.GetComponent<PlayerController>().isFreezeHand = false;
+
             _animator.SetBool("IsHoldDrag",false);
             _hand.ClearCollider();
         }
