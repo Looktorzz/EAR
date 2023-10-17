@@ -16,13 +16,21 @@ public class IFuseBox : MonoBehaviour, IInteractable
     [SerializeField] private GameObject _fuseItem;
     [SerializeField] private bool _isHaveFuseInside;
     [SerializeField] private bool _isUseKeyToOpen;
+    
+    [HideInInspector] public bool isHaveFuse = false;
     private bool _isOpen = false;
-    public bool isHaveFuse = false;
+    
+    [Header("Light")]
+    [SerializeField] private GameObject _lightRed;
+    [SerializeField] private GameObject _lightGreen;
 
     private void Start()
     {
         _close.SetActive(!_isOpen);
         _open.SetActive(_isOpen);
+        
+        _lightRed.SetActive(!isHaveFuse);
+        _lightGreen.SetActive(isHaveFuse);
     }
 
     public bool Interact(Interactor interactor)
@@ -67,6 +75,9 @@ public class IFuseBox : MonoBehaviour, IInteractable
             fuse.transform.localPosition = Vector3.zero;
             fuse.gameObject.layer = 0;
             isHaveFuse = true;
+            
+            _lightRed.SetActive(!isHaveFuse);
+            _lightGreen.SetActive(isHaveFuse);
             Debug.Log("Complete Fill Fuse.");
             
             SoundManager.instance.Play(SoundManager.SoundName.InsertFuse);

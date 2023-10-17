@@ -11,13 +11,7 @@ public class IBaseLever : MonoBehaviour , IHoldInteractable , IInteractable
     [SerializeField] private GameObject _doorLever;
     [SerializeField] private bool _isCanPick;
     private CountdownTime _countdown;
-    private Animator _animator;
     private Lever _lever;
-    
-    private void Start()
-    {
-        _animator = _doorLever.GetComponent<Animator>();
-    }
     
     public bool Interact(Interactor interactor)
     {
