@@ -12,6 +12,7 @@ public class MeasurePlate : MonoBehaviour
     [SerializeField] private ObjectDataSO _objectDataSo;
     [SerializeField] private TextMeshProUGUI weightTextOne;
     [SerializeField] private TextMeshProUGUI weightTextTwo;
+    public float maximumWeightForOpen;
     public float _weightCurrent = 0;
     public float getWeightCurrent => _weightCurrent;
     
@@ -24,6 +25,8 @@ public class MeasurePlate : MonoBehaviour
     [SerializeField] private LayerMask _layerMask;
     [SerializeField] private Collider[] _colliders;
     private GameObject _itemInHand;
+
+    
     
     private void Start()
     {
@@ -99,8 +102,8 @@ public class MeasurePlate : MonoBehaviour
         if (_colliders != null)
         {
             PlusWeight();
-            weightTextOne.text = ((int) _weightCurrent).ToString("0");
-            weightTextTwo.text = ((int) _weightCurrent).ToString("0");
+            weightTextOne.text = (maximumWeightForOpen - (int) _weightCurrent).ToString("0");
+            weightTextTwo.text = (maximumWeightForOpen - (int) _weightCurrent).ToString("0");
         }
     }
 

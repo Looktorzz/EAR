@@ -6,7 +6,6 @@ using UnityEngine.UIElements;
 public class PlateDoor : MonoBehaviour
 {
     [SerializeField] private MeasurePlate measurePlate;
-    [SerializeField] private float maximumWeightForOpen = 5f;
     [SerializeField] private float slideSpeed = 1f;
     [SerializeField] private bool _isLimit;
     
@@ -23,13 +22,13 @@ public class PlateDoor : MonoBehaviour
 
     void Update()
     {
-        float weightPercent = measurePlate.getWeightCurrent / maximumWeightForOpen;
+        float weightPercent = measurePlate.getWeightCurrent / measurePlate.maximumWeightForOpen;
 
         if (_isLimit)
         {
-            if (measurePlate.getWeightCurrent == maximumWeightForOpen)
+            if (measurePlate.getWeightCurrent == measurePlate.maximumWeightForOpen)
             {
-                Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, maximumWeightForOpen);
+                Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, measurePlate.maximumWeightForOpen);
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, slideSpeed * Time.deltaTime);
                 SoundManager.instance.Play(SoundManager.SoundName.Chain1);
 
@@ -42,9 +41,9 @@ public class PlateDoor : MonoBehaviour
         }
         else
         {
-            if (measurePlate.getWeightCurrent > maximumWeightForOpen)
+            if (measurePlate.getWeightCurrent > measurePlate.maximumWeightForOpen)
             {
-                Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, maximumWeightForOpen);
+                Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, measurePlate.maximumWeightForOpen);
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, slideSpeed * Time.deltaTime);
             }
             else if (measurePlate.getWeightCurrent > 0)

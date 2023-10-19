@@ -11,6 +11,7 @@ public class IFuseBox : MonoBehaviour, IInteractable
     public string InteractionPrompt => _prompt;
     
     [SerializeField] private Transform _fusePosition;
+    [SerializeField] private GameObject _closeLock;
     [SerializeField] private GameObject _close;
     [SerializeField] private GameObject _open;
     [SerializeField] private GameObject _fuseItem;
@@ -26,11 +27,21 @@ public class IFuseBox : MonoBehaviour, IInteractable
 
     private void Start()
     {
-        _close.SetActive(!_isOpen);
-        _open.SetActive(_isOpen);
+        if (_isUseKeyToOpen)
+        {
+            _closeLock.SetActive(true);
+            _close.SetActive(false);
+        }
+        else
+        {
+            _close.SetActive(!_isOpen);
+            _open.SetActive(_isOpen);
+        }
         
         _lightRed.SetActive(!isHaveFuse);
         _lightGreen.SetActive(isHaveFuse);
+
+        
     }
 
     public bool Interact(Interactor interactor)
@@ -51,6 +62,7 @@ public class IFuseBox : MonoBehaviour, IInteractable
             SoundManager.instance.Play(SoundManager.SoundName.FuseBoxOn);
             
             _isOpen = true;
+            _closeLock.SetActive(!_isOpen);
             _close.SetActive(!_isOpen);
             _open.SetActive(_isOpen);
             

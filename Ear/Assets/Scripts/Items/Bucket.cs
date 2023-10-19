@@ -9,12 +9,11 @@ public class Bucket : MonoBehaviour
     [SerializeField] private GameObject _bucketEmpty;
     [SerializeField] private GameObject _bucketFullWater;
     [SerializeField] private GameObject _bucketFullAcidWater;
-    public bool isFull;
+    public bool isFull = false;
     public bool isAcidWater;
     
     private void Start()
     {
-        isFull = false;
         _bucketEmpty.SetActive(true);
         _bucketFullWater.SetActive(false);
         _bucketFullAcidWater.SetActive(false);
