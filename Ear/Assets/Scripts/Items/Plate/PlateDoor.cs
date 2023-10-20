@@ -8,6 +8,8 @@ public class PlateDoor : MonoBehaviour
     [SerializeField] private MeasurePlate measurePlate;
     [SerializeField] private float slideSpeed = 1f;
     [SerializeField] private bool _isLimit;
+    [SerializeField] private bool _isLower;
+    [SerializeField] private bool _isRealtime;
     
     [Header("Height")] 
     [SerializeField] private Transform closedPoint;
@@ -26,7 +28,7 @@ public class PlateDoor : MonoBehaviour
 
         if (_isLimit)
         {
-            if (measurePlate.getWeightCurrent == measurePlate.maximumWeightForOpen)
+            if (measurePlate.maximumWeightForOpen == measurePlate.getWeightCurrent)
             {
                 Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, measurePlate.maximumWeightForOpen);
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, slideSpeed * Time.deltaTime);
@@ -39,7 +41,24 @@ public class PlateDoor : MonoBehaviour
             }
             
         }
-        else
+        
+        if (_isLower)
+        {
+            if ((measurePlate.maximumWeightForOpen - measurePlate.getWeightCurrent) >= 0)
+            {
+                Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, measurePlate.maximumWeightForOpen);
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, slideSpeed * Time.deltaTime);
+                SoundManager.instance.Play(SoundManager.SoundName.Chain1);
+
+            }   
+            else
+            {
+                transform.position = Vector3.MoveTowards(transform.position, closedPoint.position, slideSpeed * Time.deltaTime);
+            }
+            
+        }
+        
+        if (_isRealtime)
         {
             if (measurePlate.getWeightCurrent > measurePlate.maximumWeightForOpen)
             {
