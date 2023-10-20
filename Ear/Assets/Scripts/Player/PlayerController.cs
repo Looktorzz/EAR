@@ -25,6 +25,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rb;
     private InputSystems _input;
     private Animator _animator;
+
+    [Header("Status Player")]
+    public PlayerState _playerState = PlayerState.Idle;
     
     private bool _isHoldInteract = false;
     private bool _isHoldGrabItem = false;
@@ -81,6 +84,7 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         _input.Enable();
+        GameManager.instance.ImPlayer(this.gameObject);
     }
     
     private void OnDisable()
@@ -94,13 +98,44 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(PlaySoundCoroutine(SoundManager.SoundName.FootStep));
         }
+        switch (_playerState)
+        {
+            case PlayerState.Idle:
+                _isDead = false;
 
+                break;
+            case PlayerState.Dead:
+                _isDead = true;
+                break;
+            case PlayerState.Crouch:
+
+                break;
+            case PlayerState.HoldItem:
+
+                break;
+            case PlayerState.DragObject:
+
+                break;
+        }
     }
 
     private void FixedUpdate()
     {
-        _rb.velocity = new Vector3(_moveVector2.x * _moveSpeed, 
-            _rb.velocity.y, _moveVector2.y * _moveSpeed);
+        if (_playerState == PlayerState.Idle)
+        {
+            _rb.velocity = new Vector3(_moveVector2.x * _moveSpeed ,
+                        _rb.velocity.y, _moveVector2.y * _moveSpeed * 0.75f);
+        }
+        else if (_playerState == PlayerState.DragObject || _playerState == PlayerState.Crouch)
+        {
+            _rb.velocity = new Vector3(_moveVector2.x * _moveSpeed * 0.75f,
+                        _rb.velocity.y, _moveVector2.y * _moveSpeed * 0.5f);
+        }
+        else if (_playerState == PlayerState.Dead)
+        {
+            _rb.velocity = Vector3.zero;
+        }
+
 
     }
     
@@ -113,7 +148,7 @@ public class PlayerController : MonoBehaviour
         if (_moveVector2.x < 0)
         {
             // Left
-            _moveSpeed = 5.5f;
+            //_moveSpeed = 5.5f;
             _handDirection = (int) DirectionPlayer.West;
             
             if (!_spriteRenderer.flipX && !isFreezeHand)
@@ -126,7 +161,7 @@ public class PlayerController : MonoBehaviour
         else if (_moveVector2.x > 0)
         {
             // Right
-            _moveSpeed = 5.5f;
+            //_moveSpeed = 5.5f;
             _handDirection = (int) DirectionPlayer.East;
             
             if (_spriteRenderer.flipX && !isFreezeHand)
@@ -140,7 +175,7 @@ public class PlayerController : MonoBehaviour
         else if (_moveVector2.y > 0)
         {
             // Back
-            _moveSpeed = 4.12f;
+            //_moveSpeed = 4.12f;
             _handDirection = (int) DirectionPlayer.North;
             
             _isMoving = true;
@@ -149,7 +184,7 @@ public class PlayerController : MonoBehaviour
         else if (_moveVector2.y < 0)
         {
             // Front
-            _moveSpeed = 4.12f;
+            //_moveSpeed = 4.12f;
             _handDirection = (int) DirectionPlayer.South;
 
             _isMoving = true;
@@ -406,6 +441,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void PlayerDEAD()
+    {
+        StartCoroutine(RespawnTime());
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Water"))
@@ -417,13 +457,21 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator RespawnTime()
     {
-        _isDead = true;
+        _playerState = PlayerState.Dead;
 
         yield return new WaitForSeconds(1f);
-        _isDead = false;
+        _playerState = PlayerState.Idle;
     }
 }
 
+public enum PlayerState
+{
+    Idle,
+    Dead,
+    HoldItem,
+    DragObject,
+    Crouch,
+}
 public enum  AnimName
 {
     Horizontal,
