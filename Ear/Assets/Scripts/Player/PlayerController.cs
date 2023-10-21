@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         _input.Enable();
-        GameManager.instance.ImPlayer(this.gameObject);
+        //GameManager.instance.ImPlayer(this.gameObject);
     }
     
     private void OnDisable()
