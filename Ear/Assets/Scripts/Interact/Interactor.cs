@@ -35,7 +35,8 @@ public class Interactor : MonoBehaviour
                 interactable.Interact(this);
                 if (!_playerController._isCanCrouching)
                 {
-                    _animator.SetTrigger("Interact");
+
+                    StartCoroutine(_playerController.CheckDurationAnimation("Interact", 2));
                 }
                 
             }
@@ -57,10 +58,8 @@ public class Interactor : MonoBehaviour
                 // ++Animation hold interact something
                 
                 interactable.HoldInteract(this);
-                _animator.SetBool("IsHoldDrag",true);
                 
-                this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-                this.gameObject.GetComponent<PlayerController>().isFreezeHand = true;
+                StartCoroutine(_playerController.CheckDurationAnimation("IsHoldDrag", 2));
 
             }
             
@@ -83,9 +82,6 @@ public class Interactor : MonoBehaviour
 
             }
             
-            this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-            this.gameObject.GetComponent<PlayerController>().isFreezeHand = false;
-
             _animator.SetBool("IsHoldDrag",false);
             _hand.ClearCollider();
         }
