@@ -31,9 +31,11 @@ public class IFuseBox : MonoBehaviour, IInteractable
         {
             _closeLock.SetActive(true);
             _close.SetActive(false);
+            _open.SetActive(false);
         }
         else
         {
+            _closeLock.SetActive(_isOpen);
             _close.SetActive(!_isOpen);
             _open.SetActive(_isOpen);
         }
