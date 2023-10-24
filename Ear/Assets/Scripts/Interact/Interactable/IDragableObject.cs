@@ -6,7 +6,7 @@ using UnityEngine;
 public class IDragableObject : MonoBehaviour, IHoldGrabItem
 {
     bool IsDragNow = false;
-    Rigidbody rb;
+    //Rigidbody rb;
 
     [SerializeField] private bool isBasin;
     [SerializeField] private bool isBox;

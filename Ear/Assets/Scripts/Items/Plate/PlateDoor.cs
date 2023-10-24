@@ -14,7 +14,7 @@ public class PlateDoor : MonoBehaviour
     [Header("Height")] 
     [SerializeField] private Transform closedPoint;
     [SerializeField] private Transform openedPoint;
-    
+
     void Start()
     {
         measurePlate.GetComponent<MeasurePlate>();
@@ -25,10 +25,10 @@ public class PlateDoor : MonoBehaviour
     void Update()
     {
         float weightPercent = measurePlate.getWeightCurrent / measurePlate.maximumWeightForOpen;
-
+        
         if (_isLimit)
         {
-            if (measurePlate.maximumWeightForOpen == measurePlate.getWeightCurrent)
+            if (measurePlate.getWeightCurrent >= 5)
             {
                 Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, measurePlate.maximumWeightForOpen);
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, slideSpeed * Time.deltaTime);

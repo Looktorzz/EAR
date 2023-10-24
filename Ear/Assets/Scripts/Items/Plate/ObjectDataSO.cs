@@ -29,5 +29,6 @@ public enum NameObject
     Fuse,
     Rod,
     Key,
-    Box,
+    BoxSmall,
+    BoxBig,
 }
