@@ -448,9 +448,17 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Water"))
+        switch (other.tag)
         {
-            StartCoroutine(RespawnTime());
+            case "Water":
+                StartCoroutine(RespawnTime());
+                break;
+            case "Acid":
+                StartCoroutine(RespawnTime());
+                break;
+            case "Void":
+                StartCoroutine(RespawnTime());
+                break;
         }
     }
 
@@ -458,9 +466,12 @@ public class PlayerController : MonoBehaviour
     IEnumerator RespawnTime()
     {
         _playerState = PlayerState.Dead;
+        _input.Disable();
 
         yield return new WaitForSeconds(1f);
+        transform.position = GameManager.instance.GiveMePositionReSpawn().position;
         _playerState = PlayerState.Idle;
+        _input.Enable();
     }
 }
 

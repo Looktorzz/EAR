@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public List<GameObject> colliderTriggerChangeCheckPoint;
     public int currentRoom;
 
+    [SerializeField] private CheckPointRoomSO _checkPointSO;
+
     private void Awake()
     {
         if(instance == null)
@@ -22,7 +24,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        
+        currentRoom = (int)_checkPointSO.room;
     }
 
     // Update is called once per frame
@@ -45,9 +47,11 @@ public class GameManager : MonoBehaviour
         player = playerObject;
     }
 
-    public void ChangeCheckPoint(Transform positionCheckPoint)
+    public void ChangeCheckPoint(Transform positionCheckPoint, int numRoom)
     {
         currentCheckPoint = positionCheckPoint;
+        currentRoom = numRoom;
+        _checkPointSO.ChangeRoom(numRoom);
     }
 
     public Transform GiveMePositionReSpawn()
