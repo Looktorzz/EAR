@@ -44,7 +44,11 @@ public class Hand : MonoBehaviour
             _gameObject = null;
             if (!IsfirstTime)
             {
-                _gameObject2.GetComponentInChildren<SpriteRenderer>().material = _materialDefault;
+                if (_gameObject2.GetComponentInChildren<SpriteRenderer>())
+                {
+                    _gameObject2.GetComponentInChildren<SpriteRenderer>().material = _materialDefault;
+                }
+                
             }
             
         }

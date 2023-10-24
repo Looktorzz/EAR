@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ff56c9b15aa114f9c43013c19edace, type: 3}
   m_Name: DataCheckPointWhichRoom
   m_EditorClassIdentifier: 
-  level: 0
-  room: 0
+  level: 1
+  room: 101

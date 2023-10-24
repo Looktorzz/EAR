@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
     
     private void Awake()
     {
+        GameManager.instance.ImPlayer(this.gameObject);
         _input = new InputSystems();
         _rb = GetComponent<Rigidbody>();
         _interactor = GetComponent<Interactor>();
@@ -470,6 +471,8 @@ public class PlayerController : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
         transform.position = GameManager.instance.GiveMePositionReSpawn().position;
+        GameManager.instance.ReloadScene();
+
         _playerState = PlayerState.Idle;
         _input.Enable();
     }

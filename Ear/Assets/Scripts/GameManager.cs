@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,11 +9,14 @@ public class GameManager : MonoBehaviour
 
     public GameObject player;
     public Transform currentCheckPoint;
-    public List<GameObject> colliderTriggerChangeCheckPoint;
+    //public List<GameObject> colliderTriggerChangeCheckPoint;
     public int currentRoom;
 
+    public bool IsFirstTime = false;
     [SerializeField] private CheckPointRoomSO _checkPointSO;
+    [SerializeField] private List<ReSpawnCheckPointByArm> _checkPointObjectsList;
 
+    //Don't Destory On Load
     private void Awake()
     {
         if(instance == null)
@@ -25,6 +29,15 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         currentRoom = (int)_checkPointSO.room;
+        foreach (ReSpawnCheckPointByArm numRoom in _checkPointObjectsList)
+        {
+            if (currentRoom == (int)numRoom.numRoom)
+            {
+                currentCheckPoint = numRoom.checkPoint;
+            }
+        }
+        
+        player.transform.position = currentCheckPoint.position;
     }
 
     // Update is called once per frame
@@ -59,4 +72,13 @@ public class GameManager : MonoBehaviour
         return currentCheckPoint;
     }
 
+    public void ReloadScene()
+    {
+        Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
+    }
+
+    public void ReStartAllGameData()
+    {
+        _checkPointSO.RestartGame();
+    }
 }
