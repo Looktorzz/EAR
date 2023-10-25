@@ -34,7 +34,9 @@ public class Hand : MonoBehaviour
         _handPoint.position = _handDirectionPoint[_index].position;
         // ==============================
 
-        _numFound = Physics.OverlapSphereNonAlloc(_handPoint.position, _handRadius, _colliderForOutLine, _layerMask);
+        _numFound = Physics.OverlapBoxNonAlloc(_handPoint.position, _handSize.transform.localScale / 2,
+            _colliderForOutLine, Quaternion.identity, _layerMask);
+        
         if (_numFound > 0)
         {
             _gameObject = _colliderForOutLine[0].gameObject;
@@ -80,9 +82,6 @@ public class Hand : MonoBehaviour
 
     public Collider SentColliderFound(LayerMask layerMask)
     {
-        /*Physics.OverlapSphereNonAlloc(_handPoint.position, 
-            _handRadius, _colliders, layerMask);*/
-
         Physics.OverlapBoxNonAlloc(_handPoint.position, _handSize.transform.localScale / 2,
             _colliders, Quaternion.identity, layerMask);
         
@@ -97,7 +96,6 @@ public class Hand : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        //Gizmos.DrawWireSphere(_handPoint.position, _handRadius);
         Gizmos.DrawWireCube(_handPoint.position, _handSize.transform.localScale);
     }
 }

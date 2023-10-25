@@ -43,6 +43,9 @@ MonoBehaviour:
   - name: Key
     nameObject: 9
     weight: 1
-  - name: Box
-    nameObject: 9
+  - name: Box Small
+    nameObject: 10
     weight: 2
+  - name: Box Big
+    nameObject: 11
+    weight: 5
