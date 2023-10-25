@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private float _moveSpeed;
     private Vector2 _moveVector2;
+    public Vector2 MoveVector2 => _moveVector2;
     
     private Interactor _interactor;
     private Item _item;
