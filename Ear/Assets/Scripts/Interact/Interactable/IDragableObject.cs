@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,7 +7,7 @@ using UnityEngine;
 public class IDragableObject : MonoBehaviour, IHoldGrabItem
 {
     bool IsDragNow = false;
-    //Rigidbody rb;
+    // Rigidbody rb;
 
     [SerializeField] private bool isBasin;
     [SerializeField] private bool isBox;
@@ -20,11 +21,11 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
             // ++Animation drag
             player.GetComponent<Item>().PlaceItem();
             player.GetComponent<PlayerController>().isFreezeHand = true;
-            
+
             IsDragNow = true;
             transform.parent = player.transform;
             Debug.Log("Check Now Drag");
-            // rb.isKinematic = true;
+            //rb.isKinematic = true;
             return true;
         }
 
@@ -50,11 +51,11 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
         {
             // --Animation drag
             player.GetComponent<PlayerController>().isFreezeHand = false;
-            
+
             IsDragNow = false;
             transform.parent = null;
             Debug.Log("Check Now Not Drag");
-            // rb.isKinematic = false;
+            //rb.isKinematic = false;
             return true;
         }
         return false;
