@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
     
     private void Awake()
     {
-        GameManager.instance.ImPlayer(this.gameObject);
+        //GameManager.instance.ImPlayer(this.gameObject);
         _input = new InputSystems();
         _rb = GetComponent<Rigidbody>();
         _interactor = GetComponent<Interactor>();

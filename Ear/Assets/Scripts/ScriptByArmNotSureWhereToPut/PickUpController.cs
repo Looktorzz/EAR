@@ -12,7 +12,7 @@ public class PickUpController : MonoBehaviour
 
     [Header("Physics Parameters")]
     [SerializeField] private float pickupRange = 5f;
-    [SerializeField] private float pickupForce = 450f;
+    [SerializeField] private float pickupForce = 250f;
 
     private void Update()
     {
@@ -43,10 +43,15 @@ public class PickUpController : MonoBehaviour
 
     void MoveObject()
     {
-        if(Vector3.Distance(heldObj.transform.position, holdArea.position) > 0.1f)
+        if(Vector3.Distance(heldObj.transform.position, holdArea.position) > 0.1f &&
+            Vector3.Distance(heldObj.transform.position, holdArea.position) <= 1f)
         {
             Vector3 moveDirection = (holdArea.position - heldObj.transform.position);
             heldObjRB.AddForce(moveDirection * pickupForce);
+        }
+        else if (Vector3.Distance(heldObj.transform.position, holdArea.position) > 1f)
+        {
+            DropObject();
         }
     }
 
@@ -56,7 +61,7 @@ public class PickUpController : MonoBehaviour
         {
             heldObjRB = pickObj.GetComponent<Rigidbody>();
             //heldObjRB.useGravity = false;
-            heldObjRB.drag = 0.3f;
+            heldObjRB.drag = 0.1f;
             heldObjRB.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
 
             heldObjRB.transform.parent = holdArea;
@@ -68,7 +73,7 @@ public class PickUpController : MonoBehaviour
     {
         //heldObjRB.useGravity = true;
         heldObjRB.drag = 0f;
-        heldObjRB.constraints = RigidbodyConstraints.FreezeRotation;
+        heldObjRB.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
 
         heldObjRB.transform.parent = null;
         heldObj = null;
@@ -77,7 +82,7 @@ public class PickUpController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Vector3 direction = transform.TransformDirection(Vector3.left) * 5f;
+        Vector3 direction = transform.TransformDirection(Vector3.left) * pickupRange;
         Gizmos.DrawRay(transform.position, direction);
     }
 
