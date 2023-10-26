@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7401c54978b59cb4aae34b60a61683c6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6c4c133eb18164245811a0b1641bec74, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -186,9 +186,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   measurePlate: {fileID: 0}
-  maximumWeightForOpen: 5
   slideSpeed: 5
   _isLimit: 1
+  _isLower: 0
+  _isRealtime: 0
   closedPoint: {fileID: 9128749267526557538}
   openedPoint: {fileID: 7586611129380200676}
 --- !u!1 &5815121964711122844

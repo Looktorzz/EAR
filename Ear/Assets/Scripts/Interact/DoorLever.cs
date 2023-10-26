@@ -17,6 +17,7 @@ public class DoorLever : MonoBehaviour
     {
         if (_isClose)
         {
+            SoundManager.instance.Play(SoundManager.SoundName.GateOpen);
             transform.DOMoveY(transform.position.y + 4, 3).SetEase(Ease.OutBounce);
             _isClose = false;
         }
@@ -26,6 +27,7 @@ public class DoorLever : MonoBehaviour
     {
         if (!_isClose)
         {
+            SoundManager.instance.Play(SoundManager.SoundName.GateOpen);
             transform.DOMoveY(transform.position.y - 4, 2f).SetEase(Ease.OutBounce);
             _isClose = true;
         }

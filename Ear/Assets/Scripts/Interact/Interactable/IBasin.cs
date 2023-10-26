@@ -8,7 +8,8 @@ public class IBasin : MonoBehaviour , IInteractable
     public string InteractionPrompt => _prompt;
     
     [SerializeField] private GameObject _fullBasin;
-    [SerializeField] private GameObject _almostFullBasin;
+    [SerializeField] private GameObject _twoFillBasin;
+    [SerializeField] private GameObject _oneFillBasin;
     [SerializeField] private GameObject _emptyBasin;
     private bool isFilledWater;
     private int _numFilled = 0;
@@ -24,7 +25,8 @@ public class IBasin : MonoBehaviour , IInteractable
     {
         isFilledWater = false;
         _fullBasin.SetActive(false);
-        _almostFullBasin.SetActive(false);
+        _twoFillBasin.SetActive(false);
+        _oneFillBasin.SetActive(false);
         _emptyBasin.SetActive(true);
         
         _objectIndex = GetComponent<ObjectIndex>();
@@ -64,11 +66,19 @@ public class IBasin : MonoBehaviour , IInteractable
             switch (_numFilled)
             {
                 case 1:
+                    _fullBasin.SetActive(false);
+                    _twoFillBasin.SetActive(false);
+                    _oneFillBasin.SetActive(true);
+                    _emptyBasin.SetActive(false);
+                    
                     SoundManager.instance.Play(SoundManager.SoundName.WaterFill);
+                    
                     break;
+                
                 case 2: // Almost
                     _fullBasin.SetActive(false);
-                    _almostFullBasin.SetActive(true);
+                    _twoFillBasin.SetActive(true);
+                    _oneFillBasin.SetActive(false);
                     _emptyBasin.SetActive(false);
                     
                     SoundManager.instance.Play(SoundManager.SoundName.WaterFill);
@@ -78,7 +88,8 @@ public class IBasin : MonoBehaviour , IInteractable
                 case 3: // Full
                     isFilledWater = true;
                     _fullBasin.SetActive(true);
-                    _almostFullBasin.SetActive(false);
+                    _twoFillBasin.SetActive(false);
+                    _oneFillBasin.SetActive(false);
                     _emptyBasin.SetActive(false);
                     _objectDataSo.objectDatas[_objectIndex.index].weight = _basinEmptyWeight;
                     _objectIndex.ChangeIndex(NameObject.BasinFull);
@@ -88,7 +99,7 @@ public class IBasin : MonoBehaviour , IInteractable
                     break;
             }
             
-            bucket.isFull = false;
+            bucket.BucketIsFull(false);
             Debug.Log($"Complete fill water = {_numFilled} times");
             return true;
         }

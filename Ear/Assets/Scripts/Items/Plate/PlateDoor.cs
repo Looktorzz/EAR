@@ -10,6 +10,7 @@ public class PlateDoor : MonoBehaviour
     [SerializeField] private bool _isLimit;
     [SerializeField] private bool _isLower;
     [SerializeField] private bool _isRealtime;
+    private bool _isOpen;
     
     [Header("Height")] 
     [SerializeField] private Transform closedPoint;
@@ -18,8 +19,16 @@ public class PlateDoor : MonoBehaviour
     void Start()
     {
         measurePlate.GetComponent<MeasurePlate>();
-        
-        
+        _isOpen = false;
+    }
+
+    private void OpenTheDoor(bool isOpen)
+    {
+        if (_isOpen == !isOpen)
+        {
+            SoundManager.instance.Play(SoundManager.SoundName.GateOpen);
+        }
+        _isOpen = isOpen;
     }
 
     void Update()
@@ -30,13 +39,13 @@ public class PlateDoor : MonoBehaviour
         {
             if (measurePlate.getWeightCurrent >= 5)
             {
+                OpenTheDoor(true);
                 Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, measurePlate.maximumWeightForOpen);
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, slideSpeed * Time.deltaTime);
-                SoundManager.instance.Play(SoundManager.SoundName.Chain1);
-
             }   
             else
             {
+                OpenTheDoor(false);
                 transform.position = Vector3.MoveTowards(transform.position, closedPoint.position, slideSpeed * Time.deltaTime);
             }
             
@@ -46,6 +55,7 @@ public class PlateDoor : MonoBehaviour
         {
             if ((measurePlate.maximumWeightForOpen - measurePlate.getWeightCurrent) >= 0)
             {
+                OpenTheDoor(true);
                 Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, measurePlate.maximumWeightForOpen);
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, slideSpeed * Time.deltaTime);
                 SoundManager.instance.Play(SoundManager.SoundName.Chain1);
@@ -53,6 +63,7 @@ public class PlateDoor : MonoBehaviour
             }   
             else
             {
+                OpenTheDoor(false);
                 transform.position = Vector3.MoveTowards(transform.position, closedPoint.position, slideSpeed * Time.deltaTime);
             }
             

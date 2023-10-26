@@ -16,7 +16,7 @@ public class ILeverBox : MonoBehaviour, IInteractable
     [SerializeField] private bool _isUseKeyToOpen;
     [SerializeField] private bool _isOpen;
     
-    [SerializeField] private GameObject _doorLever;
+    [SerializeField] private DoorLever _doorLever;
     
     [Header("Light")]
     [SerializeField] private GameObject _lightRed;
@@ -46,6 +46,11 @@ public class ILeverBox : MonoBehaviour, IInteractable
                     Debug.Log("Can't Open Fuse Box");
                     return false;
                 }
+                else
+                {
+                    interactor.GetComponentInChildren<Item>().PlaceItemOnInteract();
+                    Destroy(key.gameObject);
+                }
             }
             
             // ++Sound open fuse box
@@ -64,10 +69,12 @@ public class ILeverBox : MonoBehaviour, IInteractable
             _lightRed.SetActive(!_isOpen);
             _lightGreen.SetActive(_isOpen);
             
-            Vector3 posDoor = _doorLever.transform.position;
-            _doorLever.transform.DOLocalMoveY(posDoor.y + 1, 3).SetEase(Ease.OutBounce);
+            _doorLever.OpenDoor();
+            
+            /*Vector3 posDoor = _doorLever.transform.position;
+            _doorLever.transform.DOLocalMoveY(posDoor.y + 1, 3).SetEase(Ease.OutBounce);*/
         
-            SoundManager.instance.Play(SoundManager.SoundName.GateOpen);
+            // SoundManager.instance.Play(SoundManager.SoundName.GateOpen);
             
             return true;
         }

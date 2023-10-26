@@ -62,6 +62,11 @@ public class IFuseBox : MonoBehaviour, IInteractable
                     Debug.Log("Can't Open Fuse Box");
                     return false;
                 }
+                else
+                {
+                    interactor.GetComponentInChildren<Item>().PlaceItemOnInteract();
+                    Destroy(key.gameObject);
+                }
             }
             
             // ++Sound open fuse box

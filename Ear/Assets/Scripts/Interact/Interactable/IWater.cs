@@ -19,7 +19,7 @@ public class IWater : MonoBehaviour , IHoldInteractable , IInteractable
         {
             if (bucket.isAcidWater == isAcidWater)
             {
-                bucket.isFull = false;
+                bucket.BucketIsFull(false);
                 
                 SoundManager.instance.Play(SoundManager.SoundName.AcidDrip);
                 return true;
@@ -61,7 +61,7 @@ public class IWater : MonoBehaviour , IHoldInteractable , IInteractable
         _bucket.isAcidWater = isAcidWater;
         
         SoundManager.instance.Play(SoundManager.SoundName.WaterFill);
-        _bucket.isFull = true;
+        _bucket.BucketIsFull(true);
     }
 
     public bool ReleasedInteract(Interactor interactor)
