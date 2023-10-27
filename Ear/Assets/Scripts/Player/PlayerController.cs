@@ -55,6 +55,8 @@ public class PlayerController : MonoBehaviour
     //Sound
     private bool isPlaySound;
     private float soundDuration = 0.5f;
+
+    [SerializeField] private GameObject _canvaDead;
     
     private void Awake()
     {
@@ -448,19 +450,36 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("DeadZone"))
+        switch (other.tag)
         {
-            StartCoroutine(RespawnTime());
+            case "DeadZone":
+                StartCoroutine(RespawnTime());
+                break;
+            
+            // Not use for now na
+            case "Acid":
+                StartCoroutine(RespawnTime());
+                break;
+            case "Void":
+                StartCoroutine(RespawnTime());
+                break;
         }
     }
-
-
+    
     IEnumerator RespawnTime()
     {
+        _canvaDead.SetActive(true);
         _playerState = PlayerState.Dead;
+        _input.Disable();
 
         yield return new WaitForSeconds(1f);
+        transform.position = GameManager.instance.GiveMePositionReSpawn().position;
+        GameManager.instance.ReloadScene();
+
+        
         _playerState = PlayerState.Idle;
+        _input.Enable();
+        _canvaDead.SetActive(false);
     }
 }
 

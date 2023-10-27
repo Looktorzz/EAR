@@ -17,6 +17,8 @@ public class Bucket : MonoBehaviour
         _bucketEmpty.SetActive(true);
         _bucketFullWater.SetActive(false);
         _bucketFullAcidWater.SetActive(false);
+        
+        BucketIsFull(isFull);
 
     }
 
