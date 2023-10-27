@@ -10,6 +10,7 @@ public class PlateDoor : MonoBehaviour
     [SerializeField] private bool _isLimit;
     [SerializeField] private bool _isLower;
     [SerializeField] private bool _isRealtime;
+    public bool _isCloseFromEvent;
     private bool _isOpen;
     
     [Header("Height")] 
@@ -19,10 +20,11 @@ public class PlateDoor : MonoBehaviour
     void Start()
     {
         measurePlate.GetComponent<MeasurePlate>();
+        _isCloseFromEvent = false;
         _isOpen = false;
     }
 
-    private void OpenTheDoor(bool isOpen)
+    private void CheckTheDoor(bool isOpen)
     {
         if (_isOpen == !isOpen)
         {
@@ -31,22 +33,39 @@ public class PlateDoor : MonoBehaviour
         _isOpen = isOpen;
     }
 
+    private void OpenDoor()
+    {
+        Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, measurePlate.maximumWeightForOpen);
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, slideSpeed * Time.deltaTime);
+    }
+    
+    private void CloseDoor()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, closedPoint.position, slideSpeed * Time.deltaTime);
+    }
+
     void Update()
     {
         float weightPercent = measurePlate.getWeightCurrent / measurePlate.maximumWeightForOpen;
+
+        if (_isCloseFromEvent)
+        {
+            CheckTheDoor(false);
+            CloseDoor();
+            return;
+        }
         
         if (_isLimit)
         {
             if (measurePlate.getWeightCurrent >= 5)
             {
-                OpenTheDoor(true);
-                Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, measurePlate.maximumWeightForOpen);
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, slideSpeed * Time.deltaTime);
+                CheckTheDoor(true);
+                OpenDoor();
             }   
             else
             {
-                OpenTheDoor(false);
-                transform.position = Vector3.MoveTowards(transform.position, closedPoint.position, slideSpeed * Time.deltaTime);
+                CheckTheDoor(false);
+                CloseDoor();
             }
             
         }
@@ -55,16 +74,13 @@ public class PlateDoor : MonoBehaviour
         {
             if ((measurePlate.maximumWeightForOpen - measurePlate.getWeightCurrent) >= 0)
             {
-                OpenTheDoor(true);
-                Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, measurePlate.maximumWeightForOpen);
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, slideSpeed * Time.deltaTime);
-                SoundManager.instance.Play(SoundManager.SoundName.Chain1);
-
+                CheckTheDoor(true);
+                OpenDoor();
             }   
             else
             {
-                OpenTheDoor(false);
-                transform.position = Vector3.MoveTowards(transform.position, closedPoint.position, slideSpeed * Time.deltaTime);
+                CheckTheDoor(false);
+                CloseDoor();
             }
             
         }
@@ -73,17 +89,19 @@ public class PlateDoor : MonoBehaviour
         {
             if (measurePlate.getWeightCurrent > measurePlate.maximumWeightForOpen)
             {
-                Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, measurePlate.maximumWeightForOpen);
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, slideSpeed * Time.deltaTime);
+                CheckTheDoor(true);
+                OpenDoor();
             }
             else if (measurePlate.getWeightCurrent > 0)
             {
+                CheckTheDoor(true);
                 Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, weightPercent);
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, slideSpeed * Time.deltaTime);
             }
             else if (measurePlate.getWeightCurrent == 0)
             {
-                transform.position = Vector3.MoveTowards(transform.position, closedPoint.position, slideSpeed * Time.deltaTime);
+                CheckTheDoor(false);
+                CloseDoor();
             }
             
         }
