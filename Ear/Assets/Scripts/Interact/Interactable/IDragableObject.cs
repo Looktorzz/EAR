@@ -47,23 +47,58 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
         {
             // ++Animation drag
             player.GetComponent<Item>().PlaceItem();
-            player.GetComponent<PlayerController>().isFreezeHand = true;
+            PlayerController pc = player.GetComponent<PlayerController>();
+            Hand hand = player.GetComponent<Hand>();
+            pc.isFreezeHand = true;
+            
             
             IsDragNow = true;
+
+            Collider collider = this.gameObject.GetComponent<Collider>();
+            
+            if ((int)DirectionPlayer.East == pc.handFreeze)
+            {
+                Vector3 moveDirection = pc.handLeft.position - this.transform.position;
+                //300f force
+                rb.AddForce(moveDirection * 300f);
+                
+                if (collider != null)
+                {
+                    SetHandInCenterObject(collider,pc.handLeft);
+                }
+            }
+
+            if ((int) DirectionPlayer.West == pc.handFreeze)
+            {
+                Vector3 moveDirection = pc.handRight.position - this.transform.position;
+                rb.AddForce(moveDirection * 300f);
+                
+                if (collider != null)
+                {
+                    SetHandInCenterObject(collider,pc.handRight);
+                }
+            }
+        
+            rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation; 
+            
             
             Debug.Log("Check Now Drag");
             // rb.isKinematic = true;
             return true;
         }
 
-        if (isBasin)
-        {
-            SoundManager.instance.Play(SoundManager.SoundName.DragBucket);
-        }
-
         Debug.LogWarning("They are No Hold Interact");
         return false;
     }
+
+    public void SetHandInCenterObject(Collider collider, Transform handPoint)
+    {
+        Vector3 centerBottom = collider.bounds.center;
+        centerBottom.y = collider.bounds.min.y;
+
+        handPoint.position = centerBottom;
+    }
+    
 
     public void HoldCompleteInteract()
     {
@@ -77,7 +112,14 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
         if(IsDragNow)
         {
             // --Animation drag
+            PlayerController pc = player.GetComponent<PlayerController>();
+            pc.isFreezeHand = false;
+            pc.handLeft.position = pc.handLeftPos;
+            pc.handRight.position = pc.handRightPos;
+            
             player.GetComponent<PlayerController>().isFreezeHand = false;
+            
+            
             
             IsDragNow = false;
             
