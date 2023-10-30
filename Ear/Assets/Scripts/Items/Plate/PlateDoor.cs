@@ -41,7 +41,7 @@ public class PlateDoor : MonoBehaviour
     
     private void CloseDoor()
     {
-        transform.position = Vector3.MoveTowards(transform.position, closedPoint.position, slideSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, closedPoint.position, 5 * Time.deltaTime);
     }
 
     void Update()

@@ -41,6 +41,8 @@ public class Board : MonoBehaviour
                     break;
             }
             
+            _player.gameObject.GetComponent<Item>().PlaceItem();
+            
         }
         
         if (gameObject.GetComponentInParent<PlayerController>() == null)

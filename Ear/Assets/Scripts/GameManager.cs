@@ -40,21 +40,6 @@ public class GameManager : MonoBehaviour
         player.transform.position = currentCheckPoint.position;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    //Use When ReStartGame Or ReRoom
-    /*public void ClearRoomCheckPointThatBeforeThisRoom()
-    {
-        for (int i = 0; i < currentRoom; i++)
-        {
-
-        }
-    }*/
-
     public void ImPlayer(GameObject playerObject)
     {
         player = playerObject;

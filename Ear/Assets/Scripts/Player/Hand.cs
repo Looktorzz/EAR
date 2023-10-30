@@ -28,6 +28,9 @@ public class Hand : MonoBehaviour
     bool IsfirstTime =  true;
 
     [SerializeField] private GameObject _handSize;
+    [SerializeField] private GameObject _handSizeRL;
+    [SerializeField] private GameObject _handSizeFB;
+    [SerializeField] private PlayerController _playerController;
 
     void Update()
     {
@@ -82,6 +85,16 @@ public class Hand : MonoBehaviour
 
     public Collider SentColliderFound(LayerMask layerMask)
     {
+        if (_playerController.handFreeze == (int) DirectionPlayer.North ||
+            _playerController.handFreeze == (int) DirectionPlayer.South)
+        {
+            _handSize.transform.localScale = _handSizeFB.transform.localScale;
+        }
+        else
+        {
+            _handSize.transform.localScale = _handSizeRL.transform.localScale;
+        }
+        
         Physics.OverlapBoxNonAlloc(_handPoint.position, _handSize.transform.localScale / 2,
             _colliders, Quaternion.identity, layerMask);
         
@@ -95,6 +108,16 @@ public class Hand : MonoBehaviour
     
     private void OnDrawGizmos()
     {
+        if (_playerController.handFreeze == (int) DirectionPlayer.North ||
+            _playerController.handFreeze == (int) DirectionPlayer.South)
+        {
+            _handSize.transform.localScale = _handSizeFB.transform.localScale;
+        }
+        else
+        {
+            _handSize.transform.localScale = _handSizeRL.transform.localScale;
+        }
+        
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(_handPoint.position, _handSize.transform.localScale);
     }
