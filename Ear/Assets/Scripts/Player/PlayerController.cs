@@ -423,12 +423,3 @@ public class PlayerController : MonoBehaviour
         _isDead = false;
     }
 }
-
-public enum  AnimName
-{
-    Horizontal,
-    Vertical,
-    IsHoldDrag,
-    IsGrabItem,
-    OnCrouch
-}

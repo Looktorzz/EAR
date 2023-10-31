@@ -18,4 +18,12 @@ public class Rats : MonoBehaviour
     {
         rat.transform.DOMoveX(transform.position.x - 2, 2);
     }
+
+    private void Update()
+    {
+        if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+        {
+            Debug.Log(_animator.GetCurrentAnimatorStateInfo(0));
+        }
+    }
 }

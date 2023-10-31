@@ -36,7 +36,7 @@ public class Interactor : MonoBehaviour
                 if (!_playerController._isCanCrouching)
                 {
 
-                    StartCoroutine(_playerController.CheckDurationAnimation("Interact", 2));
+                    StartCoroutine(_playerController.CheckDurationAnimation("Interact", 1.5f));
                 }
                 
             }
@@ -59,7 +59,7 @@ public class Interactor : MonoBehaviour
                 
                 interactable.HoldInteract(this);
                 
-                StartCoroutine(_playerController.CheckDurationAnimation("IsHoldDrag", 2));
+                StartCoroutine(_playerController.CheckDurationAnimation("IsHoldDrag", 1.5f));
 
             }
             
