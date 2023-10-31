@@ -105,7 +105,7 @@ public class PickUpController : MonoBehaviour
         heldObjRB.transform.parent = null;
         heldObj = null;
 
-        leftTarget.localPosition = leftTargetPos;
+        leftTarget.position = leftTargetPos;
         //rightTarget.position = rightTargetPos;
     }
 

@@ -7,7 +7,7 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
 {
     bool IsDragNow = false;
     Rigidbody rb;
-    PlayerController playerController;
+    PlayerController pc;
 
     [SerializeField] float PowerForce = 5000f;
     [SerializeField] private bool isBasin;
@@ -16,21 +16,28 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        playerController = GameManager.instance.player.GetComponent<PlayerController>();
+
+        if (GameObject.FindGameObjectWithTag("Player") != null)
+        {
+            pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        }
+        
     }
 
     private void FixedUpdate()
     {
         if (IsDragNow)
         {
-            Debug.Log(playerController.MoveVector2);
-            if (playerController.MoveVector2.x > 0)
+            if ((int)DirectionPlayer.East == pc.handFreeze)
             {
-                rb.AddForce(PowerForce * playerController.MoveVector2, ForceMode.Force);
+                Vector3 moveDirection = pc.handLeft.position - this.transform.position;
+                rb.AddForce(moveDirection * 300f);
             }
-            else if (playerController.MoveVector2.y > 0)
+
+            if ((int) DirectionPlayer.West == pc.handFreeze)
             {
-                rb.AddForce(PowerForce * playerController.MoveVector2, ForceMode.Force);
+                Vector3 moveDirection = pc.handRight.position - this.transform.position;
+                rb.AddForce(moveDirection * 300f);
             }
         }
         else
@@ -47,39 +54,34 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
         {
             // ++Animation drag
             player.GetComponent<Item>().PlaceItem();
-            PlayerController pc = player.GetComponent<PlayerController>();
-            Hand hand = player.GetComponent<Hand>();
+            //Hand hand = player.GetComponent<Hand>();
             pc.isFreezeHand = true;
             
             
             IsDragNow = true;
 
+            /*
             Collider collider = this.gameObject.GetComponent<Collider>();
+            */
+            
             
             if ((int)DirectionPlayer.East == pc.handFreeze)
             {
-                Vector3 moveDirection = pc.handLeft.position - this.transform.position;
-                //300f force
-                rb.AddForce(moveDirection * 300f);
-                
-                if (collider != null)
+                if (GetComponent<Collider>() != null)
                 {
-                    SetHandInCenterObject(collider,pc.handLeft);
+                    SetHandInCenterObject(GetComponent<Collider>(),pc.handLeft);
                 }
             }
 
             if ((int) DirectionPlayer.West == pc.handFreeze)
             {
-                Vector3 moveDirection = pc.handRight.position - this.transform.position;
-                rb.AddForce(moveDirection * 300f);
-                
-                if (collider != null)
+                if (GetComponent<Collider>() != null)
                 {
-                    SetHandInCenterObject(collider,pc.handRight);
+                    SetHandInCenterObject(GetComponent<Collider>(),pc.handRight);
                 }
             }
         
-            rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation; 
+            //rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation; 
             
             
             Debug.Log("Check Now Drag");
@@ -114,8 +116,8 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
             // --Animation drag
             PlayerController pc = player.GetComponent<PlayerController>();
             pc.isFreezeHand = false;
-            pc.handLeft.position = pc.handLeftPos;
-            pc.handRight.position = pc.handRightPos;
+            pc.handLeft.localPosition = pc.handLeftPos;
+            pc.handRight.localPosition = pc.handRightPos;
             
             player.GetComponent<PlayerController>().isFreezeHand = false;
             
