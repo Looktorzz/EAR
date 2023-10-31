@@ -7,11 +7,19 @@ using UnityEngine.InputSystem;
 
 public class Board : MonoBehaviour
 {
+    [SerializeField] private GameObject _board;
+    [SerializeField] private GameObject _boardBreak;
     private PlayerController _player;
     private Quaternion _rotationQuaternion;
     private Vector3 _rotationVector3;
     private bool _isUsedOnPlayer = false;
-    
+
+    private void Start()
+    {
+        _board.SetActive(true);
+        _boardBreak.SetActive(false);
+    }
+
     void Update()
     {
         if (gameObject.GetComponentInParent<PlayerController>() != null)
@@ -49,6 +57,9 @@ public class Board : MonoBehaviour
         {
             if (_isUsedOnPlayer)
             {
+                _board.SetActive(false);
+                _boardBreak.SetActive(true);
+                
                 _rotationVector3.x = 90;
                 _rotationQuaternion.eulerAngles = _rotationVector3;
                 this.transform.rotation = _rotationQuaternion;

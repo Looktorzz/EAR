@@ -114,6 +114,7 @@ public class IFuseBox : MonoBehaviour, IInteractable
         }
 
         // ++Sound fail (pak pak)
+        SoundManager.instance.Play(SoundManager.SoundName.Fail);
         return false;
     }
 }

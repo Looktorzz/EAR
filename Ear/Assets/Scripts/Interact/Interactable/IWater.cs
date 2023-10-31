@@ -21,7 +21,7 @@ public class IWater : MonoBehaviour , IHoldInteractable , IInteractable
             {
                 bucket.BucketIsFull(false);
                 
-                SoundManager.instance.Play(SoundManager.SoundName.AcidDrip);
+                SoundManager.instance.Play(SoundManager.SoundName.WaterFill);
                 return true;
             }
             else
