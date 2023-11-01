@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine.Utility;
 using UnityEngine;
 
 public class PickUpController : MonoBehaviour
@@ -9,10 +11,22 @@ public class PickUpController : MonoBehaviour
     private GameObject heldObj;
     private Rigidbody heldObjRB;
 
+    [Header("Hand")] 
+    [SerializeField] private Transform rightTarget;
+    [SerializeField] private Transform leftTarget;
+    [SerializeField] private Vector3 rightTargetPos;
+    [SerializeField] private Vector3 leftTargetPos;
 
     [Header("Physics Parameters")]
     [SerializeField] private float pickupRange = 5f;
     [SerializeField] private float pickupForce = 250f;
+
+
+    private void Awake()
+    {
+        rightTargetPos = rightTarget.localPosition;
+        leftTargetPos = leftTarget.localPosition;
+    }
 
     private void Update()
     {
@@ -51,7 +65,7 @@ public class PickUpController : MonoBehaviour
         }
         else if (Vector3.Distance(heldObj.transform.position, holdArea.position) > 1f)
         {
-            DropObject();
+            //DropObject();
         }
     }
 
@@ -59,6 +73,17 @@ public class PickUpController : MonoBehaviour
     {
         if (pickObj.GetComponent<Rigidbody>())
         {
+            Collider objectCollider = pickObj.GetComponent<Collider>();
+
+            if (objectCollider != null)
+            {
+                Vector3 centerBottom = objectCollider.bounds.center;
+                centerBottom.y = objectCollider.bounds.min.y;
+
+                rightTarget.position = centerBottom;
+            }
+            
+            
             heldObjRB = pickObj.GetComponent<Rigidbody>();
             //heldObjRB.useGravity = false;
             heldObjRB.drag = 0.1f;
@@ -66,6 +91,8 @@ public class PickUpController : MonoBehaviour
 
             heldObjRB.transform.parent = holdArea;
             heldObj = pickObj;
+
+            
         }
     }
 
@@ -77,6 +104,9 @@ public class PickUpController : MonoBehaviour
 
         heldObjRB.transform.parent = null;
         heldObj = null;
+
+        leftTarget.localPosition = leftTargetPos;
+        //rightTarget.position = rightTargetPos;
     }
 
     private void OnDrawGizmos()
