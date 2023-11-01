@@ -50,6 +50,7 @@ public class Board : MonoBehaviour
             }
             
             _player.gameObject.GetComponent<Item>().PlaceItem();
+            // _player.gameObject.GetComponent<Item>().SetIdle();
             
         }
         

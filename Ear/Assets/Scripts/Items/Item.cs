@@ -48,9 +48,10 @@ public class Item : MonoBehaviour
                 itemInHand.GetComponent<Collider>().isTrigger = true;
                 itemInHand.GetComponent<Rigidbody>().useGravity = false;
                 itemInHand.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-
-                _animator.SetBool("IsGrabItem",true);
                 
+                //_animator.SetBool("IsGrabItem",true);
+                StartCoroutine(_playerController.CheckDurationAnimation("IsGrabItem", 1.5f));
+
                 _playerController.isGrabItem = true;
             }
             
@@ -80,7 +81,9 @@ public class Item : MonoBehaviour
                 itemInHand = null;
                 
                 _playerController.CheckHandFreezeForAnimation();
+                
                 _animator.SetBool("IsGrabItem",false);
+                // StartCoroutine(_playerController.CheckDurationAnimation("IsGrabItem", 0.5f));
                 _animator.SetFloat("Horizontal", 0);
                 _animator.SetFloat("Vertical", 0);
 
@@ -108,12 +111,12 @@ public class Item : MonoBehaviour
             itemInHand = null;
             
             _playerController.CheckHandFreezeForAnimation();
+            
             _animator.SetBool("IsGrabItem",false);
+            // StartCoroutine(_playerController.CheckDurationAnimation("IsGrabItem", 0.5f));
             _animator.SetFloat("Horizontal", 0);
             _animator.SetFloat("Vertical", 0);
-            
-            
-            
+
             _playerController.isGrabItem = false;
         }
     }
@@ -129,7 +132,8 @@ public class Item : MonoBehaviour
             if (item != null)
             {
                 // ++Animation Drag Item
-                _animator.SetBool("IsHoldDrag",true);
+                // _animator.SetBool("IsHoldDrag",true);
+                StartCoroutine(_playerController.CheckDurationAnimation("IsHoldDrag", 1.5f));
                 _animator.SetFloat("Horizontal", 0);
                 _animator.SetFloat("Vertical", 0);
                 

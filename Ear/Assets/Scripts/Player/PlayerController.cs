@@ -411,12 +411,12 @@ public class PlayerController : MonoBehaviour
     
     public IEnumerator CheckDurationAnimation(string nameAnim,float duration)
     {
-        _isMoving = false;
-        _animator.SetBool(nameAnim,true); 
+        _input.Disable();
+        _animator.SetBool(nameAnim, true);
         Debug.Log("First");
         yield return new WaitForSeconds(duration);
         Debug.Log("Second");
-        _isMoving = true;
+        _input.Enable();
     }
     
     IEnumerator PlaySoundCoroutine(SoundManager.SoundName soundName)
@@ -465,7 +465,7 @@ public class PlayerController : MonoBehaviour
     {
         switch (other.tag)
         {
-            case "Water":
+            case "DeadZone":
                 StartCoroutine(RespawnTime());
                 break;
             case "Acid":
