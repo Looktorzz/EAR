@@ -57,12 +57,7 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
             //Hand hand = player.GetComponent<Hand>();
             pc.isFreezeHand = true;
             
-            
             IsDragNow = true;
-
-            /*
-            Collider collider = this.gameObject.GetComponent<Collider>();
-            */
             
             
             if ((int)DirectionPlayer.East == pc.handFreeze)
