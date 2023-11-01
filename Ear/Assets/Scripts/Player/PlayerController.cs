@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private float _moveSpeed;
     private Vector2 _moveVector2;
+    public Vector2 MoveVector2 => _moveVector2;
     
     private Interactor _interactor;
     private Item _item;
@@ -35,9 +36,15 @@ public class PlayerController : MonoBehaviour
     public bool _isCanCrouching = false;
     
     private int _handDirection;
+    public int handDirection => _handDirection;
     public int handFreeze;
     public bool isFreezeHand = false;
     
+    public Transform handLeft;
+    public Transform handRight;
+    public Vector3 handLeftPos;
+    public Vector3 handRightPos;
+
     //Check Status
     private bool _isMoving;
     //Check Reset
@@ -55,11 +62,13 @@ public class PlayerController : MonoBehaviour
     //Sound
     private bool isPlaySound;
     private float soundDuration = 0.5f;
-
-    [SerializeField] private GameObject _canvaDead;
     
     private void Awake()
     {
+        handRightPos = handRight.localPosition;
+        handLeftPos = handLeft.localPosition;
+        
+        //GameManager.instance.ImPlayer(this.gameObject);
         _input = new InputSystems();
         _rb = GetComponent<Rigidbody>();
         _interactor = GetComponent<Interactor>();
@@ -89,10 +98,10 @@ public class PlayerController : MonoBehaviour
         //GameManager.instance.ImPlayer(this.gameObject);
     }
     
-    private void OnDisable()
+    /*private void OnDisable()
     {
         _input.Disable();
-    }
+    }*/
 
     private void Update()
     {
@@ -110,13 +119,17 @@ public class PlayerController : MonoBehaviour
                 _isDead = true;
                 break;
             case PlayerState.Crouch:
-
                 break;
             case PlayerState.HoldItem:
-
+                _isHoldGrabItem = true;
                 break;
             case PlayerState.DragObject:
-
+                _isHoldInteract = true;
+                break;
+            default:
+                _isDead = false;
+                _isHoldInteract = false;
+                _isHoldGrabItem = false;
                 break;
         }
     }
@@ -452,11 +465,9 @@ public class PlayerController : MonoBehaviour
     {
         switch (other.tag)
         {
-            case "DeadZone":
+            case "Water":
                 StartCoroutine(RespawnTime());
                 break;
-            
-            // Not use for now na
             case "Acid":
                 StartCoroutine(RespawnTime());
                 break;
@@ -465,10 +476,10 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
-    
+
+
     IEnumerator RespawnTime()
     {
-        _canvaDead.SetActive(true);
         _playerState = PlayerState.Dead;
         _input.Disable();
 
@@ -476,10 +487,8 @@ public class PlayerController : MonoBehaviour
         transform.position = GameManager.instance.GiveMePositionReSpawn().position;
         GameManager.instance.ReloadScene();
 
-        
         _playerState = PlayerState.Idle;
         _input.Enable();
-        _canvaDead.SetActive(false);
     }
 }
 
