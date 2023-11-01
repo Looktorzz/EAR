@@ -71,7 +71,9 @@ public class Item : MonoBehaviour
                 itemInHand.transform.SetParent(null);
                 itemInHand.GetComponent<Collider>().isTrigger = false;
                 itemInHand.GetComponent<Rigidbody>().useGravity = true;
-                itemInHand.GetComponent<Rigidbody>().constraints = ~RigidbodyConstraints.FreezePositionY;
+
+                //Need to Fix : Make it only Item  in collider , item that can drag NO NEED TO BE HERE!!
+                //itemInHand.GetComponent<Rigidbody>().constraints = ~RigidbodyConstraints.FreezePositionY;
 
                 _collider = null;
                 itemInHand = null;

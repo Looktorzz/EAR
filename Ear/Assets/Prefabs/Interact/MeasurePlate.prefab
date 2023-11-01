@@ -73,6 +73,7 @@ MonoBehaviour:
   _objectDataSo: {fileID: 11400000, guid: cddff7ce5e33d3943b811f3171db857d, type: 2}
   weightTextOne: {fileID: 7357696270365067901}
   weightTextTwo: {fileID: 7357696270365067901}
+  maximumWeightForOpen: 0
   _weightCurrent: 0
   _closeMonitor: {fileID: 3927056671158587365}
   _openMonitor: {fileID: 3927056671158587365}
@@ -155,7 +156,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: f4ad5f50cc68a5748bf31dbab4413f5e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -405,7 +406,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 1686cc3c0c13dfe4f85cabf372494e13, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

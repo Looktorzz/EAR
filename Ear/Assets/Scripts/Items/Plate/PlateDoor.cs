@@ -6,14 +6,15 @@ using UnityEngine.UIElements;
 public class PlateDoor : MonoBehaviour
 {
     [SerializeField] private MeasurePlate measurePlate;
-    [SerializeField] private float maximumWeightForOpen = 5f;
     [SerializeField] private float slideSpeed = 1f;
     [SerializeField] private bool _isLimit;
+    [SerializeField] private bool _isLower;
+    [SerializeField] private bool _isRealtime;
     
     [Header("Height")] 
     [SerializeField] private Transform closedPoint;
     [SerializeField] private Transform openedPoint;
-    
+
     void Start()
     {
         measurePlate.GetComponent<MeasurePlate>();
@@ -23,13 +24,13 @@ public class PlateDoor : MonoBehaviour
 
     void Update()
     {
-        float weightPercent = measurePlate.getWeightCurrent / maximumWeightForOpen;
-
+        float weightPercent = measurePlate.getWeightCurrent / measurePlate.maximumWeightForOpen;
+        
         if (_isLimit)
         {
-            if (measurePlate.getWeightCurrent == maximumWeightForOpen)
+            if (measurePlate.getWeightCurrent >= 5)
             {
-                Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, maximumWeightForOpen);
+                Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, measurePlate.maximumWeightForOpen);
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, slideSpeed * Time.deltaTime);
                 SoundManager.instance.Play(SoundManager.SoundName.Chain1);
 
@@ -40,11 +41,28 @@ public class PlateDoor : MonoBehaviour
             }
             
         }
-        else
+        
+        if (_isLower)
         {
-            if (measurePlate.getWeightCurrent > maximumWeightForOpen)
+            if ((measurePlate.maximumWeightForOpen - measurePlate.getWeightCurrent) >= 0)
             {
-                Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, maximumWeightForOpen);
+                Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, measurePlate.maximumWeightForOpen);
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, slideSpeed * Time.deltaTime);
+                SoundManager.instance.Play(SoundManager.SoundName.Chain1);
+
+            }   
+            else
+            {
+                transform.position = Vector3.MoveTowards(transform.position, closedPoint.position, slideSpeed * Time.deltaTime);
+            }
+            
+        }
+        
+        if (_isRealtime)
+        {
+            if (measurePlate.getWeightCurrent > measurePlate.maximumWeightForOpen)
+            {
+                Vector3 targetPosition = Vector3.Lerp(closedPoint.position, openedPoint.position, measurePlate.maximumWeightForOpen);
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, slideSpeed * Time.deltaTime);
             }
             else if (measurePlate.getWeightCurrent > 0)

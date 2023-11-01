@@ -26,14 +26,17 @@ public class Hand : MonoBehaviour
     private IInteractable _interactable;
     [SerializeField] int _numFound;
     bool IsfirstTime =  true;
-    // public Collider[] _colliders = null;
+
+    [SerializeField] private GameObject _handSize;
 
     void Update()
     {
         _handPoint.position = _handDirectionPoint[_index].position;
         // ==============================
 
-        _numFound = Physics.OverlapSphereNonAlloc(_handPoint.position, _handRadius, _colliderForOutLine, _layerMask);
+        _numFound = Physics.OverlapBoxNonAlloc(_handPoint.position, _handSize.transform.localScale / 2,
+            _colliderForOutLine, Quaternion.identity, _layerMask);
+        
         if (_numFound > 0)
         {
             _gameObject = _colliderForOutLine[0].gameObject;
@@ -43,7 +46,11 @@ public class Hand : MonoBehaviour
             _gameObject = null;
             if (!IsfirstTime)
             {
-                _gameObject2.GetComponentInChildren<SpriteRenderer>().material = _materialDefault;
+                if (_gameObject2.GetComponentInChildren<SpriteRenderer>())
+                {
+                    _gameObject2.GetComponentInChildren<SpriteRenderer>().material = _materialDefault;
+                }
+                
             }
             
         }
@@ -61,10 +68,9 @@ public class Hand : MonoBehaviour
                 _gameObject2 = _gameObject;
                 return;
             }
-                _gameObject2.GetComponentInChildren<SpriteRenderer>().material = _materialOutline;
-            
-            
-            
+
+            _gameObject2.GetComponentInChildren<SpriteRenderer>().material = _materialOutline;
+
         }
 
     }
@@ -76,10 +82,8 @@ public class Hand : MonoBehaviour
 
     public Collider SentColliderFound(LayerMask layerMask)
     {
-        Physics.OverlapSphereNonAlloc(_handPoint.position, 
-            _handRadius, _colliders, layerMask);
-        /*_colliders = Physics.OverlapSphere(_handPoint.position, 
-            _handRadius, layerMask);*/
+        Physics.OverlapBoxNonAlloc(_handPoint.position, _handSize.transform.localScale / 2,
+            _colliders, Quaternion.identity, layerMask);
         
         return _colliders[0];
     }
@@ -92,6 +96,6 @@ public class Hand : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(_handPoint.position, _handRadius);
+        Gizmos.DrawWireCube(_handPoint.position, _handSize.transform.localScale);
     }
 }

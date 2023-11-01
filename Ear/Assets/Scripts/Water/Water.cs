@@ -29,7 +29,7 @@ public class Water : MonoBehaviour
             
             //other.transform.position -= waterSurface.transform.localPosition;
             
-            Debug.Log(other.name + "RigidbodyWork");
+            //Debug.Log(other.name + "RigidbodyWork");
         }
     }
 

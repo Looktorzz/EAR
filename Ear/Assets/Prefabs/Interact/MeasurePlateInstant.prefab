@@ -209,7 +209,6 @@ GameObject:
   m_Component:
   - component: {fileID: 384343134140201693}
   - component: {fileID: 7221622942472627633}
-  - component: {fileID: 4985401124769342978}
   m_Layer: 0
   m_Name: PlateTrigger
   m_TagString: Untagged
@@ -255,31 +254,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4985401124769342978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1965297502372475290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8323260cf56a6be41ac018a7a2d5b0dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectDataSo: {fileID: 11400000, guid: cddff7ce5e33d3943b811f3171db857d, type: 2}
-  weightTextOne: {fileID: 6315419316693986063}
-  weightTextTwo: {fileID: 8385347742610554356}
-  _weightCurrent: 0
-  _closeMonitor: {fileID: 8125990229723936150}
-  _openMonitor: {fileID: 8478880250619484244}
-  _plateNotTrigger: {fileID: 0}
-  _plateTrigger: {fileID: 0}
-  _boxPhysic: {fileID: 1965297502372475290}
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 200
-  _colliders: []
 --- !u!1 &1998976746273593214
 GameObject:
   m_ObjectHideFlags: 0
@@ -1139,7 +1113,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   measurePlate: {fileID: 2956142296900058218}
-  maximumWeightForOpen: 5
   slideSpeed: 5
   _isLimit: 1
   closedPoint: {fileID: 5788000996347401914}
@@ -1418,6 +1391,7 @@ MonoBehaviour:
   _objectDataSo: {fileID: 11400000, guid: cddff7ce5e33d3943b811f3171db857d, type: 2}
   weightTextOne: {fileID: 6315419316693986063}
   weightTextTwo: {fileID: 8385347742610554356}
+  maximumWeightForOpen: 0
   _weightCurrent: 0
   _closeMonitor: {fileID: 8125990229723936150}
   _openMonitor: {fileID: 8478880250619484244}
