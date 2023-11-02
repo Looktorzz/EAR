@@ -64,6 +64,8 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
             {
                 if (GetComponent<Collider>() != null)
                 {
+                    Debug.Log("Hold it");
+                    Debug.Log(GetComponent<Collider>().name);
                     SetHandInCenterObject(GetComponent<Collider>(),pc.handLeft);
                 }
             }
@@ -72,6 +74,7 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
             {
                 if (GetComponent<Collider>() != null)
                 {
+                    Debug.Log("Hold it");
                     SetHandInCenterObject(GetComponent<Collider>(),pc.handRight);
                 }
             }
@@ -90,6 +93,8 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
 
     public void SetHandInCenterObject(Collider collider, Transform handPoint)
     {
+        Debug.Log("Set Position");
+        
         Vector3 centerBottom = collider.bounds.center;
         centerBottom.y = collider.bounds.min.y;
 

@@ -59,7 +59,8 @@ public class Interactor : MonoBehaviour
                 
                 interactable.HoldInteract(this);
                 
-                StartCoroutine(_playerController.CheckDurationAnimation("IsHoldDrag", 1.5f));
+                _animator.SetBool("IsHoldDrag",true);
+                //StartCoroutine(_playerController.CheckDurationAnimation("IsHoldDrag", 1.5f));
 
             }
             
