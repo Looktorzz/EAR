@@ -178,6 +178,7 @@ MonoBehaviour:
   isHaveFuse: 0
   _lightRed: {fileID: 1716358877911280001}
   _lightGreen: {fileID: 3837832113934439817}
+  _doorLever: {fileID: 0}
 --- !u!1 &2340128638503094635
 GameObject:
   m_ObjectHideFlags: 0

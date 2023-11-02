@@ -30,14 +30,19 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
         {
             if ((int)DirectionPlayer.East == pc.handFreeze)
             {
-                Vector3 moveDirection = pc.handLeft.position - this.transform.position;
+                Vector3 moveDirection = pc.handRight.position - this.transform.position;
                 rb.AddForce(moveDirection * 300f);
+                
+                rb.constraints = RigidbodyConstraints.FreezeRotation;
+
             }
 
             if ((int) DirectionPlayer.West == pc.handFreeze)
             {
-                Vector3 moveDirection = pc.handRight.position - this.transform.position;
+                Vector3 moveDirection = pc.handLeft.position - this.transform.position;
                 rb.AddForce(moveDirection * 300f);
+                
+                rb.constraints = RigidbodyConstraints.FreezeRotation;
             }
         }
         else
@@ -65,8 +70,8 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
                 if (GetComponent<Collider>() != null)
                 {
                     Debug.Log("Hold it");
-                    Debug.Log(GetComponent<Collider>().name);
-                    SetHandInCenterObject(GetComponent<Collider>(),pc.handLeft);
+                    Debug.LogError("TEST" + GetComponent<Collider>().name);
+                    SetHandInCenterObject(GetComponent<Collider>(),pc.handRight);
                 }
             }
 
@@ -75,11 +80,12 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
                 if (GetComponent<Collider>() != null)
                 {
                     Debug.Log("Hold it");
-                    SetHandInCenterObject(GetComponent<Collider>(),pc.handRight);
+                    Debug.LogError("TEST" + GetComponent<Collider>().name);
+                    SetHandInCenterObject(GetComponent<Collider>(),pc.handLeft);
                 }
             }
         
-            //rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation; 
+            rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation; 
             
             
             Debug.Log("Check Now Drag");
@@ -94,7 +100,8 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
     public void SetHandInCenterObject(Collider collider, Transform handPoint)
     {
         Debug.Log("Set Position");
-        
+
+
         Vector3 centerBottom = collider.bounds.center;
         centerBottom.y = collider.bounds.min.y;
 
@@ -109,6 +116,7 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
 
     public bool ReleasedInteract(Item item)
     {
+        Debug.LogError("Jiffy");
         GameObject player = item.gameObject;
         
         if(IsDragNow)
