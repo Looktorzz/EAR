@@ -856,8 +856,8 @@ MonoBehaviour:
   _interactableMask:
     serializedVersion: 2
     m_Bits: 128
-  _image: {fileID: 0}
-  _imageBg: {fileID: 0}
+  _image: {fileID: 4081042688983574977}
+  _imageBg: {fileID: 4455792801182126385}
 --- !u!114 &4340022319629590736
 MonoBehaviour:
   m_ObjectHideFlags: 0
