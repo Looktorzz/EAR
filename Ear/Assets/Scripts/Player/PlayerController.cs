@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     public PlayerState _playerState = PlayerState.Idle;
     
     private bool _isHoldInteract = false;
-    private bool _isHoldGrabItem = false;
+    public bool _isHoldGrabItem = false;
     public bool isGrabItem = false;
     public bool _isCanCrouching = false;
     
@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
         // idle
 
+        
         _input.Player.Movement.performed += OnMovementPerformed;
         _input.Player.Movement.canceled += OnMovementCanceled;
 
@@ -411,12 +412,12 @@ public class PlayerController : MonoBehaviour
     
     public IEnumerator CheckDurationAnimation(string nameAnim,float duration)
     {
-        _input.Disable();
+        _input.Player.Movement.performed -= OnMovementPerformed;
         _animator.SetBool(nameAnim, true);
         Debug.Log("First");
         yield return new WaitForSeconds(duration);
         Debug.Log("Second");
-        _input.Enable();
+        _input.Player.Movement.performed += OnMovementPerformed;
     }
     
     IEnumerator PlaySoundCoroutine(SoundManager.SoundName soundName)

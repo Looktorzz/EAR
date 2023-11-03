@@ -50,7 +50,7 @@ public class Item : MonoBehaviour
                 itemInHand.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 
                 //_animator.SetBool("IsGrabItem",true);
-                StartCoroutine(_playerController.CheckDurationAnimation("IsGrabItem", 1.5f));
+                StartCoroutine(_playerController.CheckDurationAnimation("IsGrabItem", .5f));
 
                 _playerController.isGrabItem = true;
             }
@@ -133,7 +133,7 @@ public class Item : MonoBehaviour
             {
                 // ++Animation Drag Item
                 // _animator.SetBool("IsHoldDrag",true);
-                StartCoroutine(_playerController.CheckDurationAnimation("IsHoldDrag", 1.5f));
+                StartCoroutine(_playerController.CheckDurationAnimation("IsHoldDrag", .5f));
                 _animator.SetFloat("Horizontal", 0);
                 _animator.SetFloat("Vertical", 0);
                 
