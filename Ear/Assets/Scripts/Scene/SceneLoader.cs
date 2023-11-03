@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class SceneLoader : MonoBehaviour
 
     public void StartGame()
     {
-        StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
+        //StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
     }
 
     IEnumerator LoadLevel(int LevelIndex)
@@ -22,10 +23,23 @@ public class SceneLoader : MonoBehaviour
         SceneManager.LoadScene(LevelIndex);
     }
 
+    public void LoadTransition()
+    {
+        StartCoroutine(LoadLevel(2));
+    }
+
+    public void LoadingErrorScene()
+    {
+        SceneManager.LoadScene(1);
+    }
+
     public void BackToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
     }
-    
-    
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }
