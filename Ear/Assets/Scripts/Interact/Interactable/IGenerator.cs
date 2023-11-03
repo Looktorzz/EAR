@@ -15,6 +15,8 @@ public class IGenerator : MonoBehaviour, IInteractable
     [SerializeField] private IFuseBox _fuseBox;
     [SerializeField] public List<GameObject> _lightGameObjects;
 
+    [SerializeField] private Room4_AfterFoorOpen cam_LookAtDoor;
+
     private void Start()
     {
         _openGenerator.SetActive(false);
@@ -41,7 +43,12 @@ public class IGenerator : MonoBehaviour, IInteractable
             
             Vector3 posDoor = _doorTrigger.transform.position;
             _doorTrigger.transform.DOLocalMoveY(posDoor.y + 1, 3).SetEase(Ease.OutBounce);
-            
+
+            if (cam_LookAtDoor != null)
+            {
+                cam_LookAtDoor.LookAtDoor();
+            }
+
             return true;
         }
         
