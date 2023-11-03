@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class IBaseLever : MonoBehaviour , IHoldInteractable , IInteractable
+public class IBaseLever : MonoBehaviour ,/* IHoldInteractable ,*/ IInteractable
 {
     [SerializeField] private string _prompt;
     public string InteractionPrompt => _prompt;
@@ -15,21 +16,34 @@ public class IBaseLever : MonoBehaviour , IHoldInteractable , IInteractable
     
     public bool Interact(Interactor interactor)
     {
-        Lever lever = interactor.GetComponentInChildren<Lever>();
+        Lever leverOnPlayer = interactor.GetComponentInChildren<Lever>();
         
-        if (lever != null)
+        if (leverOnPlayer != null)
         {
             interactor.GetComponentInChildren<Item>().PlaceItemOnInteract();
-            lever.transform.SetParent(_leverPosition);
-            lever.transform.localPosition = Vector3.zero;
-            lever.isOnBaseLever = true;
+            leverOnPlayer.transform.SetParent(_leverPosition);
+            leverOnPlayer.transform.localPosition = Vector3.zero;
+            leverOnPlayer.isOnBaseLever = true;
             
             if (!_isCanPick)
             {
-                lever.gameObject.layer = 0; 
+                leverOnPlayer.gameObject.layer = 0; 
             }
             
             return true;
+        }
+
+        _lever = this.gameObject.GetComponentInChildren<Lever>();
+        if (_lever != null)
+        {
+            // Open ( If have more 1 sound or anim / Add variable at upper c: )
+            // ++Sound open door by interact lever
+            _lever.SetLeverOpen(true);
+            // _animator.SetTrigger("OpenByLever");
+            Vector3 posDoor = _doorLever.transform.position;
+            _doorLever.transform.DOLocalMoveY(posDoor.y + 1, 3).SetEase(Ease.OutBounce);
+        
+            SoundManager.instance.Play(SoundManager.SoundName.GateOpen);
         }
 
         // ++Sound fail (pak pak)
@@ -38,6 +52,7 @@ public class IBaseLever : MonoBehaviour , IHoldInteractable , IInteractable
         return false;
     }
     
+    /*
     public bool HoldInteract(Interactor interactor)
     {
         _lever = GetComponentInChildren<Lever>();
@@ -75,4 +90,5 @@ public class IBaseLever : MonoBehaviour , IHoldInteractable , IInteractable
         _countdown.Countdown(false);
         return false;
     }
+    */
 }
