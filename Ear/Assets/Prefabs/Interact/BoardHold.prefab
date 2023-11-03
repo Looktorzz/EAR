@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 552448607459814658}
   - component: {fileID: 1520730105182465630}
   - component: {fileID: 7229574341690957626}
+  - component: {fileID: 5671837066594181835}
   m_Layer: 7
   m_Name: BoardHold
   m_TagString: Untagged
@@ -31,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1, z: 1.5}
+  m_LocalScale: {x: 1.5, y: 1.2051451, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4768378039906391200}
@@ -53,7 +54,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 592525931770102570}
   serializedVersion: 4
-  m_Mass: 14
+  m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -71,7 +72,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 122
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!65 &552448607459814658
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -92,7 +93,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 3.8404622, y: 0.12325964, z: 1.3203552}
-  m_Center: {x: 0.007842779, y: 0.019574147, z: 0.70421124}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1520730105182465630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,6 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d91fe8e5167903f41bc69ab4f50f83e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PowerForce: 5000
   isBasin: 0
   isBox: 0
 --- !u!114 &7229574341690957626
@@ -124,6 +126,18 @@ MonoBehaviour:
   airDrag: 0
   airAngularDrag: 0.05
   floatingPower: 100
+--- !u!114 &5671837066594181835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 592525931770102570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 999a6f1e41b38fd4699132198bf9ca77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1234355201279051168
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,7 +164,7 @@ Transform:
   m_GameObject: {fileID: 1234355201279051168}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
