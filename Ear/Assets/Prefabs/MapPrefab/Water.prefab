@@ -573,6 +573,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waterSurface: {fileID: 7452469276156079428}
+  directionBack: 0
+  directionForward: 0
+  directionLeft: 0
+  directionRight: 0
+  waterForce: 100
 --- !u!1 &7126464233392644921
 GameObject:
   m_ObjectHideFlags: 0

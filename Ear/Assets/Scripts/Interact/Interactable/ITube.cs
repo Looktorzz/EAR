@@ -50,7 +50,7 @@ public class ITube : MonoBehaviour , IInteractable
             }
             
             Instantiate(_spawnGameObject, _spawnPoint.position, Quaternion.identity);
-            bucket.isFull = false;
+            bucket.BucketIsFull(false);
             isFilledWater = true;
             Debug.Log("Complete fill water");
             return true;

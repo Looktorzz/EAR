@@ -2,6 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
+using UnityEngine.UI;
+using Image = UnityEngine.UI.Image;
 
 public class CountdownTime : MonoBehaviour
 {
@@ -14,6 +17,13 @@ public class CountdownTime : MonoBehaviour
     private Hand _hand;
     
     private float _currentTimeDebug;
+    
+    // Image
+    [SerializeField] private GameObject _image;
+    [SerializeField] private GameObject _imageBg;
+    private Image _imageFill;
+    private float _imageFillAmount;
+    
 
     public void Start()
     {
@@ -21,28 +31,38 @@ public class CountdownTime : MonoBehaviour
         _hand = GetComponent<Hand>();
 
         _currentTimeDebug = _startTime;
+        _image.gameObject.SetActive(false);
+        _imageBg.gameObject.SetActive(false);
+        _imageFill= _image.GetComponent<Image>();
     }
 
     public void FixedUpdate()
     {
         if (_isCount)
         {
+            //_imageFill.gameObject.SetActive(true);
             _currentTime -= 1 * Time.deltaTime;
             
             // Log
             if (_currentTimeDebug != (int)_currentTime)
             {
-                _currentTimeDebug = (int)_currentTime;
-                Debug.Log($"Time : {_currentTimeDebug:0}");
+                _currentTimeDebug = _currentTime;
+                Debug.Log($"Time : {_currentTimeDebug}");
             }
+            
+            UIImageFill();
 
             if (_currentTime <= 0)
             {
                 _currentTime = 0;
                 _isCount = false;
+                //_imageFill.gameObject.SetActive(false);
                 CountComplete();
             }
         }
+        
+        _image.gameObject.SetActive(_isCount);
+        _imageBg.gameObject.SetActive(_isCount);
     }
     
     private void CountComplete()
@@ -60,6 +80,19 @@ public class CountdownTime : MonoBehaviour
 
             _hand.ClearCollider();
         }
+    }
+
+    private void UIImageFill()
+    {
+        _imageFillAmount = _currentTime / _startTime;
+
+        if (_imageFillAmount <= 0)
+        {
+            _imageFillAmount = 1;
+        }
+        
+        _imageFill.fillAmount = _imageFillAmount;
+        
     }
 
     public void Countdown(bool isTrue)

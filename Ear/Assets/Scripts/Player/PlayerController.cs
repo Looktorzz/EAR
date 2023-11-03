@@ -36,9 +36,15 @@ public class PlayerController : MonoBehaviour
     public bool _isCanCrouching = false;
     
     private int _handDirection;
+    public int handDirection => _handDirection;
     public int handFreeze;
     public bool isFreezeHand = false;
     
+    public Transform handLeft;
+    public Transform handRight;
+    public Vector3 handLeftPos;
+    public Vector3 handRightPos;
+
     //Check Status
     private bool _isMoving;
     //Check Reset
@@ -59,6 +65,9 @@ public class PlayerController : MonoBehaviour
     
     private void Awake()
     {
+        handRightPos = handRight.localPosition;
+        handLeftPos = handLeft.localPosition;
+        
         //GameManager.instance.ImPlayer(this.gameObject);
         _input = new InputSystems();
         _rb = GetComponent<Rigidbody>();
@@ -89,10 +98,10 @@ public class PlayerController : MonoBehaviour
         //GameManager.instance.ImPlayer(this.gameObject);
     }
     
-    private void OnDisable()
+    /*private void OnDisable()
     {
         _input.Disable();
-    }
+    }*/
 
     private void Update()
     {
@@ -110,13 +119,17 @@ public class PlayerController : MonoBehaviour
                 _isDead = true;
                 break;
             case PlayerState.Crouch:
-
                 break;
             case PlayerState.HoldItem:
-
+                _isHoldGrabItem = true;
                 break;
             case PlayerState.DragObject:
-
+                _isHoldInteract = true;
+                break;
+            default:
+                _isDead = false;
+                _isHoldInteract = false;
+                _isHoldGrabItem = false;
                 break;
         }
     }
@@ -398,12 +411,12 @@ public class PlayerController : MonoBehaviour
     
     public IEnumerator CheckDurationAnimation(string nameAnim,float duration)
     {
-        _isMoving = false;
-        _animator.SetBool(nameAnim,true); 
+        _input.Disable();
+        _animator.SetBool(nameAnim, true);
         Debug.Log("First");
         yield return new WaitForSeconds(duration);
         Debug.Log("Second");
-        _isMoving = true;
+        _input.Enable();
     }
     
     IEnumerator PlaySoundCoroutine(SoundManager.SoundName soundName)
@@ -452,7 +465,7 @@ public class PlayerController : MonoBehaviour
     {
         switch (other.tag)
         {
-            case "Water":
+            case "DeadZone":
                 StartCoroutine(RespawnTime());
                 break;
             case "Acid":

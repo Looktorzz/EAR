@@ -31,7 +31,7 @@ public class IBrokenBox : MonoBehaviour , IInteractable
                 {
                     Instantiate(_spawnGameObject, _spawnPoint.position, Quaternion.identity);
                 }
-                bucket.isFull = false;
+                bucket.BucketIsFull(false);
                 
                 this.gameObject.SetActive(false);
                 // Destroy(gameObject);

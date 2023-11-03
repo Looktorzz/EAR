@@ -17,12 +17,16 @@ public class Bucket : MonoBehaviour
         _bucketEmpty.SetActive(true);
         _bucketFullWater.SetActive(false);
         _bucketFullAcidWater.SetActive(false);
+        
+        BucketIsFull(isFull);
 
     }
 
-    private void Update()
+    public void BucketIsFull(bool isBucketFull)
     {
-        if (isFull)
+        isFull = isBucketFull;
+        
+        if (isBucketFull)
         {
             // ++Sound Add Water (Tak num)
             _bucketEmpty.SetActive(false);
@@ -31,7 +35,6 @@ public class Bucket : MonoBehaviour
             if (isAcidWater)
             {
                 _bucketFullAcidWater.SetActive(true);
-
             }
             else
             {
@@ -46,8 +49,6 @@ public class Bucket : MonoBehaviour
             _bucketFullWater.SetActive(false);
             _bucketFullAcidWater.SetActive(false);
             GetComponent<ObjectIndex>().ChangeIndex(NameObject.BucketEmpty);
-
-
         }
     }
 }

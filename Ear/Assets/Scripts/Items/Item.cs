@@ -11,6 +11,7 @@ public class Item : MonoBehaviour
     [SerializeField] private LayerMask _itemMask;
     [SerializeField] private LayerMask _DragItemMask;
     private Collider _collider = new Collider();
+    private Collider _colliderDrag = new Collider();
     private PlayerController _playerController;
     private Animator _animator;
     private Hand _hand;
@@ -47,9 +48,10 @@ public class Item : MonoBehaviour
                 itemInHand.GetComponent<Collider>().isTrigger = true;
                 itemInHand.GetComponent<Rigidbody>().useGravity = false;
                 itemInHand.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-
-                _animator.SetBool("IsGrabItem",true);
                 
+                //_animator.SetBool("IsGrabItem",true);
+                StartCoroutine(_playerController.CheckDurationAnimation("IsGrabItem", 1.5f));
+
                 _playerController.isGrabItem = true;
             }
             
@@ -73,13 +75,15 @@ public class Item : MonoBehaviour
                 itemInHand.GetComponent<Rigidbody>().useGravity = true;
 
                 //Need to Fix : Make it only Item  in collider , item that can drag NO NEED TO BE HERE!!
-                //itemInHand.GetComponent<Rigidbody>().constraints = ~RigidbodyConstraints.FreezePositionY;
+                itemInHand.GetComponent<Rigidbody>().constraints = ~RigidbodyConstraints.FreezePositionY;
 
                 _collider = null;
                 itemInHand = null;
                 
                 _playerController.CheckHandFreezeForAnimation();
+                
                 _animator.SetBool("IsGrabItem",false);
+                // StartCoroutine(_playerController.CheckDurationAnimation("IsGrabItem", 0.5f));
                 _animator.SetFloat("Horizontal", 0);
                 _animator.SetFloat("Vertical", 0);
 
@@ -107,28 +111,29 @@ public class Item : MonoBehaviour
             itemInHand = null;
             
             _playerController.CheckHandFreezeForAnimation();
+            
             _animator.SetBool("IsGrabItem",false);
+            // StartCoroutine(_playerController.CheckDurationAnimation("IsGrabItem", 0.5f));
             _animator.SetFloat("Horizontal", 0);
             _animator.SetFloat("Vertical", 0);
-            
-            
-            
+
             _playerController.isGrabItem = false;
         }
     }
     
     public void HoldInteract()
     {
-        _collider = _hand.SentColliderFound(_DragItemMask);
+        _colliderDrag = _hand.SentColliderFound(_DragItemMask);
 
-        if(_collider != null)
+        if(_colliderDrag != null)
         {
-            IHoldGrabItem item = _collider.GetComponent<IHoldGrabItem>();
+            IHoldGrabItem item = _colliderDrag.GetComponent<IHoldGrabItem>();
 
             if (item != null)
             {
                 // ++Animation Drag Item
-                _animator.SetBool("IsHoldDrag",true);
+                // _animator.SetBool("IsHoldDrag",true);
+                StartCoroutine(_playerController.CheckDurationAnimation("IsHoldDrag", 1.5f));
                 _animator.SetFloat("Horizontal", 0);
                 _animator.SetFloat("Vertical", 0);
                 
@@ -141,11 +146,11 @@ public class Item : MonoBehaviour
 
     public void ReleasedHoldInteract()
     {
-        _collider = _hand.SentColliderFound(_DragItemMask);
+        _colliderDrag = _hand.SentColliderFound(_DragItemMask);
 
-        if(_collider != null)
+        if(_colliderDrag != null)
         {
-            IHoldGrabItem item = _collider.GetComponent<IHoldGrabItem>();
+            IHoldGrabItem item = _colliderDrag.GetComponent<IHoldGrabItem>();
 
             if (item != null)
             {

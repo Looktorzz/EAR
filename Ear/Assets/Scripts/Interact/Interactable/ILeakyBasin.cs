@@ -8,7 +8,8 @@ public class ILeakyBasin : MonoBehaviour, IInteractable
     [SerializeField] private string _prompt;
     public string InteractionPrompt => _prompt;
     [SerializeField] private GameObject _fullBasin;
-    [SerializeField] private GameObject _almostFullBasin;
+    [SerializeField] private GameObject _twoFillBasin;
+    [SerializeField] private GameObject _oneFillBasin;
     [SerializeField] private GameObject _emptyBasin;
     
     [SerializeField] private ObjectDataSO _objectDataSo;
@@ -22,10 +23,13 @@ public class ILeakyBasin : MonoBehaviour, IInteractable
     private bool _isHaveWater = false;
     private bool _isFirstPour = true;
 
+    [SerializeField] private GameObject _audio;
+
     private void Start()
     {
         _fullBasin.SetActive(false);
-        _almostFullBasin.SetActive(false);
+        _twoFillBasin.SetActive(false);
+        _oneFillBasin.SetActive(false);
         _emptyBasin.SetActive(true);
 
         _isHaveWater = false;
@@ -52,28 +56,21 @@ public class ILeakyBasin : MonoBehaviour, IInteractable
         if (bucket.isFull)
         {
             _isHaveWater = true;
+            SoundManager.instance.Play(SoundManager.SoundName.WaterFill);
             _objectIndex.ChangeIndex(NameObject.BasinChanging);
             _currentWeight = _objectDataSo.objectDatas[_objectIndex.index].weight + _waterInBucket;
-
+            
             if (_currentWeight >= _maximumWaterWeight)
             {
-                // Full (Not use Full Sprite / Use only Changing Sprite) 
-                // ++Animation water leak
+                // Full
                 _objectDataSo.objectDatas[_objectIndex.index].weight = _maximumWaterWeight;
-                _fullBasin.SetActive(true);
-                _almostFullBasin.SetActive(false);
-                _emptyBasin.SetActive(false);
             }
             else
             {
-                // Not Full
                 _objectDataSo.objectDatas[_objectIndex.index].weight += _waterInBucket;
-                _fullBasin.SetActive(false);
-                _almostFullBasin.SetActive(true);
-                _emptyBasin.SetActive(false);
             }
-
-            bucket.isFull = false;
+            
+            bucket.BucketIsFull(false);
             return true;
         }
         else
@@ -87,26 +84,51 @@ public class ILeakyBasin : MonoBehaviour, IInteractable
 
     private void Update()
     {
+        _audio.SetActive(_isHaveWater);
+
         if (_isHaveWater)
         {
             _objectIndex.ChangeIndex(NameObject.BasinChanging);
             _objectDataSo.objectDatas[_objectIndex.index].weight -= speedWaterDecrease * Time.deltaTime;
             _currentWeight = _objectDataSo.objectDatas[_objectIndex.index].weight;
 
-            if (_currentWeight <= _basinEmptyWeight)
+            if (_currentWeight >= _basinEmptyWeight + 4)
+            {
+                // 3
+                _fullBasin.SetActive(true);
+                _twoFillBasin.SetActive(false);
+                _oneFillBasin.SetActive(false);
+                _emptyBasin.SetActive(false);
+            }
+            else if (_currentWeight >= _basinEmptyWeight + 2)
+            {
+                // 2
+                _fullBasin.SetActive(false);
+                _twoFillBasin.SetActive(true);
+                _oneFillBasin.SetActive(false);
+                _emptyBasin.SetActive(false);
+            }
+            else if (_currentWeight >= _basinEmptyWeight)
+            {
+                // 1
+                _fullBasin.SetActive(false);
+                _twoFillBasin.SetActive(false);
+                _oneFillBasin.SetActive(true);
+                _emptyBasin.SetActive(false);
+            }
+            else
             {
                 // Empty
-                // --Animation water leak
+                _fullBasin.SetActive(false);
+                _twoFillBasin.SetActive(false);
+                _oneFillBasin.SetActive(false);
+                _emptyBasin.SetActive(true);
+                
                 _objectDataSo.objectDatas[_objectIndex.index].weight = _basinEmptyWeight;
                 _objectIndex.ChangeIndex(NameObject.BasinEmpty);
-
                 _isHaveWater = false;
-                _fullBasin.SetActive(false);
-                _almostFullBasin.SetActive(false);
-                _emptyBasin.SetActive(true);
             }
         }
-        
         //Debug.Log($"_objectDataSo.objectDatas[_index].weight = {_objectDataSo.objectDatas[_objectIndex.index].weight}");
     }
 }

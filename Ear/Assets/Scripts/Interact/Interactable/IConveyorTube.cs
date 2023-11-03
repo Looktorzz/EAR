@@ -55,7 +55,7 @@ public class IConveyorTube : MonoBehaviour , IInteractable
 
                 if (go == null)
                 {
-                    bucket.isFull = false;
+                    bucket.BucketIsFull(false);
                     Debug.Log("Don't have key on tube");
                     return false;
                 }
@@ -85,7 +85,7 @@ public class IConveyorTube : MonoBehaviour , IInteractable
                     SoundManager.instance.Play(SoundManager.SoundName.WaterFillPipe);
                 }
                 
-                bucket.isFull = false;
+                bucket.BucketIsFull(false);
                 return true;
             }
             else

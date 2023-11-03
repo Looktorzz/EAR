@@ -80,6 +80,11 @@ public class MeasurePlate : MonoBehaviour
     {
         if (num > 0)
         {
+            if (_plateTrigger.activeInHierarchy == false)
+            {
+                SoundManager.instance.Play(SoundManager.SoundName.PressSwitch);
+            }
+            
             _closeMonitor.SetActive(false);
             _openMonitor.SetActive(true);
             
@@ -88,6 +93,11 @@ public class MeasurePlate : MonoBehaviour
         }
         else
         {
+            if (_plateTrigger.activeInHierarchy == true)
+            {
+                SoundManager.instance.Play(SoundManager.SoundName.PressSwitch);
+            }
+            
             _closeMonitor.SetActive(true);
             _openMonitor.SetActive(false);
             
@@ -104,15 +114,6 @@ public class MeasurePlate : MonoBehaviour
             PlusWeight();
             weightTextOne.text = (maximumWeightForOpen - (int) _weightCurrent).ToString("0");
             weightTextTwo.text = (maximumWeightForOpen - (int) _weightCurrent).ToString("0");
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player") || other.CompareTag("Item"))
-        {
-            // ++Sound trigger
-            SoundManager.instance.Play(SoundManager.SoundName.PressSwitch);
         }
     }
 }

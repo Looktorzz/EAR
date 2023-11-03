@@ -24,13 +24,13 @@ MonoBehaviour:
     weight: 3
   - name: Basin Empty
     nameObject: 3
-    weight: 5
+    weight: 3
   - name: Basin Full
     nameObject: 4
-    weight: 10
+    weight: 9
   - name: Basin Changing
     nameObject: 5
-    weight: 5
+    weight: 3
   - name: Lever
     nameObject: 6
     weight: 1
