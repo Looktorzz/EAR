@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour
             return;
         }
         _instance = this;
+        
+        DontDestroyOnLoad(this.gameObject);
     }
 
     private void Start()
@@ -23,4 +25,6 @@ public class GameController : MonoBehaviour
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
     }
+    
+    
 }
