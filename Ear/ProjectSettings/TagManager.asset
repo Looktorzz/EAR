@@ -8,6 +8,7 @@ TagManager:
   - Item
   - Light
   - DeadZone
+  - Storage_Info
   layers:
   - Default
   - TransparentFX

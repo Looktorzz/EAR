@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -16,6 +17,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CheckPointRoomSO _checkPointSO;
     [SerializeField] private List<ReSpawnCheckPointByArm> _checkPointObjectsList;
 
+    [SerializeField] private SceneRoom_Storage _storage;
+
     //Don't Destory On Load
     private void Awake()
     {
@@ -28,16 +31,23 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        currentRoom = (int)_checkPointSO.room;
-        foreach (ReSpawnCheckPointByArm numRoom in _checkPointObjectsList)
+        if (SceneManager.GetActiveScene().name == "LevelOne")
         {
-            if (currentRoom == (int)numRoom.numRoom)
+            _storage = GameObject.FindGameObjectWithTag("Storage_Info").GetComponent<SceneRoom_Storage>();
+
+            _checkPointObjectsList = _storage._checkPointObjectsList;
+            currentRoom = (int)_checkPointSO.room;
+            foreach (ReSpawnCheckPointByArm numRoom in _checkPointObjectsList)
             {
-                currentCheckPoint = numRoom.checkPoint;
+                if (currentRoom == (int)numRoom.numRoom)
+                {
+                    currentCheckPoint = numRoom.checkPoint;
+                }
             }
+
+            player.transform.position = currentCheckPoint.position;
         }
         
-        player.transform.position = currentCheckPoint.position;
     }
 
     public void ImPlayer(GameObject playerObject)

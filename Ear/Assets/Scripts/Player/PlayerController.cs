@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
         handRightPos = handRight.localPosition;
         handLeftPos = handLeft.localPosition;
         
-        //GameManager.instance.ImPlayer(this.gameObject);
+        
         _input = new InputSystems();
         _rb = GetComponent<Rigidbody>();
         _interactor = GetComponent<Interactor>();
@@ -92,7 +92,10 @@ public class PlayerController : MonoBehaviour
         _animator.SetFloat("Horizontal", 0);
         _animator.SetFloat("Vertical", 0);
     }
-
+    private void Start()
+    {
+        GameManager.instance.ImPlayer(this.gameObject);
+    }
     private void OnEnable()
     {
         _input.Enable();
