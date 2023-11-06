@@ -9,7 +9,7 @@ public class IGenerator : MonoBehaviour, IInteractable
     [SerializeField] private string _prompt;
     public string InteractionPrompt => _prompt;
     
-    [SerializeField] private GameObject _doorTrigger;
+    [SerializeField] private DoorLever _doorTrigger;
     [SerializeField] private GameObject _openGenerator;
     [SerializeField] private GameObject _closeGenerator;
     [SerializeField] private IFuseBox _fuseBox;
@@ -40,9 +40,9 @@ public class IGenerator : MonoBehaviour, IInteractable
             _openGenerator.SetActive(true);
             _closeGenerator.SetActive(false);
             this.enabled = false;
-            
-            Vector3 posDoor = _doorTrigger.transform.position;
-            _doorTrigger.transform.DOLocalMoveY(posDoor.y + 1, 3).SetEase(Ease.OutBounce);
+
+
+            _doorTrigger.OpenDoor();
 
             if (cam_LookAtDoor != null)
             {
