@@ -78,16 +78,7 @@ public class PlayerController : MonoBehaviour
         // idle
 
         
-        _input.Player.Movement.performed += OnMovementPerformed;
-        _input.Player.Movement.canceled += OnMovementCanceled;
-
-        _input.Player.InteractHold.started += OnInteractHoldStart;
-        _input.Player.InteractHold.performed += OnInteractHoldPerformed;
-        _input.Player.InteractHold.canceled += OnInteractHoldCanceled;
-
-        _input.Player.HoldGrabItem.started += OnHoldGrabItemStart;
-        _input.Player.HoldGrabItem.performed += OnHoldGrabItemPerformed;
-        _input.Player.HoldGrabItem.canceled += OnHoldGrabItemCanceled;
+        
 
         _animator.SetFloat("Horizontal", 0);
         _animator.SetFloat("Vertical", 0);
@@ -99,12 +90,34 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         _input.Enable();
+
+        _input.Player.Movement.performed += OnMovementPerformed;
+        _input.Player.Movement.canceled += OnMovementCanceled;
+
+        _input.Player.InteractHold.started += OnInteractHoldStart;
+        _input.Player.InteractHold.performed += OnInteractHoldPerformed;
+        _input.Player.InteractHold.canceled += OnInteractHoldCanceled;
+
+        _input.Player.HoldGrabItem.started += OnHoldGrabItemStart;
+        _input.Player.HoldGrabItem.performed += OnHoldGrabItemPerformed;
+        _input.Player.HoldGrabItem.canceled += OnHoldGrabItemCanceled;
         //GameManager.instance.ImPlayer(this.gameObject);
     }
 
     private void OnDisable()
     {
         _input.Disable();
+
+        _input.Player.Movement.performed -= OnMovementPerformed;
+        _input.Player.Movement.canceled -= OnMovementCanceled;
+
+        _input.Player.InteractHold.started -= OnInteractHoldStart;
+        _input.Player.InteractHold.performed -= OnInteractHoldPerformed;
+        _input.Player.InteractHold.canceled -= OnInteractHoldCanceled;
+
+        _input.Player.HoldGrabItem.started -= OnHoldGrabItemStart;
+        _input.Player.HoldGrabItem.performed -= OnHoldGrabItemPerformed;
+        _input.Player.HoldGrabItem.canceled -= OnHoldGrabItemCanceled;
     }
 
     private void Update()
@@ -458,6 +471,22 @@ public class PlayerController : MonoBehaviour
                 _animator.SetBool("OnCrouch",false);
             }
         }
+    }
+
+    public void PlayerStandStill()
+    {
+        _moveVector2 = Vector2.zero;
+        _rb.velocity = Vector3.zero;
+        _animator.SetFloat("Horizontal", 0);
+        _animator.SetFloat("Vertical", 0);
+        _input.Player.Movement.performed -= OnMovementPerformed;
+        _input.Player.Movement.canceled -= OnMovementCanceled;
+    }
+
+    public void PlayerCanWalkNow()
+    {
+        _input.Player.Movement.performed += OnMovementPerformed;
+        _input.Player.Movement.canceled += OnMovementCanceled;
     }
 
     public void PlayerDEAD()
