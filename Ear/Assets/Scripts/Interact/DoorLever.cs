@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class DoorLever : MonoBehaviour
 {
-    public bool _isClose;
+    private bool _isClose;
 
     private void Start()
     {

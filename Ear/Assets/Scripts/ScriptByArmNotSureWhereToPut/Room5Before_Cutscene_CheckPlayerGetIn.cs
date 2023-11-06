@@ -5,7 +5,7 @@ using UnityEngine;
 public class Room5Before_Cutscene_CheckPlayerGetIn : MonoBehaviour
 {
     private bool IsFinishAnimation = false;
-    public GameObject camRoom5;
+    public DoorLever closeit;
     [SerializeField] Animator animator;
 
     private void OnTriggerEnter(Collider other)
@@ -15,7 +15,7 @@ public class Room5Before_Cutscene_CheckPlayerGetIn : MonoBehaviour
             if (!IsFinishAnimation)
             {
                 animator.SetTrigger("Player_ComeIn");
-
+                closeit.CloseDoor();
                 IsFinishAnimation = true;
             }
             
