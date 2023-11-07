@@ -17,4 +17,9 @@ public class LevelBefore2_Animation_Player : MonoBehaviour
         _animation.SetTrigger("Blink_Eye");
     }
 
+    public void Dead()
+    {
+        _animation.SetBool("Dead",true);
+    }
+
 }
