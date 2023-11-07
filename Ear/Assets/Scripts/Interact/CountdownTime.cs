@@ -84,7 +84,7 @@ public class CountdownTime : MonoBehaviour
 
     private void UIImageFill()
     {
-        _imageFillAmount = _currentTime / _startTime;
+        _imageFillAmount = (_startTime - _currentTime) / _startTime;
 
         if (_imageFillAmount <= 0)
         {
