@@ -217,6 +217,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 4270770392549601985}
+        m_TargetAssemblyTypeName: PlayMenuSound, Assembly-CSharp
+        m_MethodName: PlayButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &76002589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,6 +350,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1344395403}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ReStartAllGameData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 593475341}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
         m_MethodName: LoadingErrorScene
@@ -350,9 +374,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1344395403}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ReStartAllGameData
+      - m_Target: {fileID: 4270770392549601985}
+        m_TargetAssemblyTypeName: PlayMenuSound, Assembly-CSharp
+        m_MethodName: PlayButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1368,6 +1392,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4270770392549601985}
+        m_TargetAssemblyTypeName: PlayMenuSound, Assembly-CSharp
+        m_MethodName: PlayVolumnButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &345136995
 GameObject:
   m_ObjectHideFlags: 0
@@ -1454,6 +1490,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4270770392549601985}
+        m_TargetAssemblyTypeName: PlayMenuSound, Assembly-CSharp
+        m_MethodName: PlayButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2531,6 +2579,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4270770392549601985}
+        m_TargetAssemblyTypeName: PlayMenuSound, Assembly-CSharp
+        m_MethodName: PlayButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &691958663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2655,6 +2715,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4270770392549601985}
+        m_TargetAssemblyTypeName: PlayMenuSound, Assembly-CSharp
+        m_MethodName: PlayButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3405,6 +3477,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: SoundSetting, Assembly-CSharp
         m_MethodName: SoundFXMusicValueChanged
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4270770392549601985}
+        m_TargetAssemblyTypeName: PlayMenuSound, Assembly-CSharp
+        m_MethodName: PlayVolumnButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6962,6 +7046,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 4270770392549601985}
+        m_TargetAssemblyTypeName: PlayMenuSound, Assembly-CSharp
+        m_MethodName: PlayButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &2047958397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7110,6 +7206,105 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!4 &1573863476783651515
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3881105807145067214}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 242, y: 128, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3318249610882263459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3881105807145067214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62787b15809975440bc5983a38905897, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &3881105807145067214
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1573863476783651515}
+  - component: {fileID: 4270770392549601984}
+  - component: {fileID: 3318249610882263459}
+  - component: {fileID: 4270770392549601985}
+  m_Layer: 0
+  m_Name: MainMenuSoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &4270770392549601984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3881105807145067214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b4d7c435265c1340b6f0d82e0dea96e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundMain:
+  - _soundName: 0
+    soundType: 1
+    _clip: {fileID: 8300000, guid: 9ddd503a420098a4e979963295e845ce, type: 3}
+    _volume: 0.5
+    _loop: 0
+    audioSource: {fileID: 0}
+  - _soundName: 1
+    soundType: 1
+    _clip: {fileID: 8300000, guid: f5ccece0d8fb4dc4d9c3bfaf508733b7, type: 3}
+    _volume: 0.5
+    _loop: 0
+    audioSource: {fileID: 0}
+  - _soundName: 2
+    soundType: 1
+    _clip: {fileID: 8300000, guid: c872a5be0b878d74a93a8930ca1a5427, type: 3}
+    _volume: 0.5
+    _loop: 0
+    audioSource: {fileID: 0}
+  - _soundName: 3
+    soundType: 1
+    _clip: {fileID: 8300000, guid: 06636552c90e6fd4c90da92892df116e, type: 3}
+    _volume: 0.5
+    _loop: 0
+    audioSource: {fileID: 0}
+  bgmMixerGroup: {fileID: 6212302005504435164, guid: 9292f6b8a6cc887478022b1217a10e22,
+    type: 2}
+  sfxMixerGroup: {fileID: -5871527314010371964, guid: 9292f6b8a6cc887478022b1217a10e22,
+    type: 2}
+--- !u!114 &4270770392549601985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3881105807145067214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f6c4786b28d3e4fae824faf46d4889, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4753550617778676688
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7200,6 +7395,7 @@ SceneRoots:
   - {fileID: 2008728563}
   - {fileID: 1344395404}
   - {fileID: 1515593783}
+  - {fileID: 1573863476783651515}
   - {fileID: 131874562}
   - {fileID: 821382003}
   - {fileID: 1528474201}

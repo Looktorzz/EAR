@@ -9,6 +9,8 @@ public class ProgessLoading : MonoBehaviour
     [SerializeField] private Image _image;
 
     [SerializeField] private GameObject firstError;
+
+    private bool isPlaySound = false;
     
     // Start is called before the first frame update
     void Start()
@@ -26,6 +28,12 @@ public class ProgessLoading : MonoBehaviour
             _image.fillAmount = 0.85f;
             
             firstError.SetActive(true);
+        }
+
+        if (!isPlaySound)
+        {
+            isPlaySound = true;
+            MainMenuSound.instance.Play(MenuSound.Downloading);
         }
     }
     
