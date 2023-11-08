@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class IDragableObject : MonoBehaviour, IHoldGrabItem
 {
+    [SerializeField] private bool isBasin;
+    [SerializeField] private bool isBox;
+    
     bool IsDragNow = false;
     Rigidbody rb;
     PlayerController pc;
 
-    [SerializeField] float PowerForce = 300f;
-    [SerializeField] private bool isBasin;
-    [SerializeField] private bool isBox;
-
+    private float PowerForce;
     private Vector3 _sizeColliderOriginal;
     private Vector3 _sizeColliderChanged;
 
@@ -25,6 +25,7 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
             pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         }
 
+        PowerForce = 100f;
         _sizeColliderOriginal = GetComponent<BoxCollider>().size;
         _sizeColliderChanged = new Vector3(_sizeColliderOriginal.x * 0.9f,_sizeColliderOriginal.y,_sizeColliderOriginal.z * 0.9f);
     }

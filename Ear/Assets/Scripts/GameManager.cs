@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
         else Destroy(this);
+        
+        
     }
 
     private void Start()
@@ -45,6 +47,11 @@ public class GameManager : MonoBehaviour
                 }
             }
 
+            while(player == null)
+            {
+                player = GameObject.FindWithTag("Player");
+            }
+            
             player.transform.position = currentCheckPoint.position;
         }
         
