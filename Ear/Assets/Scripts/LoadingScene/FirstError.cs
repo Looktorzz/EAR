@@ -12,10 +12,18 @@ public class FirstError : MonoBehaviour
     
     private float nextTimeError = 2f;
     private float currentTime = 0f;
+    
+    [SerializeField] private AudioSource _audioSource;
+
+    private void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
 
     private void OnEnable()
     {
         this.gameObject.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.InOutSine);
+        _audioSource.Play();
     }
 
     // Update is called once per frame
@@ -30,6 +38,7 @@ public class FirstError : MonoBehaviour
             for (int i = 0; i < manyError.Length; i++)
             {
                 manyError[i].SetActive(true);
+
             }
             
 
