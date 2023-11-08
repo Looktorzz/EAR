@@ -19,10 +19,12 @@ public class PauseMenu : MonoBehaviour
         {
             if (!pauseMenu.activeSelf)
             {
+                MainMenuSound.instance.Play(MenuSound.ButtonClick);
                 pauseMenu.SetActive(true);
             }
             else
             {
+                MainMenuSound.instance.Play(MenuSound.ButtonClick);
                 pauseMenu.SetActive(false);
             }
         }

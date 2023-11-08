@@ -64,6 +64,8 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
             pc.isFreezeHand = true;
             
             IsDragNow = true;
+            GameManager.instance.player.GetComponent<PlayerController>()._playerState = PlayerState.DragObject;
+            
             GetComponent<BoxCollider>().size = _sizeColliderChanged;
             
             if ((int)DirectionPlayer.East == pc.handFreeze)
@@ -86,7 +88,7 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
                 }
             }
         
-            rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation; 
+            rb.constraints = ~RigidbodyConstraints.FreezePositionY;
             
             
             Debug.Log("Check Now Drag");
@@ -133,6 +135,7 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
             rb.constraints = ~RigidbodyConstraints.FreezePositionY;
             
             IsDragNow = false;
+            GameManager.instance.player.GetComponent<PlayerController>()._playerState = PlayerState.Idle;
             
             Debug.Log("Check Now Not Drag");
             // rb.isKinematic = false;

@@ -75,18 +75,17 @@ public class PlayerController : MonoBehaviour
         _item = GetComponent<Item>();
         _hand = GetComponent<Hand>();
         _animator = GetComponentInChildren<Animator>();
+        
         // idle
-
-        
-        
-
         _animator.SetFloat("Horizontal", 0);
         _animator.SetFloat("Vertical", 0);
     }
+    
     private void Start()
     {
         GameManager.instance.ImPlayer(this.gameObject);
     }
+    
     private void OnEnable()
     {
         _input.Enable();
@@ -459,7 +458,8 @@ public class PlayerController : MonoBehaviour
                 // ++Animation crouching
                 capsuleCollider.height = 1;
                 capsuleCollider.center = new Vector3(0,0.5f,0.55f);
-                
+
+                _playerState = PlayerState.Crouch;
                 _animator.SetBool("OnCrouch",true);
             }
             else
@@ -468,6 +468,7 @@ public class PlayerController : MonoBehaviour
                 capsuleCollider.height = 2;
                 capsuleCollider.center = new Vector3(0,1,0.55f);
                 
+                _playerState = PlayerState.Idle;
                 _animator.SetBool("OnCrouch",false);
             }
         }

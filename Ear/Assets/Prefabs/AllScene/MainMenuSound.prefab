@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5856403143506980944}
   - component: {fileID: 9211463038807103531}
-  - component: {fileID: 7682483110598361928}
+  - component: {fileID: 5952408226005471670}
   m_Layer: 0
   m_Name: MainMenuSound
   m_TagString: Untagged
@@ -74,7 +74,7 @@ MonoBehaviour:
     type: 2}
   sfxMixerGroup: {fileID: -5871527314010371964, guid: 9292f6b8a6cc887478022b1217a10e22,
     type: 2}
---- !u!114 &7682483110598361928
+--- !u!114 &5952408226005471670
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -83,6 +83,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8164206937224120357}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62787b15809975440bc5983a38905897, type: 3}
+  m_Script: {fileID: 11500000, guid: 95f6c4786b28d3e4fae824faf46d4889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
