@@ -38,6 +38,11 @@ public class SceneLoader : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+    public void LoadToEndDemo()
+    {
+        StartCoroutine(LoadLevel(4));
+    }
+
     public void ExitGame()
     {
         Application.Quit();

@@ -615,6 +615,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3611660}
   - component: {fileID: 3611661}
+  - component: {fileID: 3611662}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -662,6 +663,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3611662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3611659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda70c0936c50854cb37a65009950a81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _anim: {fileID: 1207079039}
 --- !u!1 &4840408
 GameObject:
   m_ObjectHideFlags: 0
@@ -16109,6 +16123,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddebc07e6ba8bc440b5b4b1a969b2212, type: 3}
+--- !u!95 &1207079039 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 778689684576388238, guid: ddebc07e6ba8bc440b5b4b1a969b2212,
+    type: 3}
+  m_PrefabInstance: {fileID: 1207079038}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1214450769
 GameObject:
   m_ObjectHideFlags: 0
