@@ -1056,6 +1056,7 @@ GameObject:
   - component: {fileID: 2606178356795985023}
   - component: {fileID: 1935222384024351409}
   - component: {fileID: 3889872839333312840}
+  - component: {fileID: 8449361190597609084}
   m_Layer: 0
   m_Name: Cage
   m_TagString: Untagged
@@ -1114,11 +1115,110 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   measurePlate: {fileID: 2956142296900058218}
   slideSpeed: 5
-  _isLimit: 1
-  _isLower: 0
+  _isLimit: 0
+  _isLower: 1
   _isRealtime: 0
+  _isCloseFromEvent: 0
+  _isOpen: 1
   closedPoint: {fileID: 5788000996347401914}
   openedPoint: {fileID: 2888790959511985836}
+--- !u!82 &8449361190597609084
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4511980775898147967}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -5871527314010371964, guid: 9292f6b8a6cc887478022b1217a10e22,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &5491993865250362374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1393,7 +1493,7 @@ MonoBehaviour:
   _objectDataSo: {fileID: 11400000, guid: cddff7ce5e33d3943b811f3171db857d, type: 2}
   weightTextOne: {fileID: 6315419316693986063}
   weightTextTwo: {fileID: 8385347742610554356}
-  maximumWeightForOpen: 0
+  maximumWeightForOpen: 7
   _weightCurrent: 0
   _closeMonitor: {fileID: 8125990229723936150}
   _openMonitor: {fileID: 8478880250619484244}
@@ -1683,7 +1783,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4638982644475362646}
   - component: {fileID: 6451355888788800119}
-  - component: {fileID: 4940100854849935577}
+  - component: {fileID: 7805277792932148819}
   m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
@@ -1768,7 +1868,7 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &4940100854849935577
+--- !u!114 &7805277792932148819
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -9,9 +9,12 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
     Rigidbody rb;
     PlayerController pc;
 
-    [SerializeField] float PowerForce = 5000f;
+    [SerializeField] float PowerForce = 300f;
     [SerializeField] private bool isBasin;
     [SerializeField] private bool isBox;
+
+    private Vector3 _sizeColliderOriginal;
+    private Vector3 _sizeColliderChanged;
 
     private void Start()
     {
@@ -21,7 +24,9 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
         {
             pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         }
-        
+
+        _sizeColliderOriginal = GetComponent<BoxCollider>().size;
+        _sizeColliderChanged = new Vector3(_sizeColliderOriginal.x * 0.9f,_sizeColliderOriginal.y,_sizeColliderOriginal.z * 0.9f);
     }
 
     private void FixedUpdate()
@@ -31,7 +36,7 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
             if ((int)DirectionPlayer.East == pc.handFreeze)
             {
                 Vector3 moveDirection = pc.handRight.position - this.transform.position;
-                rb.AddForce(moveDirection * 300f);
+                rb.AddForce(moveDirection * PowerForce,ForceMode.Impulse);
                 
                 rb.constraints = RigidbodyConstraints.FreezeRotation;
 
@@ -40,14 +45,10 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
             if ((int) DirectionPlayer.West == pc.handFreeze)
             {
                 Vector3 moveDirection = pc.handLeft.position - this.transform.position;
-                rb.AddForce(moveDirection * 300f);
+                rb.AddForce(moveDirection * PowerForce,ForceMode.Impulse);
                 
                 rb.constraints = RigidbodyConstraints.FreezeRotation;
             }
-        }
-        else
-        {
-
         }
     }
 
@@ -63,7 +64,7 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
             pc.isFreezeHand = true;
             
             IsDragNow = true;
-            
+            GetComponent<BoxCollider>().size = _sizeColliderChanged;
             
             if ((int)DirectionPlayer.East == pc.handFreeze)
             {
@@ -108,7 +109,6 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
         handPoint.position = centerBottom;
     }
     
-
     public void HoldCompleteInteract()
     {
         throw new System.NotImplementedException();
@@ -116,11 +116,12 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
 
     public bool ReleasedInteract(Item item)
     {
-        Debug.LogError("Jiffy");
         GameObject player = item.gameObject;
         
         if(IsDragNow)
         {
+            GetComponent<BoxCollider>().size = _sizeColliderOriginal;
+            
             // --Animation drag
             PlayerController pc = player.GetComponent<PlayerController>();
             pc.isFreezeHand = false;
@@ -129,7 +130,7 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
             
             player.GetComponent<PlayerController>().isFreezeHand = false;
             
-            
+            rb.constraints = ~RigidbodyConstraints.FreezePositionY;
             
             IsDragNow = false;
             

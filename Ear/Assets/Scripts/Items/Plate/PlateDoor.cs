@@ -11,7 +11,7 @@ public class PlateDoor : MonoBehaviour
     [SerializeField] private bool _isLower;
     [SerializeField] private bool _isRealtime;
     public bool _isCloseFromEvent;
-    private bool _isOpen;
+    [SerializeField] private bool _isOpen;
     
     [Header("Height")] 
     [SerializeField] private Transform closedPoint;
@@ -21,7 +21,6 @@ public class PlateDoor : MonoBehaviour
     {
         measurePlate.GetComponent<MeasurePlate>();
         _isCloseFromEvent = false;
-        _isOpen = false;
     }
 
     private void CheckTheDoor(bool isOpen)
