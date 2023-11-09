@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -5,113 +6,70 @@ using UnityEngine;
 
 public class IDragableObject : MonoBehaviour, IHoldGrabItem
 {
+    private BoxCollider _boxColliderAtPlayer;
+    private BoxCollider _boxColliderAtBox;
+    private Rigidbody _rb;
+    private bool _isDragNow = false;
+
     [SerializeField] private bool isBasin;
     [SerializeField] private bool isBox;
-    
-    bool IsDragNow = false;
-    Rigidbody rb;
-    PlayerController pc;
-
-    private float PowerForce;
-    private Vector3 _sizeColliderOriginal;
-    private Vector3 _sizeColliderChanged;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
-
-        if (GameObject.FindGameObjectWithTag("Player") != null)
-        {
-            pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        }
-
-        PowerForce = 100f;
-        _sizeColliderOriginal = GetComponent<BoxCollider>().size;
-        _sizeColliderChanged = new Vector3(_sizeColliderOriginal.x * 0.9f,_sizeColliderOriginal.y,_sizeColliderOriginal.z * 0.9f);
-    }
-
-    private void FixedUpdate()
-    {
-        if (IsDragNow)
-        {
-            if ((int)DirectionPlayer.East == pc.handFreeze)
-            {
-                Vector3 moveDirection = pc.handRight.position - this.transform.position;
-                rb.AddForce(moveDirection * PowerForce,ForceMode.Impulse);
-                
-                rb.constraints = RigidbodyConstraints.FreezeRotation;
-
-            }
-
-            if ((int) DirectionPlayer.West == pc.handFreeze)
-            {
-                Vector3 moveDirection = pc.handLeft.position - this.transform.position;
-                rb.AddForce(moveDirection * PowerForce,ForceMode.Impulse);
-                
-                rb.constraints = RigidbodyConstraints.FreezeRotation;
-            }
-        }
+        _boxColliderAtBox = GetComponent<BoxCollider>();
+        _rb = GetComponent<Rigidbody>();
     }
 
     public bool HoldInteract(Item item)
     {
         GameObject player = item.gameObject;
         
-        if (!IsDragNow)
+        if (!_isDragNow)
         {
             // ++Animation drag
             player.GetComponent<Item>().PlaceItem();
-            //Hand hand = player.GetComponent<Hand>();
-            pc.isFreezeHand = true;
-            
-            IsDragNow = true;
-            GameManager.instance.player.GetComponent<PlayerController>()._playerState = PlayerState.DragObject;
-            
-            GetComponent<BoxCollider>().size = _sizeColliderChanged;
-            
-            if ((int)DirectionPlayer.East == pc.handFreeze)
-            {
-                if (GetComponent<Collider>() != null)
-                {
-                    Debug.Log("Hold it");
-                    Debug.LogError("TEST" + GetComponent<Collider>().name);
-                    SetHandInCenterObject(GetComponent<Collider>(),pc.handRight);
-                }
-            }
+            player.GetComponent<PlayerController>().isFreezeHand = true;
 
-            if ((int) DirectionPlayer.West == pc.handFreeze)
-            {
-                if (GetComponent<Collider>() != null)
-                {
-                    Debug.Log("Hold it");
-                    Debug.LogError("TEST" + GetComponent<Collider>().name);
-                    SetHandInCenterObject(GetComponent<Collider>(),pc.handLeft);
-                }
-            }
-        
-            rb.constraints = ~RigidbodyConstraints.FreezePositionY;
+            _isDragNow = true;
+            transform.parent = player.transform;
+            Debug.Log("Check Drag Now");
             
+            CreatePlayerBoxCollider(player);
+            _rb.constraints = RigidbodyConstraints.FreezeAll;
+            _boxColliderAtBox.isTrigger = true;
             
-            Debug.Log("Check Now Drag");
-            // rb.isKinematic = true;
             return true;
+        }
+
+        if (isBasin)
+        {
+            SoundManager.instance.Play(SoundManager.SoundName.DragBucket);
         }
 
         Debug.LogWarning("They are No Hold Interact");
         return false;
     }
 
-    public void SetHandInCenterObject(Collider collider, Transform handPoint)
+    void CreatePlayerBoxCollider(GameObject player)
     {
-        Debug.Log("Set Position");
+        _boxColliderAtPlayer = player.AddComponent<BoxCollider>();
+        
+        Vector3 boxSize = _boxColliderAtBox.size;
+        Vector3 boxCenter = _boxColliderAtBox.center;
+        Vector3 boxLocalScale = transform.localScale;
+        Vector3 boxLocalPos = transform.localPosition;
+            
+        _boxColliderAtPlayer.size = new Vector3(
+            boxSize.x * boxLocalScale.x,
+            boxSize.y * boxLocalScale.y,
+            boxSize.z * boxLocalScale.z);
 
-
-        Vector3 centerBottom = collider.bounds.center;
-        centerBottom.y = collider.bounds.min.y;
-
-        handPoint.position = centerBottom;
+        _boxColliderAtPlayer.center = new Vector3(
+            boxCenter.x + boxLocalPos.x, 
+            ( boxCenter.y + boxLocalPos.y + player.transform.localPosition.y ) * 1.5f,
+            boxCenter.z + boxLocalPos.z);
     }
-    
+
     public void HoldCompleteInteract()
     {
         throw new System.NotImplementedException();
@@ -121,25 +79,19 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
     {
         GameObject player = item.gameObject;
         
-        if(IsDragNow)
+        if(_isDragNow)
         {
-            GetComponent<BoxCollider>().size = _sizeColliderOriginal;
-            
             // --Animation drag
-            PlayerController pc = player.GetComponent<PlayerController>();
-            pc.isFreezeHand = false;
-            pc.handLeft.localPosition = pc.handLeftPos;
-            pc.handRight.localPosition = pc.handRightPos;
-            
             player.GetComponent<PlayerController>().isFreezeHand = false;
+
+            Destroy(_boxColliderAtPlayer);
+            _boxColliderAtBox.isTrigger = false;
+            _rb.constraints = ~RigidbodyConstraints.FreezePositionY;
             
-            rb.constraints = ~RigidbodyConstraints.FreezePositionY;
-            
-            IsDragNow = false;
-            GameManager.instance.player.GetComponent<PlayerController>()._playerState = PlayerState.Idle;
-            
-            Debug.Log("Check Now Not Drag");
-            // rb.isKinematic = false;
+            _isDragNow = false;
+            transform.parent = null;
+            Debug.Log("Check Can't Drag Now");
+
             return true;
         }
         return false;
