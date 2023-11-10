@@ -11,6 +11,7 @@ public class ILeakyBasin : MonoBehaviour, IInteractable
     [SerializeField] private GameObject _twoFillBasin;
     [SerializeField] private GameObject _oneFillBasin;
     [SerializeField] private GameObject _emptyBasin;
+    [SerializeField] private GameObject _waterLeaky;
     
     [SerializeField] private ObjectDataSO _objectDataSo;
     private ObjectIndex _objectIndex;
@@ -21,7 +22,6 @@ public class ILeakyBasin : MonoBehaviour, IInteractable
     private float _basinEmptyWeight;
     private float speedWaterDecrease = 0.25f;
     private bool _isHaveWater = false;
-    private bool _isFirstPour = true;
 
     [SerializeField] private GameObject _audio;
 
@@ -31,6 +31,8 @@ public class ILeakyBasin : MonoBehaviour, IInteractable
         _twoFillBasin.SetActive(false);
         _oneFillBasin.SetActive(false);
         _emptyBasin.SetActive(true);
+        _waterLeaky.SetActive(false);
+        
 
         _isHaveWater = false;
         _objectIndex = GetComponent<ObjectIndex>();
@@ -85,6 +87,7 @@ public class ILeakyBasin : MonoBehaviour, IInteractable
     private void Update()
     {
         _audio.SetActive(_isHaveWater);
+        _waterLeaky.SetActive(_isHaveWater);
 
         if (_isHaveWater)
         {

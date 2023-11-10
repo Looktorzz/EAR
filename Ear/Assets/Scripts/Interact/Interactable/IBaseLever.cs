@@ -9,10 +9,11 @@ public class IBaseLever : MonoBehaviour ,/* IHoldInteractable ,*/ IInteractable
     [SerializeField] private string _prompt;
     public string InteractionPrompt => _prompt;
     [SerializeField] private Transform _leverPosition;
-    [SerializeField] private GameObject _doorLever;
+    [SerializeField] private DoorLever _doorLever;
     [SerializeField] private bool _isCanPick;
     private CountdownTime _countdown;
     private Lever _lever;
+    private bool _isOpen = false;
     
     public bool Interact(Interactor interactor)
     {
@@ -34,16 +35,14 @@ public class IBaseLever : MonoBehaviour ,/* IHoldInteractable ,*/ IInteractable
         }
 
         _lever = this.gameObject.GetComponentInChildren<Lever>();
-        if (_lever != null)
+        if (_lever != null && !_isOpen)
         {
-            // Open ( If have more 1 sound or anim / Add variable at upper c: )
             // ++Sound open door by interact lever
             _lever.SetLeverOpen(true);
-            // _animator.SetTrigger("OpenByLever");
-            Vector3 posDoor = _doorLever.transform.position;
-            _doorLever.transform.DOLocalMoveY(posDoor.y + 1, 3).SetEase(Ease.OutBounce);
-        
-            SoundManager.instance.Play(SoundManager.SoundName.GateOpen);
+            _doorLever.OpenDoor();
+            _isOpen = true;
+            
+            return true;
         }
 
         // ++Sound fail (pak pak)

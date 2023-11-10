@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 552448607459814658}
   - component: {fileID: 1520730105182465630}
   - component: {fileID: 7229574341690957626}
-  - component: {fileID: 5671837066594181835}
   m_Layer: 7
   m_Name: BoardHold
   m_TagString: Untagged
@@ -106,7 +105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d91fe8e5167903f41bc69ab4f50f83e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PowerForce: 5000
   isBasin: 0
   isBox: 0
 --- !u!114 &7229574341690957626
@@ -126,18 +124,6 @@ MonoBehaviour:
   airDrag: 0
   airAngularDrag: 0.05
   floatingPower: 100
---- !u!114 &5671837066594181835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 592525931770102570}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 999a6f1e41b38fd4699132198bf9ca77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1234355201279051168
 GameObject:
   m_ObjectHideFlags: 0
