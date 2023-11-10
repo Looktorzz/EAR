@@ -148,6 +148,12 @@ public class PlayerController : MonoBehaviour
                 _isHoldGrabItem = false;
                 break;
         }
+
+        if(transform.position.y < -25)
+        {
+            PlayerDEAD();
+        }
+
     }
 
     private void FixedUpdate()
@@ -474,6 +480,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void CutScene_ReviveStartGame()
+    {
+        _animator.SetTrigger("OnlyStart");
+        _input.Disable();
+        StartCoroutine(CutScene_WaitFor7Sec());
+    }
+
+    public IEnumerator CutScene_WaitFor7Sec()
+    {
+        yield return new WaitForSeconds(8f);
+        _input.Enable();
+    }
+
     public void PlayerStandStill()
     {
         _moveVector2 = Vector2.zero;
@@ -500,7 +519,8 @@ public class PlayerController : MonoBehaviour
         switch (other.tag)
         {
             case "DeadZone":
-                StartCoroutine(RespawnTime());
+                _animator.SetTrigger("Dead_OnWater");
+                StartCoroutine(RespawnTime(1.5f));
                 break;
             case "Acid":
                 StartCoroutine(RespawnTime());
@@ -518,6 +538,19 @@ public class PlayerController : MonoBehaviour
         _input.Disable();
 
         yield return new WaitForSeconds(1f);
+        transform.position = GameManager.instance.GiveMePositionReSpawn().position;
+        GameManager.instance.ReloadScene();
+
+        _playerState = PlayerState.Idle;
+        _input.Enable();
+    }
+
+    IEnumerator RespawnTime(float timeDelay)
+    {
+        _playerState = PlayerState.Dead;
+        _input.Disable();
+
+        yield return new WaitForSeconds(timeDelay);
         transform.position = GameManager.instance.GiveMePositionReSpawn().position;
         GameManager.instance.ReloadScene();
 

@@ -47,12 +47,18 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            while(player == null)
+            if(player == null)
             {
                 player = GameObject.FindWithTag("Player");
             }
             
             player.transform.position = currentCheckPoint.position;
+
+            if (currentRoom == 0)
+            {
+                player.GetComponent<PlayerController>().CutScene_ReviveStartGame();
+            }
+
         }
         
     }
