@@ -79,6 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkPoint: {fileID: 2690917959961944964}
   numRoom: 401
+  Animator: {fileID: 5582732680057967990}
 --- !u!65 &4732511709253299881
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -179,6 +180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkPoint: {fileID: 4688378134172866809}
   numRoom: 102
+  Animator: {fileID: 5582732680057967990}
 --- !u!65 &8385798874359578438
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -200,6 +202,81 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 8, z: 15}
   m_Center: {x: 7, y: 3, z: 0}
+--- !u!1 &642269698132187451
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3791654391632932884}
+  - component: {fileID: 4763958110171451536}
+  - component: {fileID: 6957937449007470379}
+  m_Layer: 0
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3791654391632932884
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642269698132187451}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1582798814449348188}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -20, y: 20}
+  m_SizeDelta: {x: 153, y: 153}
+  m_Pivot: {x: 1, y: 0}
+--- !u!222 &4763958110171451536
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642269698132187451}
+  m_CullTransparentMesh: 1
+--- !u!114 &6957937449007470379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642269698132187451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: ca52972f90305574fa015f12bdcb0b2c, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &672514235095063871
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,6 +480,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkPoint: {fileID: 8758742575433207098}
   numRoom: 200
+  Animator: {fileID: 5582732680057967990}
 --- !u!65 &8037369199166707105
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -472,6 +550,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkPoint: {fileID: 8949321869573440906}
   numRoom: 100
+  Animator: {fileID: 5582732680057967990}
 --- !u!65 &8119464251781882652
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -541,6 +620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkPoint: {fileID: 1576586573423868215}
   numRoom: 600
+  Animator: {fileID: 5582732680057967990}
 --- !u!65 &2084469626880331825
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -671,6 +751,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkPoint: {fileID: 2474162134883612531}
   numRoom: 0
+  Animator: {fileID: 5582732680057967990}
 --- !u!1 &2752273705114462747
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,7 +810,7 @@ Transform:
   m_GameObject: {fileID: 2877140842771297715}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -137.51, y: 0, z: 0}
+  m_LocalPosition: {x: -153.42, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -750,6 +831,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkPoint: {fileID: 301469321047862718}
   numRoom: 103
+  Animator: {fileID: 5582732680057967990}
 --- !u!65 &5923566747531660550
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -850,6 +932,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkPoint: {fileID: 1421784527153022152}
   numRoom: 601
+  Animator: {fileID: 5582732680057967990}
 --- !u!65 &6193675751242775964
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -950,6 +1033,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkPoint: {fileID: 698914126107004180}
   numRoom: 300
+  Animator: {fileID: 5582732680057967990}
 --- !u!65 &9218503694625806244
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1019,6 +1103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkPoint: {fileID: 1626208895694419824}
   numRoom: 601
+  Animator: {fileID: 5582732680057967990}
 --- !u!65 &5692145659852237487
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1119,6 +1204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkPoint: {fileID: 2265371391404687087}
   numRoom: 202
+  Animator: {fileID: 5582732680057967990}
 --- !u!65 &2452221233057774236
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1188,6 +1274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkPoint: {fileID: 8581952521459129006}
   numRoom: 101
+  Animator: {fileID: 5582732680057967990}
 --- !u!65 &8827538309560214704
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1238,6 +1325,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1582798814449348188}
   - {fileID: 5445021500247127421}
   - {fileID: 8735031279055335120}
   - {fileID: 2355231271713428694}
@@ -1336,6 +1424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkPoint: {fileID: 2210311784000992249}
   numRoom: 400
+  Animator: {fileID: 5582732680057967990}
 --- !u!65 &2816679919499292042
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1405,6 +1494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkPoint: {fileID: 5122585161115993003}
   numRoom: 501
+  Animator: {fileID: 5582732680057967990}
 --- !u!65 &22451287601228459
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1481,13 +1571,95 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5729108063872288318}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.86, y: 0, z: -0.63}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 8.796371, y: 0, z: -0.9698467}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5445021500247127421}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6283527798706131354
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1582798814449348188}
+  - component: {fileID: 8487148806410588413}
+  - component: {fileID: 5582732680057967990}
+  m_Layer: 0
+  m_Name: Logo_UpdatedCheckPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1582798814449348188
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6283527798706131354}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3791654391632932884}
+  m_Father: {fileID: 4185835057171480938}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
+--- !u!223 &8487148806410588413
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6283527798706131354}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!95 &5582732680057967990
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6283527798706131354}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c4554d30436bf1b44955324b2a918e31, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6422126761118760265
 GameObject:
   m_ObjectHideFlags: 0
@@ -1536,6 +1708,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkPoint: {fileID: 8355873536288440707}
   numRoom: 201
+  Animator: {fileID: 5582732680057967990}
 --- !u!65 &6928040247252571573
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1574,7 +1747,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6486682095191910934
 Transform:
   m_ObjectHideFlags: 0
@@ -1605,6 +1778,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkPoint: {fileID: 7290525784722128846}
   numRoom: 203
+  Animator: {fileID: 5582732680057967990}
 --- !u!65 &2919843636094475533
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1705,6 +1879,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkPoint: {fileID: 4187749691350222700}
   numRoom: 500
+  Animator: {fileID: 5582732680057967990}
 --- !u!65 &471657804107077863
 BoxCollider:
   m_ObjectHideFlags: 0

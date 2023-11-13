@@ -7,7 +7,7 @@ public class ReSpawnCheckPointByArm : MonoBehaviour
     public Transform checkPoint;
     private Collider _collider;
     public Room numRoom;
-
+    [SerializeField] private Animator Animator;
 
     void Start()
     {
@@ -20,6 +20,7 @@ public class ReSpawnCheckPointByArm : MonoBehaviour
         {
             GameManager.instance.ChangeCheckPoint(checkPoint,(int)numRoom);
             _collider.enabled = false;
+            Animator.SetTrigger("CheckPoint");
         }
     }
 }

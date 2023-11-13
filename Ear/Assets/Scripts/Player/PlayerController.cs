@@ -537,12 +537,11 @@ public class PlayerController : MonoBehaviour
         _playerState = PlayerState.Dead;
         _input.Disable();
 
-        yield return new WaitForSeconds(1f);
-        transform.position = GameManager.instance.GiveMePositionReSpawn().position;
-        GameManager.instance.ReloadScene();
+        yield return new WaitForSeconds(0.5f);
 
-        _playerState = PlayerState.Idle;
-        _input.Enable();
+        GameObject scene_Loader = GameObject.FindGameObjectWithTag("Scene_Loader");
+
+        scene_Loader.GetComponent<SceneLoader>().ReLoadScene();
     }
 
     IEnumerator RespawnTime(float timeDelay)
@@ -551,12 +550,13 @@ public class PlayerController : MonoBehaviour
         _input.Disable();
 
         yield return new WaitForSeconds(timeDelay);
-        transform.position = GameManager.instance.GiveMePositionReSpawn().position;
-        GameManager.instance.ReloadScene();
 
-        _playerState = PlayerState.Idle;
-        _input.Enable();
+        GameObject scene_Loader = GameObject.FindGameObjectWithTag("Scene_Loader");
+
+        scene_Loader.GetComponent<SceneLoader>().ReLoadScene();
     }
+
+
 }
 
 public enum PlayerState
