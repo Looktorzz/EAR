@@ -431,15 +431,17 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    public IEnumerator CheckDurationAnimation(string nameAnim,float duration)
+    public IEnumerator CheckDurationAnimation(string nameAnim,float duration,bool isPlayAnimation)
     {
+        _moveVector2 = Vector2.zero;
         _input.Player.Movement.performed -= OnMovementPerformed;
-        _animator.SetBool(nameAnim, true);
+        _animator.SetBool(nameAnim, isPlayAnimation);
         Debug.Log("First");
         yield return new WaitForSeconds(duration);
         Debug.Log("Second");
         _input.Player.Movement.performed += OnMovementPerformed;
     }
+    
     
     IEnumerator PlaySoundCoroutine(SoundManager.SoundName soundName)
     {
@@ -466,7 +468,7 @@ public class PlayerController : MonoBehaviour
                 capsuleCollider.center = new Vector3(0,0.5f,0.55f);
 
                 _playerState = PlayerState.Crouch;
-                _animator.SetBool("OnCrouch",true);
+                StartCoroutine(CheckDurationAnimation("OnCrouch", 1,true));
             }
             else
             {
@@ -475,7 +477,7 @@ public class PlayerController : MonoBehaviour
                 capsuleCollider.center = new Vector3(0,1,0.55f);
                 
                 _playerState = PlayerState.Idle;
-                _animator.SetBool("OnCrouch",false);
+                StartCoroutine(CheckDurationAnimation("OnCrouch", 1,false));
             }
         }
     }
@@ -567,11 +569,4 @@ public enum PlayerState
     DragObject,
     Crouch,
 }
-public enum  AnimName
-{
-    Horizontal,
-    Vertical,
-    IsHoldDrag,
-    IsGrabItem,
-    OnCrouch
-}
+
