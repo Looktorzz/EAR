@@ -439,6 +439,8 @@ public class PlayerController : MonoBehaviour
         Debug.Log("First");
         yield return new WaitForSeconds(duration);
         Debug.Log("Second");
+        _animator.SetFloat("Horizontal",0);
+        _animator.SetFloat("Vertical",0);
         _input.Player.Movement.performed += OnMovementPerformed;
     }
     

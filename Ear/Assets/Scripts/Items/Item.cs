@@ -158,8 +158,8 @@ public class Item : MonoBehaviour
                 
                 item.ReleasedInteract(this);
             }
-            
-            _animator.SetBool("IsHoldDrag",false);
+
+            StartCoroutine(_playerController.CheckDurationAnimation("IsHoldDrag", .25f, false));
             _hand.ClearCollider();
         }
     }

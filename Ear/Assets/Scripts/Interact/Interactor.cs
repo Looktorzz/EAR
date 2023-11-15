@@ -36,7 +36,7 @@ public class Interactor : MonoBehaviour
                 if (!_playerController._isCanCrouching)
                 {
 
-                    StartCoroutine(_playerController.CheckDurationAnimation("Interact", .5f,true));
+                    StartCoroutine(_playerController.CheckDurationAnimation("Interact", .3f,true));
                 }
                 
             }
@@ -59,7 +59,7 @@ public class Interactor : MonoBehaviour
                 
                 interactable.HoldInteract(this);
                 
-                StartCoroutine(_playerController.CheckDurationAnimation("IsHoldDrag", .5f,true));
+                StartCoroutine(_playerController.CheckDurationAnimation("IsHoldDrag", .1f,false));
 
             }
             
@@ -81,8 +81,9 @@ public class Interactor : MonoBehaviour
                 interactable.ReleasedInteract(this);
 
             }
-            
-            _animator.SetBool("IsHoldDrag",false);
+
+            StartCoroutine(_playerController.CheckDurationAnimation("IsHoldDrag", 0.1f, false));
+            //_animator.SetBool("IsHoldDrag",false);
             _hand.ClearCollider();
         }
     }
