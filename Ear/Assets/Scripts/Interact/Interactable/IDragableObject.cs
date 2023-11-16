@@ -82,6 +82,7 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
         if(_isDragNow)
         {
             // --Animation drag
+            player.GetComponent<PlayerController>().CheckDurationAnimation("IsHoldDrag", .25f, false);
             player.GetComponent<PlayerController>().isFreezeHand = false;
 
             Destroy(_boxColliderAtPlayer);

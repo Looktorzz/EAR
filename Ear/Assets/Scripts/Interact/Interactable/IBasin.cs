@@ -53,6 +53,8 @@ public class IBasin : MonoBehaviour , IInteractable
             if (_numFilled <= 2)
             {
                 SoundManager.instance.Play(SoundManager.SoundName.WaterFill);
+                
+
                 _numFilled++;
                 _objectIndex.ChangeIndex(NameObject.BasinChanging);
                 _objectDataSo.objectDatas[_objectIndex.index].weight += _waterInBucket;
@@ -73,6 +75,7 @@ public class IBasin : MonoBehaviour , IInteractable
             if (_numFilled >= 1)
             {
                 SoundManager.instance.Play(SoundManager.SoundName.WaterFill);
+                
                 _objectDataSo.objectDatas[_objectIndex.index].weight -= _waterInBucket;
                 _numFilled--;
                 bucket.BucketIsFull(true);
@@ -101,6 +104,26 @@ public class IBasin : MonoBehaviour , IInteractable
                 break;
             
             case 1:
+                StartCoroutine(CheckFillWithSound());
+                break;
+                
+            case 2: // Almost
+                StartCoroutine(CheckFillWithSound());
+                break;
+                
+            case 3: // Full
+                StartCoroutine(CheckFillWithSound());
+                break;
+        }
+    }
+    
+    IEnumerator CheckFillWithSound()
+    {
+        yield return StartCoroutine(SoundWaterFill());
+        
+        switch (_numFilled)
+        {
+            case 1:
                 _fullBasin.SetActive(false);
                 _twoFillBasin.SetActive(false);
                 _oneFillBasin.SetActive(true);
@@ -109,6 +132,7 @@ public class IBasin : MonoBehaviour , IInteractable
                 break;
                 
             case 2: // Almost
+
                 _fullBasin.SetActive(false);
                 _twoFillBasin.SetActive(true);
                 _oneFillBasin.SetActive(false);
@@ -117,6 +141,7 @@ public class IBasin : MonoBehaviour , IInteractable
                 break;
                 
             case 3: // Full
+
                 _fullBasin.SetActive(true);
                 _twoFillBasin.SetActive(false);
                 _oneFillBasin.SetActive(false);
@@ -126,5 +151,14 @@ public class IBasin : MonoBehaviour , IInteractable
 
                 break;
         }
+
+    }
+    
+        IEnumerator SoundWaterFill()
+    {
+        SoundManager.instance.Play(SoundManager.SoundName.WaterFill);
+        yield return new WaitForSeconds(.6f);
+        
+
     }
 }
