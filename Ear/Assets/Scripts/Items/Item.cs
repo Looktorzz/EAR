@@ -44,7 +44,7 @@ public class Item : MonoBehaviour
                 Debug.Log("Hold Item");
                 itemInHand.transform.SetParent(null);
                 itemInHand.transform.SetParent(_handTransform);
-                itemInHand.transform.localPosition = Vector3.zero;
+                itemInHand.transform.localPosition = new Vector3(0,0,-0.3f);
                 itemInHand.GetComponent<Collider>().isTrigger = true;
                 itemInHand.GetComponent<Rigidbody>().useGravity = false;
                 itemInHand.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;

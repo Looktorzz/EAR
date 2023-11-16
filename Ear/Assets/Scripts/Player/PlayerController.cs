@@ -467,7 +467,7 @@ public class PlayerController : MonoBehaviour
             {
                 // ++Animation crouching
                 capsuleCollider.height = 1;
-                capsuleCollider.center = new Vector3(0,0.5f,0.55f);
+                capsuleCollider.center = new Vector3(0,0.75f,0.55f);
 
                 _playerState = PlayerState.Crouch;
                 StartCoroutine(CheckDurationAnimation("OnCrouch", 1,true));

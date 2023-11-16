@@ -33,8 +33,9 @@ public class IBrokenBox : MonoBehaviour , IInteractable
                 }
                 bucket.BucketIsFull(false);
                 
-                this.gameObject.SetActive(false);
-                // Destroy(gameObject);
+                GetComponentInChildren<Animator>().SetTrigger("isAcidBox");
+                GetComponent<BoxCollider>().isTrigger = true;
+                // this.gameObject.SetActive(false);
                 return true;
             }
             else

@@ -167,6 +167,10 @@ MonoBehaviour:
   _doorLever: {fileID: 0}
   _close: {fileID: 6325909624165775637}
   _open: {fileID: 5427526087206731281}
+  _DoorcanPause: {fileID: 0}
+  _IsDoorSlowClose_AndCanStop: 0
+  isBridge: 0
+  isDoor: 0
 --- !u!1 &5427526087206731281
 GameObject:
   m_ObjectHideFlags: 0
