@@ -121,4 +121,9 @@ public class Hand : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(_handPoint.position, _handSize.transform.localScale);
     }
+
+    public int GetHandIndexPosition()
+    {
+        return _index;
+    }
 }

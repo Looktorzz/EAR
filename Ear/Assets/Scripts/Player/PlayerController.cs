@@ -443,6 +443,40 @@ public class PlayerController : MonoBehaviour
         _animator.SetFloat("Vertical",0);
         _input.Player.Movement.performed += OnMovementPerformed;
     }
+
+    public IEnumerator GrabAnimationDuration(float duration, bool isPlayAnimation)
+    {
+        _moveVector2 = Vector2.zero;
+        _input.Player.Movement.performed -= OnMovementPerformed;
+        
+        if (handFreeze == (int)DirectionPlayer.North)
+        {
+            _animator.SetFloat("Horizontal",0);
+            _animator.SetFloat("Vertical",0.3f);
+        }
+        else if (handFreeze == (int)DirectionPlayer.West || handFreeze == (int)DirectionPlayer.East)
+        {
+            _animator.SetFloat("Horizontal",0.3f);
+            _animator.SetFloat("Vertical",0);
+        }
+        else
+        {
+            _animator.SetFloat("Horizontal",0);
+            _animator.SetFloat("Vertical",0);
+        }
+        
+        _animator.SetBool("IsGrabItem", isPlayAnimation);
+        
+        
+        Debug.Log("First");
+        
+        yield return new WaitForSeconds(duration);
+        Debug.Log("Second");
+
+       
+        
+        _input.Player.Movement.performed += OnMovementPerformed;
+    }
     
     
     IEnumerator PlaySoundCoroutine(SoundManager.SoundName soundName)
