@@ -50,7 +50,9 @@ public class Item : MonoBehaviour
                 itemInHand.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 
                 //_animator.SetBool("IsGrabItem",true);
-                StartCoroutine(_playerController.CheckDurationAnimation("IsGrabItem", .5f,true));
+                StartCoroutine(_playerController.GrabAnimationDuration(0.5f,true));
+
+                
 
                 _playerController.isGrabItem = true;
             }
@@ -58,6 +60,8 @@ public class Item : MonoBehaviour
             _hand.ClearCollider();
         }
     }
+
+    
 
     public void PlaceItem()
     {
