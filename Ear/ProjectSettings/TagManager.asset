@@ -9,6 +9,7 @@ TagManager:
   - Light
   - DeadZone
   - Storage_Info
+  - Scene_Loader
   layers:
   - Default
   - TransparentFX

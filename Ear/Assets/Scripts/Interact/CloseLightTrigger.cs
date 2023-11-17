@@ -6,6 +6,7 @@ using UnityEngine;
 public class CloseLightTrigger : MonoBehaviour
 {
     [SerializeField] private IGenerator _generator;
+    [SerializeField] private DoorLever door;
     private bool _isPass = false;
 
     private void OnTriggerExit(Collider other)
@@ -17,6 +18,8 @@ public class CloseLightTrigger : MonoBehaviour
             // ??Sound PaKaiFire Where??
             SoundManager.instance.Play(SoundManager.SoundName.BlackOut);
             
+            door.CloseDoor();
+
             for (int i = 0; i < _generator._lightGameObjects.Count; i++)
             {
                 _generator._lightGameObjects[i].GetComponentInChildren<Light>().enabled = false;

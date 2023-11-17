@@ -6,30 +6,34 @@ using UnityEngine;
 
 public class DoorLever : MonoBehaviour
 {
-    private bool _isClose;
+    [SerializeField] private bool _isOpen = false;
 
     private void Start()
     {
-        _isClose = true;
+        if(_isOpen)
+        {
+            transform.DOMoveY(transform.position.y + 4, 3).SetEase(Ease.OutBounce);
+            _isOpen = true;
+        }
     }
 
     public void OpenDoor()
     {
-        if (_isClose)
+        if (!_isOpen)
         {
             SoundManager.instance.Play(SoundManager.SoundName.GateOpen);
             transform.DOMoveY(transform.position.y + 4, 3).SetEase(Ease.OutBounce);
-            _isClose = false;
+            _isOpen = true;
         }
     }
 
     public void CloseDoor()
     {
-        if (!_isClose)
+        if (_isOpen)
         {
             SoundManager.instance.Play(SoundManager.SoundName.GateOpen);
             transform.DOMoveY(transform.position.y - 4, 2f).SetEase(Ease.OutBounce);
-            _isClose = true;
+            _isOpen = false;
         }
     }
 }
