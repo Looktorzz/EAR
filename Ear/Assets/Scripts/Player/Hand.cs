@@ -32,7 +32,9 @@ public class Hand : MonoBehaviour
     [SerializeField] private GameObject _handSizeFB;
     [SerializeField] private PlayerController _playerController;
 
-    void Update()
+    SpriteRenderer objSprite;
+
+    void FixedUpdate()
     {
         _handPoint.position = _handDirectionPoint[_index].position;
         // ==============================
@@ -49,17 +51,24 @@ public class Hand : MonoBehaviour
             _gameObject = null;
             if (!IsfirstTime)
             {
-                if (_gameObject2.GetComponentInChildren<SpriteRenderer>())
+                
+                if (_gameObject2.transform.GetComponentInChildren<SpriteRenderer>())
                 {
-                    _gameObject2.GetComponentInChildren<SpriteRenderer>().material = _materialDefault;
+                    _gameObject2.transform.GetComponentInChildren<SpriteRenderer>().material = _materialDefault;
                 }
                 
             }
             
         }
         
-        if (_gameObject != null)
+        if (_gameObject)
         {
+            
+            if (_gameObject2)
+            {
+                SetSpriteObj(_gameObject2,ref objSprite);
+            }
+            
             if (IsfirstTime)
             {
                 _gameObject2 = _gameObject; 
@@ -67,15 +76,24 @@ public class Hand : MonoBehaviour
             } 
             if (_gameObject != _gameObject2)
             {
-                _gameObject2.GetComponentInChildren<SpriteRenderer>().material = _materialDefault;
+                objSprite.material = _materialDefault;
                 _gameObject2 = _gameObject;
                 return;
             }
-
-            _gameObject2.GetComponentInChildren<SpriteRenderer>().material = _materialOutline;
+            if (objSprite)
+            {
+                objSprite.material = _materialOutline;
+            }
+            
+            
 
         }
 
+    }
+
+    private void SetSpriteObj(GameObject obj,ref SpriteRenderer a)
+    {
+        a = obj.GetComponentInChildren<SpriteRenderer>();
     }
 
     public void SentDirection(int index)
