@@ -88,9 +88,10 @@ public class IFuseBox : MonoBehaviour, IInteractable
             return true;
         }
         
+        // interactor.GetComponent<Item>().isInteractFromSpace = false;
+        
         if (_isOpen)
         {
-            interactor.GetComponent<Item>().isInteractFromSpace = false;
             Fuse fuse = interactor.GetComponentInChildren<Fuse>();
             Debug.Log("Test Click Lever");
 

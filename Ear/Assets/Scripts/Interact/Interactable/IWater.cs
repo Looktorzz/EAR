@@ -13,8 +13,13 @@ public class IWater : MonoBehaviour , IHoldInteractable , IInteractable
 
     public bool Interact(Interactor interactor)
     {
+        if (interactor.GetComponent<Item>().isInteractFromSpace)
+        {
+            return false;
+        }
+        
         Bucket bucket = interactor.GetComponentInChildren<Bucket>();
-
+        
         if (bucket.isFull)
         {
             if (bucket.isAcidWater == isAcidWater)

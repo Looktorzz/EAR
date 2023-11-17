@@ -76,6 +76,7 @@ public class Item : MonoBehaviour
             {
                 isInteractFromSpace = true;
                 GetComponent<Interactor>().PressInteract();
+                isInteractFromSpace = false;
                 // return;
             }
             
