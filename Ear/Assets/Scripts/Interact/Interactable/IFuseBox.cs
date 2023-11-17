@@ -25,6 +25,9 @@ public class IFuseBox : MonoBehaviour, IInteractable
     [Header("Light")]
     [SerializeField] private GameObject _lightRed;
     [SerializeField] private GameObject _lightGreen;
+    
+    [Header("Door")]
+    [SerializeField] private DoorLever _doorLever;
 
     private void Start()
     {
@@ -98,6 +101,11 @@ public class IFuseBox : MonoBehaviour, IInteractable
                 fuse.transform.localPosition = Vector3.zero;
                 fuse.gameObject.layer = 0;
                 isHaveFuse = true;
+                
+                if (_doorLever != null)
+                {
+                    _doorLever.OpenDoor();
+                }
             
                 _lightRed.SetActive(!isHaveFuse);
                 _lightGreen.SetActive(isHaveFuse);
