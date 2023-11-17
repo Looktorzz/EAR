@@ -53,28 +53,23 @@ public class IConveyorTube : MonoBehaviour , IInteractable
                 
                 if (!isPlaceTube)
                 {
-                    // ++Sound item drop
                     go.transform.position = _itemQuitFirst.position;
-                    go.transform.SetParent(null);
-                    go.GetComponent<Collider>().enabled = true;
-                    go.GetComponent<Rigidbody>().useGravity = true;
-                    go = null;
                     Debug.Log("Item go FirstPosition");
-                    
-                    SoundManager.instance.Play(SoundManager.SoundName.WaterFillPipe);
                 }
                 else
                 {
-                    // ++Sound item drop
                     go.transform.position = _itemQuitSecond.position;
-                    go.transform.SetParent(null);
-                    go.GetComponent<Collider>().enabled = true;
-                    go.GetComponent<Rigidbody>().useGravity = true;
-                    go = null;
                     Debug.Log("Item go SecondPosition");
-                    
-                    SoundManager.instance.Play(SoundManager.SoundName.WaterFillPipe);
                 }
+                
+                go.transform.localScale = Vector3.one;
+                go.transform.localRotation = Quaternion.Euler(Vector3.zero);
+                go.transform.SetParent(null);
+                go.GetComponent<Collider>().enabled = true;
+                go.GetComponent<Rigidbody>().useGravity = true;
+                go = null;
+                    
+                SoundManager.instance.Play(SoundManager.SoundName.WaterFillPipe);
                 
                 bucket.BucketIsFull(false);
                 return true;
