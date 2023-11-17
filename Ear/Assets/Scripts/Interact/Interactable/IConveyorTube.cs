@@ -22,15 +22,6 @@ public class IConveyorTube : MonoBehaviour , IInteractable
 
     public bool Interact(Interactor interactor)
     {
-        // Key
-        Keys key = interactor.GetComponentInChildren<Keys>();
-        if (key != null)
-        {
-            interactor.GetComponentInChildren<Item>().PlaceItemOnInteract();
-            key.transform.SetParent(_itemPoint);
-            key.transform.localPosition = Vector3.zero;
-        }
-
         if (_isCanConnectTube)
         {
             // Tube (Can't Pick Again)

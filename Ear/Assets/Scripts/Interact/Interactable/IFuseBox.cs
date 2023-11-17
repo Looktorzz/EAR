@@ -52,7 +52,7 @@ public class IFuseBox : MonoBehaviour, IInteractable
 
     public bool Interact(Interactor interactor)
     {
-        if (!_isOpen)
+        if (!_isOpen && !interactor.GetComponent<Item>().isInteractFromSpace)
         {
             if (_isUseKeyToOpen)
             {
@@ -88,29 +88,33 @@ public class IFuseBox : MonoBehaviour, IInteractable
             return true;
         }
         
-        Fuse fuse = interactor.GetComponentInChildren<Fuse>();
-        Debug.Log("Test Click Lever");
-
-        if (fuse != null)
+        if (_isOpen)
         {
-            interactor.GetComponentInChildren<Item>().PlaceItemOnInteract();
-            fuse.transform.SetParent(_fusePosition);
-            fuse.transform.localPosition = Vector3.zero;
-            fuse.gameObject.layer = 0;
-            isHaveFuse = true;
-            
-            _lightRed.SetActive(!isHaveFuse);
-            _lightGreen.SetActive(isHaveFuse);
-            Debug.Log("Complete Fill Fuse.");
+            interactor.GetComponent<Item>().isInteractFromSpace = false;
+            Fuse fuse = interactor.GetComponentInChildren<Fuse>();
+            Debug.Log("Test Click Lever");
 
-            if (_doorLever != null)
+            if (fuse != null)
             {
-                _doorLever.OpenDoor();
-            }
+                interactor.GetComponentInChildren<Item>().PlaceItemOnInteract();
+                fuse.transform.SetParent(_fusePosition);
+                fuse.transform.localPosition = Vector3.zero;
+                fuse.gameObject.layer = 0;
+                isHaveFuse = true;
             
-            SoundManager.instance.Play(SoundManager.SoundName.InsertFuse);
+                _lightRed.SetActive(!isHaveFuse);
+                _lightGreen.SetActive(isHaveFuse);
+                Debug.Log("Complete Fill Fuse.");
 
-            return true;
+                if (_doorLever != null)
+                {
+                    _doorLever.OpenDoor();
+                }
+            
+                SoundManager.instance.Play(SoundManager.SoundName.InsertFuse);
+
+                return true;
+            }
         }
 
         // ++Sound fail (pak pak)

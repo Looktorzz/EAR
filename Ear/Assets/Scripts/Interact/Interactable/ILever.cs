@@ -33,6 +33,8 @@ public class ILever : MonoBehaviour, IInteractable
     
     public bool Interact(Interactor interactor)
     {
+        interactor.GetComponent<Item>().isInteractFromSpace = false;
+        
         if (_isOpen)
         {
             // ++Sound fail (pak pak)

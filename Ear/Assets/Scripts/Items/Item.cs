@@ -18,6 +18,7 @@ public class Item : MonoBehaviour
     
     public GameObject itemInHand;
     public bool _isCanHold;
+    public bool isInteractFromSpace;
 
     private void Start()
     {
@@ -25,6 +26,7 @@ public class Item : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
         _hand = GetComponent<Hand>();
         _isCanHold = true;
+        isInteractFromSpace = false;
     }
 
     public void HoldItem()
@@ -64,7 +66,15 @@ public class Item : MonoBehaviour
         if(_collider != null)
         {
             itemInHand = _collider.gameObject;
-
+            
+            if (_collider.gameObject.GetComponent<Fuse>() || 
+                _collider.gameObject.GetComponent<Lever>())
+            {
+                isInteractFromSpace = true;
+                GetComponent<Interactor>().PressInteract();
+                return;
+            }
+            
             if (itemInHand != null)
             {
                 // ++Sound Place Item
@@ -76,7 +86,7 @@ public class Item : MonoBehaviour
 
                 //Need to Fix : Make it only Item  in collider , item that can drag NO NEED TO BE HERE!!
                 itemInHand.GetComponent<Rigidbody>().constraints = ~RigidbodyConstraints.FreezePositionY;
-
+                
                 _collider = null;
                 itemInHand = null;
                 
