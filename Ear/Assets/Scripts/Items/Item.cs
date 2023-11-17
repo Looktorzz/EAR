@@ -52,7 +52,7 @@ public class Item : MonoBehaviour
                 itemInHand.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 
                 //_animator.SetBool("IsGrabItem",true);
-                StartCoroutine(_playerController.GrabAnimationDuration(0.5f,true));
+                StartCoroutine(_playerController.GrabAnimationDuration(0.1f,true));
 
                 
 
@@ -76,7 +76,7 @@ public class Item : MonoBehaviour
             {
                 isInteractFromSpace = true;
                 GetComponent<Interactor>().PressInteract();
-                return;
+                // return;
             }
             
             if (itemInHand != null)

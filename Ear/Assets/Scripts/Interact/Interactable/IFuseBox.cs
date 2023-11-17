@@ -25,9 +25,6 @@ public class IFuseBox : MonoBehaviour, IInteractable
     [Header("Light")]
     [SerializeField] private GameObject _lightRed;
     [SerializeField] private GameObject _lightGreen;
-    
-    [Header("Door")]
-    [SerializeField] private DoorLever _doorLever;
 
     private void Start()
     {
@@ -105,11 +102,6 @@ public class IFuseBox : MonoBehaviour, IInteractable
                 _lightRed.SetActive(!isHaveFuse);
                 _lightGreen.SetActive(isHaveFuse);
                 Debug.Log("Complete Fill Fuse.");
-
-                if (_doorLever != null)
-                {
-                    _doorLever.OpenDoor();
-                }
             
                 SoundManager.instance.Play(SoundManager.SoundName.InsertFuse);
 
