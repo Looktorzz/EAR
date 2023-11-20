@@ -22,6 +22,7 @@ public class IBaseLever : MonoBehaviour ,/* IHoldInteractable ,*/ IInteractable
         {
             interactor.GetComponentInChildren<Item>().PlaceItemOnInteract();
             leverOnPlayer.transform.SetParent(_leverPosition);
+            _leverPosition.GetComponentInChildren<SpriteRenderer>().flipX = false;
             leverOnPlayer.transform.localPosition = Vector3.zero;
             leverOnPlayer.isOnBaseLever = true;
             

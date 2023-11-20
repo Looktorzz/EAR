@@ -116,7 +116,6 @@ public class SoundManager : MonoBehaviour
         sound.audioSource.Play();
     }
     
-    
 
     private Sound GetSound(SoundName name)
     {
