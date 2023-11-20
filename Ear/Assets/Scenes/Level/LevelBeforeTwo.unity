@@ -10335,7 +10335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fa98e5da50f6b340a3d14d3c3fbeef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StopMusic: 0
+  StopMusic: 1
 --- !u!4 &785044478
 Transform:
   m_ObjectHideFlags: 0
