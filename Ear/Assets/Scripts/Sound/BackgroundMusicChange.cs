@@ -6,12 +6,20 @@ using UnityEngine.SceneManagement;
 
 public class BackgroundMusicChange : MonoBehaviour
 {
-    
+    [SerializeField] bool StopMusic = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        SoundManager.instance.Play(SoundManager.SoundName.BGMFloor1);
+        if (StopMusic)
+        {
+            SoundManager.instance.Stop(SoundManager.SoundName.BGMFloor1);
+        }
+        else
+        {
+           SoundManager.instance.Play(SoundManager.SoundName.BGMFloor1);
+        }
+       
     }
 
     // Update is called once per frame
