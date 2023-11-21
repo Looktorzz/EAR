@@ -30,7 +30,7 @@ public class Item : MonoBehaviour
 
     private void Update()
     {
-        if (!spriteRendererInHand)
+        if (spriteRendererInHand != null)
         {
             if (_playerController.handFreeze == (int)DirectionPlayer.West)
             {
