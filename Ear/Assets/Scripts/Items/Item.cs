@@ -17,7 +17,6 @@ public class Item : MonoBehaviour
     private Hand _hand;
 
     public GameObject itemInHand;
-    public SpriteRenderer spriteRendererInHand;
     public bool _isCanHold;
 
     private void Start()
@@ -27,32 +26,7 @@ public class Item : MonoBehaviour
         _hand = GetComponent<Hand>();
         _isCanHold = true;
     }
-
-    private void Update()
-    {
-        if (spriteRendererInHand != null)
-        {
-            if (_playerController.handFreeze == (int)DirectionPlayer.West)
-            {
-                Debug.Log(spriteRendererInHand.name + " West"); 
-                spriteRendererInHand.flipX = true;
-
-            }
-            else if (_playerController.handFreeze == (int)DirectionPlayer.East)
-            { 
-                spriteRendererInHand.flipX = false;
-                Debug.Log(spriteRendererInHand.name + " East");
-            }
-            else
-            {
-                
-            }
-        }
-
-        
-        
-    }
-
+    
     public void HoldItem()
     {
         _collider = _hand.SentColliderFound(_itemMask);
@@ -75,8 +49,6 @@ public class Item : MonoBehaviour
                 itemInHand.GetComponent<Rigidbody>().useGravity = false;
                 itemInHand.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 
-                Debug.Log(itemInHand.name + "111111111111111111111111111111");
-                spriteRendererInHand = itemInHand.GetComponentInChildren<SpriteRenderer>();
                 
                 //_animator.SetBool("IsGrabItem",true);
                 StartCoroutine(_playerController.GrabAnimationDuration(0.5f,true));
@@ -109,7 +81,6 @@ public class Item : MonoBehaviour
 
                 //Need to Fix : Make it only Item  in collider , item that can drag NO NEED TO BE HERE!!
                 itemInHand.GetComponent<Rigidbody>().constraints = ~RigidbodyConstraints.FreezePositionY;
-                spriteRendererInHand = null;
                 
                 _collider = null;
                 itemInHand = null;
@@ -140,14 +111,12 @@ public class Item : MonoBehaviour
             Debug.Log("Place Item On Interact");
             itemInHand.transform.SetParent(null);
             itemInHand.GetComponent<Collider>().enabled = true;
-            spriteRendererInHand = null;
 
             _collider = null;
             itemInHand = null;
             
             _playerController.CheckHandFreezeForAnimation();
             
-            spriteRendererInHand = null;
             _animator.SetBool("IsGrabItem",false);
             // StartCoroutine(_playerController.CheckDurationAnimation("IsGrabItem", 0.5f));
             _animator.SetFloat("Horizontal", 0);
