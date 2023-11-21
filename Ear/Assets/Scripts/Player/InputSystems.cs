@@ -51,7 +51,7 @@ public partial class @InputSystems: IInputActionCollection2, IDisposable
                     ""id"": ""26e89162-093a-4252-a6fa-fec8354552aa"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold(duration=0.2),Press"",
+                    ""interactions"": ""Hold(duration=0.1),Press"",
                     ""initialStateCheck"": false
                 }
             ],

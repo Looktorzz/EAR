@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Item : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class Item : MonoBehaviour
     private PlayerController _playerController;
     private Animator _animator;
     private Hand _hand;
+    private int handPos;
     
     public GameObject itemInHand;
     public bool _isCanHold;
@@ -27,6 +29,40 @@ public class Item : MonoBehaviour
         _hand = GetComponent<Hand>();
         _isCanHold = true;
         isInteractFromSpace = false;
+
+        handPos = -1;
+    }
+
+    private void FixedUpdate() 
+    {
+        if (itemInHand != null)
+        {
+            if (_playerController.handFreeze != handPos)
+            {
+                SpriteRenderer spriteRenderer = itemInHand.GetComponentInChildren<SpriteRenderer>();
+                handPos = _playerController.handFreeze;
+                switch (_playerController.handFreeze)
+                {
+                    case (int)DirectionPlayer.East:
+                    case (int)DirectionPlayer.North:
+                    case (int)DirectionPlayer.South:
+                        spriteRenderer.flipX = false;
+                        break;
+                    case (int)DirectionPlayer.West:
+                        spriteRenderer.flipX = true;
+                        break;
+                }
+                Debug.Log("test 1");
+            }
+        }
+        else
+        {
+            if (handPos > 0)
+            {
+                handPos = -1;
+                Debug.Log("test 2");
+            }
+        }
     }
 
     public void HoldItem()
@@ -70,7 +106,8 @@ public class Item : MonoBehaviour
         if(_collider != null)
         {
             itemInHand = _collider.gameObject;
-            
+            itemInHand.GetComponentInChildren<SpriteRenderer>().flipX = false;
+
             if (_collider.gameObject.GetComponent<Fuse>() || 
                 _collider.gameObject.GetComponent<Lever>())
             {
@@ -114,6 +151,8 @@ public class Item : MonoBehaviour
     {
         if (itemInHand != null)
         {
+            itemInHand.GetComponentInChildren<SpriteRenderer>().flipX = false;
+            
             // ++Sound install something
             SoundManager.instance.Play(SoundManager.SoundName.Insert);
             

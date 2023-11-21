@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 9094619321185806679}
   - component: {fileID: 2343110866475984375}
   - component: {fileID: 4754966487713436513}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: DoorLever
   m_TagString: Untagged
   m_Icon: {fileID: 0}
