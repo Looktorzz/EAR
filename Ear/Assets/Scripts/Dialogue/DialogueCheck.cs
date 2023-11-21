@@ -26,6 +26,7 @@ public class DialogueCheck : MonoBehaviour
                     _gameobject.SetActive(true);
                     this.gameObject.SetActive(false);
                 }
+
                 
             }
         }
