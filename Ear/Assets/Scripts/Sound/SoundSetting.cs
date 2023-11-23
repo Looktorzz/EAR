@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,10 @@ public class SoundSetting : MonoBehaviour
     public static float SoundEffect { get; private set; }
 
     [SerializeField] private Slider bgmSlider;
+    [SerializeField] private TextMeshProUGUI bgmValue;
     [SerializeField] private Slider sfxSlider;
+    [SerializeField] private TextMeshProUGUI sfxValue;
+
     
     public void Awake()
     {
@@ -41,6 +45,7 @@ public class SoundSetting : MonoBehaviour
     public void BackgroundMusicValueChanged(float value)
     {
         BackGroundMusic = value;
+        bgmValue.text = Mathf.Round(BackGroundMusic * 100.0f) + "%";
         SoundManager.instance.UpdateMixerVolumn();
         
     }
@@ -48,6 +53,8 @@ public class SoundSetting : MonoBehaviour
     public void SoundFXMusicValueChanged(float value)
     {
         SoundEffect = value;
+        sfxValue.text = Mathf.Round(SoundEffect * 100.0f) + "%";
+
         SoundManager.instance.UpdateMixerVolumn();
     }
     
