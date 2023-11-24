@@ -2245,10 +2245,65 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 591262824795696022, guid: 810bdb907fa06fd43b2f76bfce58b9b4,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 591262824795696022, guid: 810bdb907fa06fd43b2f76bfce58b9b4,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 591262824795696022, guid: 810bdb907fa06fd43b2f76bfce58b9b4,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 688628309251871209, guid: 810bdb907fa06fd43b2f76bfce58b9b4,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 688628309251871209, guid: 810bdb907fa06fd43b2f76bfce58b9b4,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 688628309251871209, guid: 810bdb907fa06fd43b2f76bfce58b9b4,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1304122981938911042, guid: 810bdb907fa06fd43b2f76bfce58b9b4,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1304122981938911042, guid: 810bdb907fa06fd43b2f76bfce58b9b4,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1452437723739448489, guid: 810bdb907fa06fd43b2f76bfce58b9b4,
         type: 3}
       propertyPath: m_Name
       value: Setting
+      objectReference: {fileID: 0}
+    - target: {fileID: 1452437723739448489, guid: 810bdb907fa06fd43b2f76bfce58b9b4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6685262553396680440, guid: 810bdb907fa06fd43b2f76bfce58b9b4,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6685262553396680440, guid: 810bdb907fa06fd43b2f76bfce58b9b4,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7518813264115303545, guid: 810bdb907fa06fd43b2f76bfce58b9b4,
         type: 3}
