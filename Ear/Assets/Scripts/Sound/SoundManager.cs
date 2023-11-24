@@ -133,6 +133,19 @@ public class SoundManager : MonoBehaviour
     {
         
     }
+
+    public void Stop(SoundName name)
+    {
+        Sound sound = GetSound(name);
+
+        if (sound.audioSource == null)
+        {
+            Debug.LogError("Sound :" + name);
+            return;
+        }
+
+        sound.audioSource.Stop();
+    }
 }
 
 [Serializable]public class Sound
