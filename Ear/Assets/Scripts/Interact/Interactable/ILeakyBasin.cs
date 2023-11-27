@@ -20,7 +20,7 @@ public class ILeakyBasin : MonoBehaviour, IInteractable
     private float _maximumWaterWeight;
     private float _currentWeight;
     private float _basinEmptyWeight;
-    private float speedWaterDecrease = 0.25f;
+    private float speedWaterDecrease = 0.15f;
     private bool _isHaveWater = false;
 
     [SerializeField] private GameObject _audio;
