@@ -13,12 +13,43 @@ public class IConveyorTube : MonoBehaviour , IInteractable
     [SerializeField] private Transform _itemQuitFirst;
     [SerializeField] private Transform _itemQuitSecond;
     [SerializeField] private bool _isCanConnectTube = false;
-    private bool isPlaceTube;
+    private bool isPlaceTube = false;
+    private bool isPourWater = false;
 
-    private void Start()
+    [Header("Animation")] 
+    [SerializeField] private GameObject _waterPool;
+    [SerializeField] private Animator _anim;
+    [SerializeField] private TriggerEventAnimator _animEvent;
+
+    public void DoAfterAnimationRun()
     {
-        isPlaceTube = false;
+        GameObject go = _itemPoint.GetChild(0).gameObject;
+        if (go == null)
+        {
+            Debug.Log("Don't have any item in tube");
+        }
+                
+        if (!isPlaceTube)
+        {
+            go.transform.position = _itemQuitFirst.position;
+            Debug.Log("Item go FirstPosition");
+        }
+        else
+        {
+            go.transform.position = _itemQuitSecond.position;
+            Debug.Log("Item go SecondPosition");
+        }
+                
+        go.transform.localScale = Vector3.one;
+        go.transform.localRotation = Quaternion.Euler(Vector3.zero);
+        go.transform.SetParent(null);
+        go.GetComponent<Collider>().enabled = true;
+        go.GetComponent<Rigidbody>().useGravity = true;
+        go = null;
+        
+        _waterPool.SetActive(true);
     }
+    
 
     public bool Interact(Interactor interactor)
     {
@@ -40,43 +71,14 @@ public class IConveyorTube : MonoBehaviour , IInteractable
         Bucket bucket = interactor.GetComponentInChildren<Bucket>();
         if (bucket != null)
         {
-            if (bucket.isFull)
+            if (bucket.isFull && !isPourWater)
             {
-                GameObject go = _itemPoint.GetChild(0).gameObject;
-
-                if (go == null)
-                {
-                    bucket.BucketIsFull(false);
-                    Debug.Log("Don't have key on tube");
-                    return false;
-                }
-                
-                if (!isPlaceTube)
-                {
-                    go.transform.position = _itemQuitFirst.position;
-                    Debug.Log("Item go FirstPosition");
-                }
-                else
-                {
-                    go.transform.position = _itemQuitSecond.position;
-                    Debug.Log("Item go SecondPosition");
-                }
-                
-                go.transform.localScale = Vector3.one;
-                go.transform.localRotation = Quaternion.Euler(Vector3.zero);
-                go.transform.SetParent(null);
-                go.GetComponent<Collider>().enabled = true;
-                go.GetComponent<Rigidbody>().useGravity = true;
-                go = null;
-                    
                 SoundManager.instance.Play(SoundManager.SoundName.WaterFillPipe);
-                
+                _anim.SetTrigger("isPourWater");
                 bucket.BucketIsFull(false);
+                isPourWater = true;
+                
                 return true;
-            }
-            else
-            {
-                Debug.Log("Fill water in Bucket");
             }
         }
 
