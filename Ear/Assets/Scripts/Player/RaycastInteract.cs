@@ -46,15 +46,15 @@ public class RaycastInteract : MonoBehaviour
         }
     }
 
+    private GameObject go;
+    
     private void RaycastCheckInteraction(Vector3 direction)
     {
         Debug.Log(direction + "             Run");
         Ray ray = new Ray(transform.position, direction);
         RaycastHit hit;
-
-        GameObject go = null;
         
-        if (Physics.Raycast(ray, out hit,5f))
+        if (Physics.Raycast(ray, out hit,5f,_layerMask))
         {
             go = hit.collider.gameObject;
             ChangeMaterial(hit.collider.gameObject,_materialOutline);
@@ -65,6 +65,9 @@ public class RaycastInteract : MonoBehaviour
             if (go != null)
             {
                 ChangeMaterial(go,_materialDefault);
+                
+                go = null;
+
             }
             
         }
@@ -72,7 +75,10 @@ public class RaycastInteract : MonoBehaviour
 
     private void ChangeMaterial(GameObject obj,Material material)
     {
-        obj.GetComponentInChildren<SpriteRenderer>().material = material;
+        if (obj.GetComponentInChildren<SpriteRenderer>())
+        {
+            obj.GetComponentInChildren<SpriteRenderer>().material = material;
+        }
     }
 
     private void OnDrawGizmos()
