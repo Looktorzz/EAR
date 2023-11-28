@@ -15,7 +15,8 @@ public class IElevatorButton : MonoBehaviour, IInteractable
     [SerializeField] private GameObject _elevatorRed;
     [SerializeField] private GameObject _door;
     [SerializeField] private IFuseBox _iFuseBox;
-    private bool _isCanUse;
+    private bool _isCanUse = false;
+    private bool _isOpen = false;
 
     
 
@@ -40,19 +41,23 @@ public class IElevatorButton : MonoBehaviour, IInteractable
 
     public bool Interact(Interactor interactor)
     {
-        if (_isCanUse)
+        if (_isCanUse && !_isOpen)
         {
+            _isOpen = true;
+            
             _elevatorOff.SetActive(false);
             _elevatorOn.SetActive(true);
             _elevatorRed.SetActive(false);
             
             // ++Sound Open lift door
+            SoundManager.instance.Play(SoundManager.SoundName.PressSwitch);
             Vector3 posDoor = _door.transform.position;
             _door.transform.DOLocalMoveX(posDoor.x + 1, 3).SetEase(Ease.InBack);
             this.enabled = false;
         }
 
         // ++Sound pak pak (Fail)
+        SoundManager.instance.Play(SoundManager.SoundName.Fail);
         return false;
     }
 }

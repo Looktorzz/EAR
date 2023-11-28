@@ -16,6 +16,7 @@ public class IBrokenBox : MonoBehaviour , IInteractable
         if (bucket == null)
         {
             // ++Sound fail (pak pak)
+            SoundManager.instance.Play(SoundManager.SoundName.Fail);
             Debug.Log("You don't have Bucket");
             return false;
         }
@@ -49,6 +50,7 @@ public class IBrokenBox : MonoBehaviour , IInteractable
         }
 
         // ++Sound fail (pak pak)
+        SoundManager.instance.Play(SoundManager.SoundName.Fail);
         return false;
     }
 }
