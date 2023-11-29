@@ -57,7 +57,7 @@ public class ManyError : MonoBehaviour
             if (_sceneLoader != null)
             {
                 _sceneLoader.gameObject.SetActive(true);
-                _sceneLoader.LoadTransition();
+                _sceneLoader.LoadToNextSceneByName("LevelBeforeOne");
             }
 
         }
