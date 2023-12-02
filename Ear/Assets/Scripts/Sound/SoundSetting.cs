@@ -16,6 +16,8 @@ public class SoundSetting : MonoBehaviour
     [SerializeField] private Slider sfxSlider;
     [SerializeField] private TextMeshProUGUI sfxValue;
 
+    private Resolution[] _resolutions;
+    [SerializeField] private TMP_Dropdown resolutionDropdown;
     
     public void Awake()
     {
@@ -30,6 +32,34 @@ public class SoundSetting : MonoBehaviour
         bgmSlider.value = BackGroundMusic;
         sfxSlider.value = SoundEffect;
         
+        _resolutions = Screen.resolutions;
+        resolutionDropdown.ClearOptions();
+
+        List<string> options = new List<string>();
+
+        int currentResolutionIndex = 0;
+        for (int i = 0; i < _resolutions.Length; i++)
+        {
+            string option = _resolutions[i].width + "x" + _resolutions[i].height;
+            options.Add(option);
+
+            if(_resolutions[i].Equals(Screen.currentResolution))
+            {
+                currentResolutionIndex = i;
+            }
+        }
+        
+        resolutionDropdown.AddOptions(options);
+        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.RefreshShownValue();
+        
+        Screen.SetResolution(1920,1080,Screen.fullScreen);
+    }
+
+    public void SetResolution(int resolutionIndex)
+    {
+        Resolution resolution = _resolutions[resolutionIndex]; 
+        Screen.SetResolution(resolution.width,resolution.height,Screen.fullScreen);
     }
 
     public void PlayButtonSound()
@@ -56,6 +86,11 @@ public class SoundSetting : MonoBehaviour
         sfxValue.text = Mathf.Round(SoundEffect * 100.0f) + "%";
 
         SoundManager.instance.UpdateMixerVolumn();
+    }
+
+    public void SetFullScreen(bool isFullScreen)
+    {
+        Screen.fullScreen = isFullScreen;
     }
     
 }

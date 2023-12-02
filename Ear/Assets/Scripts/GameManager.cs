@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<ReSpawnCheckPointByArm> _checkPointObjectsList;
 
     [SerializeField] private SceneRoom_Storage _storage;
-
+    
     //Don't Destory On Load
     private void Awake()
     {
@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
             {
                 player.GetComponent<PlayerController>().CutScene_ReviveStartGame();
             }
+            
 
         }
         
