@@ -17,6 +17,11 @@ public class PlateDoor : MonoBehaviour
     [SerializeField] private Transform closedPoint;
     [SerializeField] private Transform openedPoint;
 
+    [Header("Door Option")]
+    [SerializeField] bool IsDoor = false;
+    [SerializeField] private DoorLever door;
+    
+
     void Start()
     {
         measurePlate.GetComponent<MeasurePlate>();
@@ -27,7 +32,8 @@ public class PlateDoor : MonoBehaviour
     {
         if (_isOpen == !isOpen)
         {
-            SoundManager.instance.Play(SoundManager.SoundName.GateOpen);
+            if(!IsDoor) SoundManager.instance.Play(SoundManager.SoundName.GateOpen);
+
         }
         _isOpen = isOpen;
     }
@@ -50,23 +56,45 @@ public class PlateDoor : MonoBehaviour
         if (_isCloseFromEvent)
         {
             CheckTheDoor(false);
-            CloseDoor();
+            if (!IsDoor)
+            {
+                CloseDoor();
+            }
+            else door.CloseDoor();
+
             return;
         }
         
         if (_isLimit)
         {
-            if (measurePlate.getWeightCurrent >= 5)
+            if (!IsDoor)
             {
-                CheckTheDoor(true);
-                OpenDoor();
-            }   
+                if (measurePlate.getWeightCurrent >= 5)
+                {
+                    CheckTheDoor(true);
+                    OpenDoor();
+                }
+                else
+                {
+                    CheckTheDoor(false);
+                    CloseDoor();
+                }
+            }
             else
             {
-                CheckTheDoor(false);
-                CloseDoor();
+                if (measurePlate.getWeightCurrent == measurePlate.maximumWeightForOpen)
+                {
+                    CheckTheDoor(true);
+                    door.OpenDoor();
+                }
+                else
+                {
+                    CheckTheDoor(false);
+                    door.CloseDoor();
+                }
             }
-            
+
+
         }
         
         if (_isLower)
@@ -74,12 +102,21 @@ public class PlateDoor : MonoBehaviour
             if ((measurePlate.maximumWeightForOpen - measurePlate.getWeightCurrent) >= 0)
             {
                 CheckTheDoor(true);
-                OpenDoor();
+                if (!IsDoor)
+                {
+                    OpenDoor();
+                }
+                else door.OpenDoor();
             }   
             else
             {
                 CheckTheDoor(false);
-                CloseDoor();
+                if (!IsDoor)
+                {
+                    CloseDoor();
+                }
+                else door.CloseDoor();
+                
             }
             
         }
