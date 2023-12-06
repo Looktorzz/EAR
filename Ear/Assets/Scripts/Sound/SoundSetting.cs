@@ -5,6 +5,8 @@ using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
+
 
 public class SoundSetting : MonoBehaviour
 {
@@ -16,8 +18,22 @@ public class SoundSetting : MonoBehaviour
     [SerializeField] private Slider sfxSlider;
     [SerializeField] private TextMeshProUGUI sfxValue;
 
-    private Resolution[] _resolutions;
+    private bool isMuteBgm , isMuteSfx;
+    
+    private float tempBgmValue;
+    private float tempSfxValue;
+    
+    private Resolution[] resolutions;
+    private List<Resolution> filterResolution;
+
+    private float currentRefreshRate;
+    private int currentResolutionIndex;
+    
     [SerializeField] private TMP_Dropdown resolutionDropdown;
+    
+    int[] targetWidths = { 1280, 1440, 1600, 1920 };
+    int[] targetHeights = { 720, 900, 900, 1080 };
+
     
     public void Awake()
     {
@@ -25,42 +41,97 @@ public class SoundSetting : MonoBehaviour
 
         BackGroundMusic = 1f;
         SoundEffect = 1f;
+        
     }
+
 
     private void Start()
     {
         bgmSlider.value = BackGroundMusic;
         sfxSlider.value = SoundEffect;
         
-        _resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
+        FillResolutionOptions();
+        
+        SetDropdown();
+        SetResolution(1920, 1080);
+        
+    }
+    
+    
+    public void SetDefault()
+    {
+        SetDropdown();
+        SetResolution(1920, 1080);
+        
+        bgmSlider.value = 1f;
+        sfxSlider.value = 1f;
+        BackGroundMusic = 1f;
+        SoundEffect = 1f;
+        SoundManager.instance.UpdateMixerVolumn();
 
+        MuteBgm(false);
+        MuteSfx(false);
+        
+        sfxValue.text = Mathf.Round(SoundEffect * 100.0f) + "%";
+        bgmValue.text = Mathf.Round(SoundEffect * 100.0f) + "%";
+
+    }
+
+    
+
+    #region Resolution
+
+    void SetDropdown()
+    {
+        resolutionDropdown.onValueChanged.AddListener(OnResolutionChanged);
+        
+        resolutionDropdown.onValueChanged.RemoveAllListeners();
+        resolutionDropdown.value = resolutionDropdown.options.FindIndex(option => option.text == "1920x1080");
+        resolutionDropdown.onValueChanged.AddListener(OnResolutionChanged);
+    }
+    
+    void FillResolutionOptions()
+    {
+        resolutions = Screen.resolutions;
         List<string> options = new List<string>();
 
-        int currentResolutionIndex = 0;
-        for (int i = 0; i < _resolutions.Length; i++)
+        for (int i = 0; i < targetWidths.Length; i++)
         {
-            string option = _resolutions[i].width + "x" + _resolutions[i].height;
+            string option = targetWidths[i] + "x" + targetHeights[i];
             options.Add(option);
-
-            if(_resolutions[i].Equals(Screen.currentResolution))
-            {
-                currentResolutionIndex = i;
-            }
         }
-        
+
         resolutionDropdown.AddOptions(options);
-        resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
-        
-        Screen.SetResolution(1920,1080,Screen.fullScreen);
     }
 
-    public void SetResolution(int resolutionIndex)
+    void OnResolutionChanged(int index)
     {
-        Resolution resolution = _resolutions[resolutionIndex]; 
-        Screen.SetResolution(resolution.width,resolution.height,Screen.fullScreen);
+        resolutions = Screen.resolutions;
+        if (index >= 0 && index < resolutions.Length)
+        {
+            int targetResolutionIndex = Mathf.Clamp(index, 0, targetWidths.Length - 1);
+            int targetWidth = targetWidths[targetResolutionIndex];
+            int targetHeight = targetHeights[targetResolutionIndex];
+
+            SetResolution(targetWidth, targetHeight);
+        }
     }
+
+    void SetResolution(int width, int height)
+    {
+        Screen.SetResolution(width, height, Screen.fullScreen);
+    }
+    
+    public void SetFullScreen(bool isFullScreen)
+    {
+        Screen.fullScreen = isFullScreen;
+    }
+
+    #endregion
+
+    #region PlaySound
 
     public void PlayButtonSound()
     {
@@ -72,25 +143,79 @@ public class SoundSetting : MonoBehaviour
         MainMenuSound.instance.Play(MenuSound.VolumnClick);
     }
 
+
+    #endregion
+    
+    #region BgmAndSfx
+    
     public void BackgroundMusicValueChanged(float value)
     {
-        BackGroundMusic = value;
-        bgmValue.text = Mathf.Round(BackGroundMusic * 100.0f) + "%";
-        SoundManager.instance.UpdateMixerVolumn();
+        if (!isMuteBgm)
+        {
+            BackGroundMusic = value;
+            bgmValue.text = Mathf.Round(BackGroundMusic * 100.0f) + "%";
+            SoundManager.instance.UpdateMixerVolumn();
+        }
+        else
+        {
+            bgmSlider.enabled = true;
+
+        }
         
     }
 
     public void SoundFXMusicValueChanged(float value)
     {
-        SoundEffect = value;
-        sfxValue.text = Mathf.Round(SoundEffect * 100.0f) + "%";
+        if (!isMuteSfx)
+        {
+            SoundEffect = value;
+            
+            sfxValue.text = Mathf.Round(SoundEffect * 100.0f) + "%";
+            SoundManager.instance.UpdateMixerVolumn();
 
-        SoundManager.instance.UpdateMixerVolumn();
+        }
+        else
+        {
+            sfxSlider.enabled = true;
+        }
     }
-
-    public void SetFullScreen(bool isFullScreen)
+    
+    public void MuteSfx(bool isMute)
     {
-        Screen.fullScreen = isFullScreen;
+        if (isMute)
+        {
+            isMuteSfx = true;
+            tempSfxValue = SoundEffect;
+            SoundEffect = 0.001f;
+            SoundManager.instance.UpdateMixerVolumn();
+            sfxSlider.enabled = false;
+
+        }
+        else
+        {
+            sfxSlider.enabled = true;
+        }
     }
+
+    public void MuteBgm(bool isMute)
+    {
+        if (isMute)
+        {
+            isMuteBgm = true;
+            tempBgmValue = BackGroundMusic;
+            BackGroundMusic = 0.001f;
+            SoundManager.instance.UpdateMixerVolumn();  
+            bgmSlider.enabled = false;
+        }
+        else
+        {
+            bgmSlider.enabled = true;
+        }
+    }
+
+
+    #endregion
+
+    
     
 }
