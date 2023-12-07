@@ -9,12 +9,15 @@ public class DoorLever : MonoBehaviour
     [SerializeField] private bool _isOpen = false;
     private Vector3 positionStart;
 
+
     private void Start()
     {
         positionStart = transform.position;
-        if(_isOpen)
+
+        if (_isOpen)
         {
-            transform.DOMoveY(positionStart.y + 4, 3).SetEase(Ease.OutBounce);
+            
+            transform.position = new Vector3(positionStart.x,positionStart.y + 4,positionStart.z);
             
             _isOpen = true;
         }

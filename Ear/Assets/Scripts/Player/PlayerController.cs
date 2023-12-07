@@ -527,7 +527,7 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator CutScene_WaitFor7Sec()
     {
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(11.1f);
         _input.Enable();
     }
 
