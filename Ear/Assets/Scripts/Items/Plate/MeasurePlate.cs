@@ -113,7 +113,8 @@ public class MeasurePlate : MonoBehaviour
         {
             PlusWeight();
             weightTextOne.text = (maximumWeightForOpen - (int) _weightCurrent).ToString("0");
-            weightTextTwo.text = (maximumWeightForOpen - (int) _weightCurrent).ToString("0");
+            if(weightTextTwo != null) weightTextTwo.text = (maximumWeightForOpen - (int)_weightCurrent).ToString("0");
+
         }
     }
 }
