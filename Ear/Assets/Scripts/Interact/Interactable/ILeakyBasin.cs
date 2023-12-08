@@ -11,7 +11,6 @@ public class ILeakyBasin : MonoBehaviour, IInteractable
     [SerializeField] private GameObject _twoFillBasin;
     [SerializeField] private GameObject _oneFillBasin;
     [SerializeField] private GameObject _emptyBasin;
-    [SerializeField] private GameObject _waterLeaky;
     
     [SerializeField] private ObjectDataSO _objectDataSo;
     private ObjectIndex _objectIndex;
@@ -23,7 +22,9 @@ public class ILeakyBasin : MonoBehaviour, IInteractable
     private float speedWaterDecrease = 0.15f;
     private bool _isHaveWater = false;
 
+    [Header("WaterLeaky")]
     [SerializeField] private GameObject _audio;
+    [SerializeField] private ParticleSystem _waterParticle;
 
     private void Start()
     {
@@ -31,7 +32,6 @@ public class ILeakyBasin : MonoBehaviour, IInteractable
         _twoFillBasin.SetActive(false);
         _oneFillBasin.SetActive(false);
         _emptyBasin.SetActive(true);
-        _waterLeaky.SetActive(false);
         
 
         _isHaveWater = false;
@@ -42,6 +42,8 @@ public class ILeakyBasin : MonoBehaviour, IInteractable
                          _objectDataSo.objectDatas[(int) NameObject.BucketEmpty].weight;
 
         _objectDataSo.objectDatas[(int) NameObject.BasinChanging].weight = _basinEmptyWeight;
+        
+        _waterParticle.Play();
     }
 
     public bool Interact(Interactor interactor)
@@ -87,7 +89,6 @@ public class ILeakyBasin : MonoBehaviour, IInteractable
     private void Update()
     {
         _audio.SetActive(_isHaveWater);
-        _waterLeaky.SetActive(_isHaveWater);
 
         if (_isHaveWater)
         {
@@ -132,6 +133,5 @@ public class ILeakyBasin : MonoBehaviour, IInteractable
                 _isHaveWater = false;
             }
         }
-        //Debug.Log($"_objectDataSo.objectDatas[_index].weight = {_objectDataSo.objectDatas[_objectIndex.index].weight}");
     }
 }
