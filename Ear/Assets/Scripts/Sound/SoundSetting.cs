@@ -63,19 +63,6 @@ public class SoundSetting : MonoBehaviour
     {
         SetDropdown();
         SetResolution(1920, 1080);
-        
-        bgmSlider.value = 1f;
-        sfxSlider.value = 1f;
-        BackGroundMusic = 1f;
-        SoundEffect = 1f;
-        SoundManager.instance.UpdateMixerVolumn();
-
-        MuteBgm(false);
-        MuteSfx(false);
-        
-        sfxValue.text = Mathf.Round(SoundEffect * 100.0f) + "%";
-        bgmValue.text = Mathf.Round(SoundEffect * 100.0f) + "%";
-
     }
 
     
@@ -153,12 +140,11 @@ public class SoundSetting : MonoBehaviour
         if (!isMuteBgm)
         {
             BackGroundMusic = value;
-            bgmValue.text = Mathf.Round(BackGroundMusic * 100.0f) + "%";
+            bgmValue.text = $"{Mathf.Round(BackGroundMusic * 100.0f)}";
             SoundManager.instance.UpdateMixerVolumn();
         }
         else
         {
-            bgmSlider.enabled = true;
 
         }
         
@@ -170,13 +156,13 @@ public class SoundSetting : MonoBehaviour
         {
             SoundEffect = value;
             
-            sfxValue.text = Mathf.Round(SoundEffect * 100.0f) + "%";
+            sfxValue.text = $"{Mathf.Round(SoundEffect * 100.0f)}";
             SoundManager.instance.UpdateMixerVolumn();
 
         }
         else
         {
-            sfxSlider.enabled = true;
+
         }
     }
     
@@ -193,7 +179,11 @@ public class SoundSetting : MonoBehaviour
         }
         else
         {
+            SoundEffect = tempSfxValue;
+            isMuteSfx = false;
             sfxSlider.enabled = true;
+            SoundManager.instance.UpdateMixerVolumn();
+
         }
     }
 
@@ -209,7 +199,11 @@ public class SoundSetting : MonoBehaviour
         }
         else
         {
+            BackGroundMusic = tempBgmValue;
+            isMuteBgm = false;
             bgmSlider.enabled = true;
+            SoundManager.instance.UpdateMixerVolumn();
+
         }
     }
 
