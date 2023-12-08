@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 4769782297179685937}
   - component: {fileID: 7696964128785014384}
   - component: {fileID: 469641640422271608}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: DoorLever (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,11 +235,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   measurePlate: {fileID: 0}
-  maximumWeightForOpen: 10
   slideSpeed: 3
   _isLimit: 0
+  _isLower: 0
+  _isRealtime: 0
+  _isCloseFromEvent: 0
+  _isOpen: 0
   closedPoint: {fileID: 7117548974015087491}
   openedPoint: {fileID: 3278867972968869540}
+  IsDoor: 0
+  door: {fileID: 0}
 --- !u!1 &4292239242219289930
 GameObject:
   m_ObjectHideFlags: 0

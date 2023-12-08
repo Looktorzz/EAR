@@ -15,9 +15,7 @@ public class CountdownTime : MonoBehaviour
     [SerializeField] private LayerMask _interactableMask;
     private Collider _collider = new Collider();
     private Hand _hand;
-    
-    private float _currentTimeDebug;
-    
+
     // Image
     [SerializeField] private GameObject _image;
     [SerializeField] private GameObject _imageBg;
@@ -30,7 +28,6 @@ public class CountdownTime : MonoBehaviour
         _currentTime = _startTime;
         _hand = GetComponent<Hand>();
 
-        _currentTimeDebug = _startTime;
         _image.gameObject.SetActive(false);
         _imageBg.gameObject.SetActive(false);
         _imageFill= _image.GetComponent<Image>();
@@ -40,23 +37,14 @@ public class CountdownTime : MonoBehaviour
     {
         if (_isCount)
         {
-            //_imageFill.gameObject.SetActive(true);
             _currentTime -= 1 * Time.deltaTime;
-            
-            // Log
-            if (_currentTimeDebug != (int)_currentTime)
-            {
-                _currentTimeDebug = _currentTime;
-                Debug.Log($"Time : {_currentTimeDebug}");
-            }
-            
+
             UIImageFill();
 
             if (_currentTime <= 0)
             {
                 _currentTime = 0;
                 _isCount = false;
-                //_imageFill.gameObject.SetActive(false);
                 CountComplete();
             }
         }

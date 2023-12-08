@@ -42,8 +42,6 @@ public class ILeakyBasin : MonoBehaviour, IInteractable
                          _objectDataSo.objectDatas[(int) NameObject.BucketEmpty].weight;
 
         _objectDataSo.objectDatas[(int) NameObject.BasinChanging].weight = _basinEmptyWeight;
-        
-        _waterParticle.Play();
     }
 
     public bool Interact(Interactor interactor)
@@ -86,12 +84,35 @@ public class ILeakyBasin : MonoBehaviour, IInteractable
         return false;
     }
 
+    private bool _isCheckWater = false;
+    
+    private void CheckWater(bool isHaveWater)
+    {
+        if (_isCheckWater == !isHaveWater)
+        {
+            if (isHaveWater)
+            {
+                Debug.Log("Water Particle Play");
+                _waterParticle.Play();
+            }
+            else
+            {
+                Debug.Log("Water Particle Stop");
+                _waterParticle.Stop();
+            }
+        }
+
+        _isCheckWater = isHaveWater;
+    }
+
     private void Update()
     {
         _audio.SetActive(_isHaveWater);
 
         if (_isHaveWater)
         {
+            CheckWater(true);
+            
             _objectIndex.ChangeIndex(NameObject.BasinChanging);
             _objectDataSo.objectDatas[_objectIndex.index].weight -= speedWaterDecrease * Time.deltaTime;
             _currentWeight = _objectDataSo.objectDatas[_objectIndex.index].weight;
@@ -132,6 +153,10 @@ public class ILeakyBasin : MonoBehaviour, IInteractable
                 _objectIndex.ChangeIndex(NameObject.BasinEmpty);
                 _isHaveWater = false;
             }
+        }
+        else
+        {
+            CheckWater(false);
         }
     }
 }
