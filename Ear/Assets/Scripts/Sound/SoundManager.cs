@@ -128,12 +128,8 @@ public class SoundManager : MonoBehaviour
         bgmMixerGroup.audioMixer.SetFloat("BGM", Mathf.Log10(SoundSetting.BackGroundMusic) * 20);
         sfxMixerGroup.audioMixer.SetFloat("SFX", Mathf.Log10(SoundSetting.SoundEffect) * 20);
     }
-
-    public void Mute()
-    {
-        
-    }
-
+    
+    
     public void Stop(SoundName name)
     {
         Sound sound = GetSound(name);
@@ -145,6 +141,11 @@ public class SoundManager : MonoBehaviour
         }
 
         sound.audioSource.Stop();
+    }
+
+    public void ToggleSoundEffect()
+    {
+        
     }
 }
 

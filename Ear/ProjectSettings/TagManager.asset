@@ -10,6 +10,8 @@ TagManager:
   - DeadZone
   - Storage_Info
   - Scene_Loader
+  - Timer
+  - GameManager
   layers:
   - Default
   - TransparentFX
