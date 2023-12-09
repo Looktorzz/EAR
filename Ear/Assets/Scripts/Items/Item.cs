@@ -52,7 +52,7 @@ public class Item : MonoBehaviour
                         spriteRenderer.flipX = true;
                         break;
                 }
-                Debug.Log("test 1");
+                //Debug.Log("test 1");
             }
         }
         else
@@ -60,7 +60,7 @@ public class Item : MonoBehaviour
             if (handPos > 0)
             {
                 handPos = -1;
-                Debug.Log("test 2");
+                //Debug.Log("test 2");
             }
         }
     }
@@ -79,7 +79,7 @@ public class Item : MonoBehaviour
                 
                 // ++Animation Hold/Grab Item
                 
-                Debug.Log("Hold Item");
+                //Debug.Log("Hold Item");
                 itemInHand.transform.SetParent(null);
                 itemInHand.transform.SetParent(_handTransform);
                 itemInHand.transform.localPosition = new Vector3(0,0,-0.3f);
@@ -121,7 +121,7 @@ public class Item : MonoBehaviour
             {
                 // ++Sound Place Item
                 // ++Animation Place Item
-                Debug.Log("Place Item");
+                //Debug.Log("Place Item");
                 itemInHand.transform.SetParent(null);
                 itemInHand.GetComponent<Collider>().isTrigger = false;
                 itemInHand.GetComponent<Rigidbody>().useGravity = true;
@@ -157,13 +157,13 @@ public class Item : MonoBehaviour
             SoundManager.instance.Play(SoundManager.SoundName.Insert);
             
             // ++Animation install something
-            Debug.Log("Place Item On Interact");
+            //Debug.Log("Place Item On Interact");
             itemInHand.transform.SetParent(null);
             itemInHand.GetComponent<Collider>().enabled = true;
             
             _collider = null;
             itemInHand = null;
-            
+
             _playerController.CheckHandFreezeForAnimation();
             
             _animator.SetBool("IsGrabItem",false);
@@ -174,7 +174,42 @@ public class Item : MonoBehaviour
             _playerController.isGrabItem = false;
         }
     }
-    
+
+    public void PlaceItemOnInteractOnlyBin()
+    {
+        if (itemInHand != null)
+        {
+            itemInHand.GetComponentInChildren<SpriteRenderer>().flipX = false;
+
+            // ++Sound install something
+            //SoundManager.instance.Play(SoundManager.SoundName.Insert);
+
+            // ++Animation install something
+            //Debug.Log("Place Item On Interact");
+            itemInHand.transform.SetParent(null);
+            itemInHand.GetComponent<Collider>().enabled = true;
+
+                itemInHand.GetComponent<Collider>().isTrigger = false;
+                itemInHand.GetComponent<Rigidbody>().useGravity = true;
+
+                itemInHand.GetComponent<Rigidbody>().constraints = ~RigidbodyConstraints.FreezePositionY;
+            
+
+
+            _collider = null;
+            itemInHand = null;
+
+            _playerController.CheckHandFreezeForAnimation();
+
+            _animator.SetBool("IsGrabItem", false);
+            // StartCoroutine(_playerController.CheckDurationAnimation("IsGrabItem", 0.5f));
+            _animator.SetFloat("Horizontal", 0);
+            _animator.SetFloat("Vertical", 0);
+
+            _playerController.isGrabItem = false;
+        }
+    }
+
     public void HoldInteract()
     {
         _colliderDrag = _hand.SentColliderFound(_DragItemMask);

@@ -55,7 +55,6 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void UpdateTimer()
     {
-        Debug.Log((int)_timer);
         _timer++;
         UpdateTimerText();
     }

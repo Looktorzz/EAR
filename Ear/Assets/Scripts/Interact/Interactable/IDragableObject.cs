@@ -15,6 +15,8 @@ public class IDragableObject : MonoBehaviour, IHoldGrabItem
     [SerializeField] private bool isBasin;
     [SerializeField] private bool isBox;
 
+
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();

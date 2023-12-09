@@ -361,7 +361,7 @@ public class PlayerController : MonoBehaviour
             if(context.interaction is HoldInteraction)
             {
                 _item.HoldInteract();
-                Debug.LogWarning("IT's REALLY HOLD");
+                //Debug.LogWarning("IT's REALLY HOLD");
                 _isHoldGrabItem = true;
             }  
         }
@@ -373,7 +373,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.interaction is PressInteraction) // Just Press No Hold Interact!
         {
-            Debug.Log("OnGrabItem Work!");
+            //Debug.Log("OnGrabItem Work!");
             
             if (!isGrabItem)
             {
