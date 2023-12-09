@@ -7,14 +7,19 @@ public class CheckPointRoomSO : ScriptableObject
 {
     public Level level = Level.Level1_Tutorial;
     public Room room = Room.Room_Start;
+    public bool IsFirstTime = true;
 
     public void RestartGame()
     {
         level = Level.Level1_Tutorial;
         room = Room.Room_Start;
+        IsFirstTime = false;
     }
 
-
+    public void StartGame()
+    {
+        IsFirstTime = false;
+    }
 
     public void ChangeLevel(int numLevel)
     {
