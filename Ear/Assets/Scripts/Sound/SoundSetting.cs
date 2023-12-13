@@ -64,6 +64,7 @@ public class SoundSetting : MonoBehaviour
         if (!isMuteBgm)
         {
             BackGroundMusic = value;
+            bgmSlider.value = value;
             bgmValue.text = $"{Mathf.Round(BackGroundMusic * 100.0f)}";
             SoundManager.instance.UpdateMixerVolumn();
         }
@@ -79,7 +80,7 @@ public class SoundSetting : MonoBehaviour
         if (!isMuteSfx)
         {
             SoundEffect = value;
-            
+            sfxSlider.value = value;
             sfxValue.text = $"{Mathf.Round(SoundEffect * 100.0f)}";
             SoundManager.instance.UpdateMixerVolumn();
 
