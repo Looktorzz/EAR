@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     //public List<GameObject> colliderTriggerChangeCheckPoint;
     public int currentRoom;
 
-    public bool IsFirstTime = false;
+
     [SerializeField] private CheckPointRoomSO _checkPointSO;
     [SerializeField] private List<ReSpawnCheckPointByArm> _checkPointObjectsList;
 
@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "LevelOne")
         {
+
             _storage = GameObject.FindGameObjectWithTag("Storage_Info").GetComponent<SceneRoom_Storage>();
 
             _checkPointObjectsList = _storage._checkPointObjectsList;
