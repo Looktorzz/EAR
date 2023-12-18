@@ -2444,7 +2444,6 @@ MonoBehaviour:
   player: {fileID: 0}
   currentCheckPoint: {fileID: 0}
   currentRoom: 0
-  IsFirstTime: 0
   _checkPointSO: {fileID: 11400000, guid: 014ecfdf96cda804fa57ce96fec0c028, type: 2}
   _checkPointObjectsList: []
   _storage: {fileID: 0}

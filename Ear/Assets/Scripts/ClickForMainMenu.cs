@@ -12,6 +12,7 @@ public class ClickForMainMenu : MonoBehaviour
 
     private void Start()
     {
+        if(realTimer != null)
         showTimer.text = realTimer.text;
     }
 

@@ -11,6 +11,9 @@ public class Timer : MonoBehaviour
     public static Timer instance => _instance;
     [SerializeField] private TextMeshProUGUI timerText;
 
+    [SerializeField] GameObject CanvasTimer;
+    [SerializeField] bool timerEnabled = true;
+
     private static float _timer;
     public static float timer => _timer;
     
@@ -65,12 +68,29 @@ public class Timer : MonoBehaviour
     {
         string minutes = Mathf.Floor(_timer / 60).ToString("00"); 
         string seconds = (_timer % 60).ToString("00");
-        timerText.text = $"{minutes}:{seconds}";
+        if (timerEnabled)
+        {
+            if (timerText != null)
+            {
+                timerText.text = $"{minutes}:{seconds}";
+            }
+        }
+        
+        
     }
 
     public void ResetTimer()
     {
         _timer = 0f;
+    }
+
+    public void TimerEnableDisable()
+    {
+        timerEnabled =! timerEnabled;
+
+        if(CanvasTimer != null)
+            CanvasTimer.gameObject.SetActive(timerEnabled);
+        
     }
 
 }
